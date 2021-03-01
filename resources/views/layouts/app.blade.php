@@ -21,6 +21,7 @@
   <link href="{{ asset('css/loading.css')}}" rel="stylesheet">
   <link href="{{ asset('css/shop-homepage.css')}}" rel="stylesheet">
   <link href="{{ asset('css/datatables/datatables.min.css')}}" rel="stylesheet">
+
   {{-- <link href="{{ asset('css/ionicons.min.css')}}" rel="stylesheet"> --}}
 </head>
 
@@ -166,8 +167,8 @@
   <script src="{{ asset('js/app.js') }}"></script>
   <!-- DataTables core JavaScript -->
   <script src="{{ asset('js/datatables/datatables.min.js') }}"></script>
-  <script src="{{ asset('js/datatables/pdfmake.min.js') }}"></script>
-  <script src="{{ asset('js/datatables/vfs_fonts.js') }}"></script>
+  {{-- <script src="{{ asset('js/datatables/pdfmake.min.js') }}"></script>
+  <script src="{{ asset('js/datatables/vfs_fonts.js') }}"></script> --}}
 
 </body>
 

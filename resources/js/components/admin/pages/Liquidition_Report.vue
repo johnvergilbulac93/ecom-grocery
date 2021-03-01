@@ -1,44 +1,60 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-3">
-        <label for="store" class="form-label">Store</label>
-        <select class="form-control form-control-sm" v-model="filter.store">
-          <option
-            v-for="(store, i) in stores"
-            :value="store.bunit_code"
-            :key="i"
-          >
-            {{ store.business_unit }}
-          </option>
-        </select>
-      </div>
-      <div class="col-sm-3">
-        <label for="from">Date From:</label>
-        <input
-          type="date"
-          class="form-control form-control-sm"
-          tabindex="1"
-          v-model="filter.dateFrom"
-        />
-      </div>
-      <div class="col-sm-3">
-        <label for="to">Date To:</label>
-        <input
-          type="date"
-          class="form-control form-control-sm"
-          tabindex="2"
-          v-model="filter.dateTo"
-        />
-      </div>
-      <div class="col-sm-3">
-        <div class="row-justify-content-center">
-          <button class="btn btn-primary btn-sm mt-4" @click="generate()">
-            Generate
-          </button>
+  <div class="container-fluid">
+    <div class="row mt-1">
+      <div class="col-3">
+        <div class="form-inline">
+          <div class="form-group">
+            <label for="store" class="form-label">Store:</label> &nbsp;
+            <select class="form-control form-control-sm" v-model="filter.store">
+              <option
+                v-for="(store, i) in stores"
+                :value="store.bunit_code"
+                :key="i"
+              >
+                {{ store.business_unit }}
+              </option>
+            </select>
+          </div>
         </div>
       </div>
+      <div class="col-3">
+        <div class="form-inline">
+          <div class="form-group">
+            <label for="from">Date From:</label>&nbsp;
+            <input
+              type="date"
+              class="form-control form-control-sm"
+              tabindex="1"
+              v-model="filter.dateFrom"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="form-inline">
+          <div class="form-group">
+            <label for="from">Date To:</label>&nbsp;
+            <input
+              type="date"
+              class="form-control form-control-sm"
+              tabindex="1"
+              v-model="filter.dateTo"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="col-3">
+        <button class="btn btn-primary btn-sm" @click="generate()">
+          Generate
+        </button>
+        <button class="btn btn-success btn-sm" @click="generate()" :disabled="">
+          Print
+        </button>
+      </div>
     </div>
+    <hr class="mt-1" />
+
+
 
     <!-- The Modal -->
     <div
@@ -361,7 +377,7 @@ export default {
       this.totalTransaction = res.data.cashier_details.length;
       // this.totalOrderAmount(res.data.cashier_details);
       this.logo = res.data.b_unit.logo;
-      $("#liquidation").modal("show");
+      // $("#liquidation").modal("show");
     },
     async getStores() {
       const res = await axios.get("api/stores");
@@ -369,6 +385,7 @@ export default {
     },
   },
   mounted() {
+    // this.generate();
     this.getStores();
     this.filter.dateFrom = moment(this.$root.serverDateTime).format(
       "YYYY-MM-DD"

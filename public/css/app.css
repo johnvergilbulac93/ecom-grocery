@@ -37411,16 +37411,6 @@ readers do not read off random characters that represent icons */
   width: auto;
 }
 
-.home.router-link-exact-active {
-  background-color: #fd7e1791;
-  color: #fcfcfc !important;
-}
-
-.router-link-exact-active {
-  background-color: #fd7e1791;
-  color: #767e85 !important;
-}
-
 .item.active {
   color: #ffffff;
   background-color: #0cbb87;
