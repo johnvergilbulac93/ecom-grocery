@@ -120,7 +120,7 @@ class ReportController extends Controller
         {
 
             $filename = 'unavailable_items.xlsx'; 
-            Excel::store(new ItemsExportStore($filter,$store),  $filename);
+            Excel::store(new ItemsExportStore($filter,$store),$filename);
             $file = Storage::get($filename);
             if ($file) {
             $fileLink = 'data:application/vnd.ms-excel;base64,' . base64_encode($file);

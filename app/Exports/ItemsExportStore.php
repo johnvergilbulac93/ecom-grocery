@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Events\AfterSheet;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithMapping;
@@ -12,7 +13,10 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 
-class ItemsExportStore implements FromCollection,ShouldAutoSize, WithMapping, WithHeadings,WithColumnFormatting, WithEvents
+class ItemsExportStore implements FromCollection
+,ShouldAutoSize,  WithHeadings
+,WithColumnFormatting, WithEvents
+,WithMapping
 {
     public $filter, $store;
 
@@ -50,20 +54,20 @@ class ItemsExportStore implements FromCollection,ShouldAutoSize, WithMapping, Wi
         if($this->filter === 'unavailable')
         {
 
-            $query =  DB::table('gc_product_items')
+          $query =  DB::table('gc_product_items')
                     ->join('gc_product_prices','gc_product_items.itemcode','=','gc_product_prices.itemcode')
                     ->select('*')
                     ->whereIn('gc_product_items.itemcode', function($query){
-                                $query->select('gc_item_log_availables.itemcode')->from('gc_item_log_availables')->where('gc_item_log_availables.store','=', $this->store);
+                                $query->select('gc_item_log_availables.itemcode')->from('gc_item_log_availables')->where('gc_item_log_availables.store','=',  $this->store);
                     })->get();
         }
-        // dd($this->store);
-
-        return $query;
-
+        // return $query;
+        dd($query);
     }
     public function map($items): array
     {
+
+        // dd($items);
         return [
             $items->itemcode,
             $items->product_name,
