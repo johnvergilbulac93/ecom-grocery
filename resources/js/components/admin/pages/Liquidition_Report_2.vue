@@ -47,123 +47,20 @@
         <button class="btn btn-primary btn-sm" @click="generate()">
           Generate
         </button>
-        <button class="btn btn-success btn-sm" @click="printBtn()">
+        <button class="btn btn-success btn-sm" @click="generate()" >
           Print
         </button>
       </div>
     </div>
     <hr class="mt-1" />
-    <div class="main-content-container" id="section-to-print">
-      <div class="container" v-if="logo != null" >
-        <div class="row">
-          <div class="col-md-12">
-            <center>
-              <img
-                alt="logo"
-                :src="$root.logo_path + '' + logo"
-                style="width: 220px; height: 150px; object-fit: contain"
-              />
-              <h4>
-                {{
-                  transactions.hasOwnProperty("b_unit") &&
-                  transactions.b_unit.business_unit
-                }}
-              </h4>
-              <h4 class="">LIQUIDATION REPORT</h4>
-              <span class="text-center font-semibold text-gray-500"
-                >{{ filter.dateFrom | formatDateNoTime }} To
-                {{ filter.dateTo | formatDateNoTime }}
-              </span>
-            </center>
-            <div
-              class="mt-3"
-              id="body-content"
-              v-for="(cashier, index) in transactions.cashier_details"
-              :key="index"
-            >
-              <table
-                id="table-body-content"
-                class="table table-striped table-sm"
-              >
-                <thead>
-                  <tr>
-                    <th>Cashier</th>
-                    <th>Date</th>
-                    <th>Ticket #</th>
-                    <th>Customer</th>
-                    <th>Transaction #</th>
-                    <th>Gross Amt.</th>
-                    <th>Disc.</th>
-                    <th>Less Disc.</th>
-                    <th>Picking Charge</th>
-                    <th>Total</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="(trans, index) in cashier" :key="index">
-                    <td>{{ trans.name }}</td>
-                    <td>
-                      {{
-                        trans.final_order_status[0].order_pickup
-                          | formatDateNoTime
-                      }}
-                    </td>
-                    <td>
-                      {{ trans.tickets[0].ticket }}
-                    </td>
-                    <td>
-                      {{ trans.tickets[0].customer }}
-                    </td>
-                    <td>
-                      {{ trans.tickets[0].receipt }}
-                    </td>
-                    <td>
-                      {{ orderedAmount(trans) | toCurrency }}
-                    </td>
-                    <td>
-                      {{ discountAmount(trans) | toCurrency }}
-                    </td>
-                    <td>
-                      {{ lessDiscount(trans) | toCurrency }}
-                    </td>
-                    <td>
-                      {{
-                        parseFloat(trans.customer_bill[0].delivery_charge)
-                          | toCurrency
-                      }}
-                    </td>
-                    <td>
-                      {{ parseFloat(totalAmount(trans)) | toCurrency }}
-                    </td>
-                  </tr>
-                  <tr class="font-weight-bold">
-                    <th colspan="4" class="text-center">
-                      <h6>GRAND TOTAL:</h6>
-                    </th>
-                    <th>{{ cashier.length }}</th>
-                    <th>
-                      {{ totalOrderAmount(cashier).orderAmount | toCurrency }}
-                    </th>
-                    <th>
-                      {{ totalOrderAmount(cashier).discount | toCurrency }}
-                    </th>
-                    <th>
-                      {{ totalOrderAmount(cashier).lessDiscount | toCurrency }}
-                    </th>
-                    <th>
-                      {{ totalOrderAmount(cashier).pickupCharge | toCurrency }}
-                    </th>
-                    <th>
-                      {{ totalOrderAmount(cashier).grandTotal | toCurrency }}
-                    </th>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+    <div class="container">
+      <div class="row-justify-content-center">
+        <div class="col-md-6">
+          123123
         </div>
       </div>
     </div>
+
 
     <!-- The Modal -->
     <div
