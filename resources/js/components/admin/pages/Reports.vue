@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <div class="row">
+  <div class="container-fluid">
+    <div class="row mt-1">
       <div class="col-md-4">
         <select
           name="filter"
@@ -51,7 +51,6 @@
       </div>
     </div>
     <hr class="mb-2 my-2" />
-
     <div class="container">
       <div class="row justify-content-center">
         <img :src="$root.path + 'loading2.gif'" alt="loading" v-show="loading" />

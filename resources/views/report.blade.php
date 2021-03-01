@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="col-2">
-                <a href="{{ route('main-menu') }}" class="btn btn-danger mt-3 btn-sm float-right ">
+                <a href="{{ route('home') }}" class="btn btn-danger mt-3 btn-sm float-right ">
                     <i class="fas fa-long-arrow-alt-left"></i>
                     BACK TO MENU
                 </a>

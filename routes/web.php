@@ -22,9 +22,11 @@ use Illuminate\Support\Facades\Route;
 Auth::routes(['register' => false]);
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('{path}','HomeController@index')->where('path', '([A-z\d=\/_.]+)?');
-
-Route::middleware('auth', function () {
-     Route::get('reports-menu', 'ShowMenuController@index');
-     Route::get('main-menu', 'ShowMenuController@showMenu');
+Route::any('(:any)', function () {
+     return abort(404);
+ });
+Route::middleware('auth:api', function () {
+     Route::get('report-menu', 'ShowMenuController@index')->name('report-menu');
+     Route::get('main-menu', 'ShowMenuController@showMenu')->name('main-menu');
 });
 

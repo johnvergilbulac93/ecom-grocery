@@ -125,5 +125,4 @@ Route::middleware('auth:api')->group(function () {
     Route::get('filter_report', 'API\ReportController@index');
     Route::get('filter_report_store', 'API\ReportController@store_item');
     Route::get('liquidation/report', 'API\ReportController@getLiquidation');
-    // Route::get('reports', 'ReportController@showReport');
 });

@@ -5,7 +5,12 @@
         <div class="form-inline">
           <div class="form-group">
             <label for="store" class="form-label">Store:</label> &nbsp;
-            <select class="form-control form-control-sm" v-model="filter.store">
+            <select
+              class="form-control form-control-sm"
+              v-model="filter.store"
+              tabindex="1"
+            >
+              <option value="">Select Store</option>
               <option
                 v-for="(store, i) in stores"
                 :value="store.bunit_code"
@@ -24,7 +29,7 @@
             <input
               type="date"
               class="form-control form-control-sm"
-              tabindex="1"
+              tabindex="2"
               v-model="filter.dateFrom"
             />
           </div>
@@ -37,30 +42,36 @@
             <input
               type="date"
               class="form-control form-control-sm"
-              tabindex="1"
+              tabindex="3"
               v-model="filter.dateTo"
             />
           </div>
         </div>
       </div>
       <div class="col-3">
-        <button class="btn btn-primary btn-sm" @click="generate()">
+        <button class="btn btn-primary btn-sm" @click="generate()" tabindex="4">
           Generate
         </button>
-        <button class="btn btn-success btn-sm" @click="printBtn()">
+        <button
+          tabindex="5"
+          class="btn btn-success btn-sm"
+          @click="printBtn()"
+          :disabled="transactions.b_unit === null"
+        >
+          <i class="fas fa-print"></i>
           Print
         </button>
       </div>
     </div>
     <hr class="mt-1" />
-    <div class="main-content-container" id="section-to-print">
-      <div class="container" v-if="logo != null" >
+    <div id="section-to-print">
+      <div class="container" v-if="transactions.b_unit != null">
         <div class="row">
           <div class="col-md-12">
             <center>
               <img
                 alt="logo"
-                :src="$root.logo_path + '' + logo"
+                :src="$root.logo_path + '' + transactions.b_unit.logo"
                 style="width: 220px; height: 150px; object-fit: contain"
               />
               <h4>
@@ -159,191 +170,8 @@
                   </tr>
                 </tbody>
               </table>
+              <span class="float-right">Run Time: {{ dateNow }}</span>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- The Modal -->
-    <div
-      class="modal fade"
-      id="liquidation"
-      data-backdrop="static"
-      data-keyboard="false"
-    >
-      <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-          <!-- Modal body -->
-          <div id="print-section">
-            <div class="modal-body">
-              <div class="container">
-                <div class="row">
-                  <div class="col-md-6 offset-md-3">
-                    <div class="row justify-content-center" id="header-image">
-                      <div class="col-4" style="margin-right: 50px">
-                        <img
-                          class="pr-6 mt-2"
-                          alt="logo"
-                          :src="$root.logo_path + '' + logo"
-                          style="
-                            width: 220px;
-                            height: 150px;
-                            object-fit: contain;
-                          "
-                        />
-                      </div>
-                    </div>
-                    <center>
-                      <div id="header-title">
-                        <div class="row justify-content-center">
-                          <div class="col-6">
-                            <h4>
-                              {{
-                                transactions.hasOwnProperty("b_unit") &&
-                                transactions.b_unit.business_unit
-                              }}
-                            </h4>
-                          </div>
-                        </div>
-                        <div class="row justify-content-center">
-                          <div class="col-6">
-                            <h4 class="">LIQUIDATION REPORT</h4>
-                          </div>
-                        </div>
-                      </div>
-                      <div id="date">
-                        <div class="row justify-content-center">
-                          <div class="col-6">
-                            <span
-                              class="text-center font-semibold text-gray-500"
-                              >{{ filter.dateFrom | formatDateNoTime }} To
-                              {{ filter.dateTo | formatDateNoTime }}</span
-                            >
-                          </div>
-                        </div>
-                      </div>
-                    </center>
-                  </div>
-                </div>
-                <br />
-                <div
-                  class=""
-                  id="body-content"
-                  v-for="(cashier, index) in transactions.cashier_details"
-                  :key="index"
-                >
-                  <table
-                    id="table-body-content"
-                    class="table table-bordered table-sm"
-                  >
-                    <thead>
-                      <tr>
-                        <th>Cashier</th>
-                        <th>Date</th>
-                        <th>Ticket #</th>
-                        <th>Customer</th>
-                        <th>Transaction #</th>
-                        <th>Gross Amt.</th>
-                        <th>Disc.</th>
-                        <th>Less Disc.</th>
-                        <th>Picking Charge</th>
-                        <th>Total</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="(trans, index) in cashier" :key="index">
-                        <td>{{ trans.name }}</td>
-                        <td>
-                          {{
-                            trans.final_order_status[0].order_pickup
-                              | formatDateNoTime
-                          }}
-                        </td>
-                        <td>
-                          {{ trans.tickets[0].ticket }}
-                        </td>
-                        <td>
-                          {{ trans.tickets[0].customer }}
-                        </td>
-                        <td>
-                          {{ trans.tickets[0].receipt }}
-                        </td>
-                        <td>
-                          {{ orderedAmount(trans) | toCurrency }}
-                        </td>
-                        <td>
-                          {{ discountAmount(trans) | toCurrency }}
-                        </td>
-                        <td>
-                          {{ lessDiscount(trans) | toCurrency }}
-                        </td>
-                        <td>
-                          {{
-                            parseFloat(trans.customer_bill[0].delivery_charge)
-                              | toCurrency
-                          }}
-                        </td>
-                        <td>
-                          {{ parseFloat(totalAmount(trans)) | toCurrency }}
-                        </td>
-                      </tr>
-                      <tr class="font-weight-bold">
-                        <th colspan="4" class="text-center">
-                          <h6>GRAND TOTAL:</h6>
-                        </th>
-                        <th>{{ cashier.length }}</th>
-                        <th>
-                          {{
-                            totalOrderAmount(cashier).orderAmount | toCurrency
-                          }}
-                        </th>
-                        <th>
-                          {{ totalOrderAmount(cashier).discount | toCurrency }}
-                        </th>
-                        <th>
-                          {{
-                            totalOrderAmount(cashier).lessDiscount | toCurrency
-                          }}
-                        </th>
-                        <th>
-                          {{
-                            totalOrderAmount(cashier).pickupCharge | toCurrency
-                          }}
-                        </th>
-                        <th>
-                          {{
-                            totalOrderAmount(cashier).grandTotal | toCurrency
-                          }}
-                        </th>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="row" id="runtime">
-                  <div class="col-12">
-                    <span class="float-right">Run Time: {{ dateNow }}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Modal footer -->
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-success btn-sm"
-              @click="printBtn()"
-            >
-              <i class="fas fa-print"></i> Print
-            </button>
-            <button
-              type="button"
-              class="btn btn-danger btn-sm"
-              data-dismiss="modal"
-            >
-              Close
-            </button>
           </div>
         </div>
       </div>
@@ -365,7 +193,7 @@ export default {
       filter: {
         dateFrom: null,
         dateTo: null,
-        store: 1,
+        store: '',
       },
     };
   },
@@ -485,7 +313,7 @@ export default {
       this.transactions = res.data;
       this.totalTransaction = res.data.cashier_details.length;
       // this.totalOrderAmount(res.data.cashier_details);
-      this.logo = res.data.b_unit.logo;
+      // this.logo = res.data.b_unit.logo;
       // $("#liquidation").modal("show");
     },
     async getStores() {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
 
@@ -30,7 +30,7 @@
     <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-orange fixed-top mb-4 elevation-1">
     <div class="container-fluid ">
-      <a href="{{ route('main-menu')}}" class="navbar-brand home" >
+      <a href="{{ route('home')}}" class="navbar-brand home" >
         {{-- <img src="AlturushDeliveryTextColored.png" width="30" height="30" class="d-inline-block align-top" alt=""> --}}
         {{-- GROCERY-ADMIN --}}
         <h3 >GROCERY-ADMIN</h3>

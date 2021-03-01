@@ -184,40 +184,11 @@
                   <i class="far fas fa-home nav-icon"></i>
                   <p>Repors</p>
                 </router-link> --}}
-                <a href="{{ route('reports-menu') }}" class="nav-link active">
-                  <i class="far fas fa-home nav-icon"></i>
+                <a href="{{ route('report-menu') }}" class="nav-link active">
+                  <i class="far fas fa-clipboard-list nav-icon"></i>
                   <p>Reports</p>   
                 </a>
               </li>
-              <li class="nav-item has-treeview  ">
-                <a href="#" class="nav-link active">
-                  <i class="nav-icon fas fa-cog "></i>
-                  <p >
-                    Reports
-                    <i class="right fas fa-angle-left"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  {{-- <li class="nav-item">
-                    <router-link :to="{ name: 'accountability', params: { id: {{ Auth::user()->usertype_id}}  } }" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Cashier's Accountability
-                      </p>
-                    </router-link>
-                  </li> --}}
-                  <li class="nav-item">
-                    <router-link :to="{ name: 'liquidition', params: { id: {{ Auth::user()->usertype_id}}  } }" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Liquidation Report</p>
-                    </router-link>
-                  </li>
-                  <li class="nav-item">
-                    <router-link :to="{ name: 'report_item', params: { id: {{ Auth::user()->usertype_id}}  } }" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Items Report</p>
-                    </router-link>
-                  </li>
-
                 </ul>
               </li>
               

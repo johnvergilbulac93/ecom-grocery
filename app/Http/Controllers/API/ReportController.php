@@ -99,6 +99,7 @@ class ReportController extends Controller
                 'data' => $fileLink,
             ], 200);
         }
+        
         if($filter === 'available')
         {
 
@@ -108,9 +109,7 @@ class ReportController extends Controller
             $file = Storage::get($filename);
             if ($file) {
             $fileLink = 'data:application/vnd.ms-excel;base64,' . base64_encode($file);
-
             }
-
             return response()->json([
                 'success'=> true,
                 'data' => $fileLink,

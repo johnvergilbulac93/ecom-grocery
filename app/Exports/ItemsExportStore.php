@@ -27,21 +27,25 @@ class ItemsExportStore implements FromCollection,ShouldAutoSize, WithMapping, Wi
     {
         if($this->filter === 'all')
         {
-            $query =  DB::table('gc_product_items')
-                    ->join('gc_product_prices','gc_product_items.itemcode','=','gc_product_prices.itemcode')
-                    ->select('*')
-                    ->where('gc_product_items.status','active')
-                    ->get();                 
+            // $query =  DB::table('gc_product_items')
+            //         ->join('gc_product_prices','gc_product_items.itemcode','=','gc_product_prices.itemcode')
+            //         ->select('*')
+            //         ->where('gc_product_items.status','active')
+            //         ->get();   
+            dd('all');
+                          
         }
         if($this->filter === 'available')
         {
-            $query =  DB::table('gc_product_items')
-                    ->join('gc_product_prices','gc_product_items.itemcode','=','gc_product_prices.itemcode')
-                    ->select('*')
-                    ->where('gc_product_items.status','active')
-                    ->whereNotIn('gc_product_items.itemcode', function($query){
-                                $query->select('gc_item_log_availables.itemcode')->from('gc_item_log_availables')->where('gc_item_log_availables.store','=',$this->store );
-                    })->get();
+            // $query =  DB::table('gc_product_items')
+            //         ->join('gc_product_prices','gc_product_items.itemcode','=','gc_product_prices.itemcode')
+            //         ->select('*')
+            //         ->where('gc_product_items.status','active')
+            //         ->whereNotIn('gc_product_items.itemcode', function($query){
+            //                     $query->select('gc_item_log_availables.itemcode')->from('gc_item_log_availables')->where('gc_item_log_availables.store','=',$this->store );
+            //         })->get();
+            dd('available');
+
         }
         if($this->filter === 'unavailable')
         {
@@ -53,6 +57,7 @@ class ItemsExportStore implements FromCollection,ShouldAutoSize, WithMapping, Wi
                                 $query->select('gc_item_log_availables.itemcode')->from('gc_item_log_availables')->where('gc_item_log_availables.store','=', $this->store);
                     })->get();
         }
+        // dd($this->store);
 
         return $query;
 
