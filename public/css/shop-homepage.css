@@ -1,0 +1,127 @@
+/*!
+ * Start Bootstrap - Shop Homepage (https://startbootstrap.com/template/shop-homepage)
+ * Copyright 2013-2020 Start Bootstrap
+ * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-shop-homepage/blob/master/LICENSE)
+ */
+body {
+    padding-top: 56px;
+}
+
+.custom-footer {
+    border-top: 1px solid #dee2e6;
+    position: fixed;
+    height: 40px;
+    bottom: 0;
+    width: 100%;
+    background: #ffffff;
+    display: block;
+
+    z-index: 1032;
+}
+
+
+/* @media screen {
+  #print-section {
+      display: none;
+  }
+} */
+
+@media print {
+    @page {
+        margin-top: 1cm;
+        margin-bottom: .1cm;
+        margin-left: .1cm;
+        margin-right: 1cm;
+        orientation: landscape;
+    }
+
+    body * {
+        visibility: hidden;
+    }
+
+    /* #print-section, #print-section * {
+        visibility: visible;
+    } */
+
+    /* #print-section {
+        margin-left: -250px;
+    } */
+
+    /* footer {
+        page-break-after: always;
+    } */
+
+    /* table td {
+       width: 50px;
+    }
+
+    table {
+        border: 1px solid #ccc;
+    } */
+
+    #header-image,
+    #header-image * {
+        visibility: visible;
+        margin-right: 350px;
+    }
+
+    #header-image {
+        margin-left: -200px;
+    }
+
+    #header-title,
+    #header-title * {
+        visibility: visible;
+        margin-right: 800px;
+        width: 500px;
+        font-size: 24px;
+
+    }
+
+    #header-title {
+        margin-left: 20px
+    }
+
+    #date,
+    #date * {
+        visibility: visible;
+        font-size: 14px;
+        margin-left: -125px;
+    }
+
+    /* #print-section,
+    #print-section * {
+      visibility: visible;
+      font-size: 14px;
+    }
+
+    #print-section {
+      margin-right: auto;
+      margin-left: auto;
+      padding-right: 400px;
+    } */
+
+    #body-content,
+     #body-content * {
+        margin-left: -240px;
+        visibility: visible;
+    }
+
+    #body-content{
+      margin-left: 0px;
+    }
+
+    #runtime ,
+    #runtime * {
+      visibility: visible;
+      margin-right: 115px;
+    }
+
+}
+
+.input-liquidation {
+    border: none;
+    width: 80px;
+    background: transparent;
+
+}

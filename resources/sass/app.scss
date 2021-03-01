@@ -1,0 +1,143 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+// @import '~bootstrap/dist/css/bootstrap.css';
+// @import '~bootstrap/scss/bootstrap';
+
+@import '~admin-lte/dist/css/adminlte.css';
+
+@import '~@fortawesome/fontawesome-free/scss/brands';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+
+
+
+// .invalid-feedback {
+//      width: 100% !important;
+//      margin-top: 0.25rem !important;
+//      font-size: 80% !important;
+//      color: #e3342f !important;
+//  }
+.home.router-link-exact-active {
+    background-color: #fd7e1791;
+    color: #fcfcfc !important;
+}
+
+.router-link-exact-active {
+    background-color: #fd7e1791;
+    color: #767e85 !important;
+}
+
+.item.active {
+    color: #ffffff;
+    background-color: #0cbb87;
+}
+
+.item.inactive {
+    color: #ffffff;
+    background-color: #dc3545;
+}
+
+badge.inactive {
+
+    color: #ffffff;
+    background-color: #dc3545;
+}
+
+
+.my-custom-scrollbar {
+    position: relative;
+    height: 400px;
+    overflow: auto;
+}
+
+.table-wrapper-scroll-y {
+    display: block;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
+    color: #f6993f !important;
+    background-color: #e9ecef !important;
+}
+
+.sidebar {
+    height: calc(100% - (3.5rem + 1px)) !important;
+    overflow-y: auto !important;
+    padding-bottom: 0 !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+    padding-top: 0 !important;
+    height: 530px !important;
+}
+
+.checkmark {
+    height: 18px;
+    width: 18px;
+    background-color: #eee;
+    margin-top: 5px;
+    cursor: pointer;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.checkmark-body {
+    height: 15px;
+    width: 15px;
+    background-color: #eee;
+    margin-top: 5px;
+    cursor: pointer;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.item-per-store-content {
+    height: 400px;
+    overflow-y: auto;
+}
+
+.main-content-container {
+    height: 500px;
+    overflow-y: scroll;
+}
+
+.main-content-container::-webkit-scrollbar {
+    display: none;
+}
+
+.item-per-store-content::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.main-content-container {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.item-per-store-content {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+
+// .custom-footer {
+//      border-top: 1px solid #dee2e6;
+//      position: fixed;
+//      height: 40px;
+//      bottom: 0;
+//      width: 100%;
+//      background: #ffffff;
+//      display: block;
+
+//      z-index: 1032; 
+// }
