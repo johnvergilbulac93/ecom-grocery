@@ -144,6 +144,11 @@
                       <i class="far fa-circle nav-icon"></i>
                       <p>Image filename and Category</p>
                     </router-link>
+                    <li class="nav-item">
+                      <router-link :to="{ name: 'multiple', params: { id: {{ Auth::user()->usertype_id}}  } }" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Multiple Images</p>
+                      </router-link>
                   </li>
                   {{-- <li class="nav-item">
                     <a href="./index3.html" class="nav-link">

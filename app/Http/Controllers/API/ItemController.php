@@ -222,7 +222,6 @@ class ItemController extends Controller
         $item_images  = array(
             'image' => $imageName
         );
-
         gc_product_item::where('itemcode', '=', $id)->update($item_images);
     }
 

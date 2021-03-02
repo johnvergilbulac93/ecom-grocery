@@ -27,7 +27,7 @@ Route::middleware('auth:api')->group(function () {
     Route::post('uploadItemDisable', 'API\UploadingController@uploadItemDisable');
     Route::post('uploadcategory', 'API\UploadingController@uploadcategory');
     Route::post('uploaditemfilename', 'API\UploadingController@uploaditemfilename');
-
+    Route::post('uploadmultiple', 'API\UploadingController@multipleImage');
 });
 
 Route::middleware('auth:api')->group(function () {
