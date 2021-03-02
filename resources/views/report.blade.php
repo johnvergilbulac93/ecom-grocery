@@ -22,7 +22,10 @@
                         class="dropdown-item" style="font-size: 14px;">
                         <p>Liquidation Report</p>
                     </router-link>
-
+                    <router-link :to="{ name: 'accountability', params: { id: {{ Auth::user()->usertype_id }}  } }"
+                        class="dropdown-item" style="font-size: 14px;">
+                        <p>Accountability Report</p>
+                    </router-link>
                 </div>
             </div>
         </div>
