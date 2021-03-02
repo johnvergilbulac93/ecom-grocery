@@ -20,14 +20,15 @@ class UploadingController extends Controller
     {
 
         $this->validate($request, [
-            'file' => 'required|mimes:csv,txt,xlsx'
+            'file' => 'required|mimes:csv,txt,'
         ]);
         (new ItemsImport)->import($request->file);    
     }   
     public function uploadprice(Request $request)
     {
+    
         $this->validate($request, [
-            'file' => 'required|mimes:csv,txt,xlsx'
+            'file' => 'required|mimes:csv,txt,'
         ]);
         (new PriceHistoryImport)->import($request->file);
         (new PriceChangedImport)->import($request->file);
@@ -71,7 +72,7 @@ class UploadingController extends Controller
     public function uploadcategory(Request $request)
     {
         $this->validate($request, [
-            'file' => 'required|mimes:csv,txt,xlsx'
+            'file' => 'required|mimes:csv,txt,'
         ]);
         (new ItemCategoryImport)->import($request->file);
 
@@ -80,7 +81,7 @@ class UploadingController extends Controller
     public function uploaditemfilename(Request $request)
     {
         $this->validate($request, [
-            'file' => 'required|mimes:csv,txt,xlsx'
+            'file' => 'required|mimes:csv,txt,'
         ]);
 
         (new FilenameImport)->import($request->file);

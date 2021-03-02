@@ -13,14 +13,18 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 
-class ItemsExportStore implements FromCollection
-,ShouldAutoSize,  WithHeadings
-,WithColumnFormatting, WithEvents
-,WithMapping
+class ItemsExportStore implements 
+FromCollection
+,ShouldAutoSize
+// ,WithMapping
+,WithHeadings
+,WithColumnFormatting
+,WithEvents
+
 {
     public $filter, $store;
 
-    public function __construct(string $filter, int $store) 
+    public function __construct(string $filter, string $store) 
     {
         $this->filter = $filter;
         $this->store = $store;
@@ -31,24 +35,22 @@ class ItemsExportStore implements FromCollection
     {
         if($this->filter === 'all')
         {
-            // $query =  DB::table('gc_product_items')
-            //         ->join('gc_product_prices','gc_product_items.itemcode','=','gc_product_prices.itemcode')
-            //         ->select('*')
-            //         ->where('gc_product_items.status','active')
-            //         ->get();   
-            dd('all');
+            $query =  DB::table('gc_product_items')
+                    ->join('gc_product_prices','gc_product_items.itemcode','=','gc_product_prices.itemcode')
+                    ->select('gc_product_items.itemcode','gc_product_items.product_name','gc_product_items.category_name','gc_product_items.category_no','gc_product_prices.UOM','gc_product_prices.price_with_vat')
+                    ->where('gc_product_items.status','active')
+                    ->get();   
                           
         }
         if($this->filter === 'available')
         {
-            // $query =  DB::table('gc_product_items')
-            //         ->join('gc_product_prices','gc_product_items.itemcode','=','gc_product_prices.itemcode')
-            //         ->select('*')
-            //         ->where('gc_product_items.status','active')
-            //         ->whereNotIn('gc_product_items.itemcode', function($query){
-            //                     $query->select('gc_item_log_availables.itemcode')->from('gc_item_log_availables')->where('gc_item_log_availables.store','=',$this->store );
-            //         })->get();
-            dd('available');
+            $query =  DB::table('gc_product_items')
+                    ->join('gc_product_prices','gc_product_items.itemcode','=','gc_product_prices.itemcode')
+                    ->select('gc_product_items.itemcode','gc_product_items.product_name','gc_product_items.category_name','gc_product_items.category_no','gc_product_prices.UOM','gc_product_prices.price_with_vat')
+                    ->where('gc_product_items.status','active')
+                    ->whereNotIn('gc_product_items.itemcode', function($query){
+                                $query->select('gc_item_log_availables.itemcode')->from('gc_item_log_availables')->where('gc_item_log_availables.store','=',$this->store );
+                    })->get();
 
         }
         if($this->filter === 'unavailable')
@@ -56,27 +58,28 @@ class ItemsExportStore implements FromCollection
 
           $query =  DB::table('gc_product_items')
                     ->join('gc_product_prices','gc_product_items.itemcode','=','gc_product_prices.itemcode')
-                    ->select('*')
+                    ->select('gc_product_items.itemcode','gc_product_items.product_name','gc_product_items.category_name','gc_product_items.category_no','gc_product_prices.UOM','gc_product_prices.price_with_vat')
                     ->whereIn('gc_product_items.itemcode', function($query){
-                                $query->select('gc_item_log_availables.itemcode')->from('gc_item_log_availables')->where('gc_item_log_availables.store','=',  $this->store);
+                                $query->select('gc_item_log_availables.itemcode')->from('gc_item_log_availables')->where('gc_item_log_availables.store','=',$this->store);
                     })->get();
         }
-        // return $query;
-        dd($query);
+        return $query;
+        
     }
-    public function map($items): array
-    {
-
-        // dd($items);
-        return [
-            $items->itemcode,
-            $items->product_name,
-            $items->category_name,
-            $items->category_no,
-            $items->UOM,
-            $items->price_with_vat,        
-        ];
-    }
+//     public function map($items): array
+//     {
+// 
+//         dd($items);
+//         // return [
+//         //     $items->itemcode,
+//         //     $items->product_name,
+//         //     $items->category_name,
+//         //     $items->category_no,
+//         //     $items->UOM,
+//         //     $items->price_with_vat       
+//         // ];
+// 
+//     }
 
     public function headings(): array
     {

@@ -2,19 +2,19 @@
 @section('menu')
     <div class="mt-4">
         <div class="row">
-            <div class="col-10 mt-3 float-left">
-                <div class="dropdown">
-                    <button class="btn btn-success dropdown-toggle btn-sm float-left" type="button" id="dropdownMenuButton"
+            <div class="col-10 mt-3 ">
+                <div class="dropdownc ">
+                    <button class="btn btn-success dropdown-toggle btn-sm col-3" type="button" id="dropdownMenuButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Select Report
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <div class="dropdown-menu" style="min-width: 280px;" aria-labelledby="dropdownMenuButton">
                         <router-link :to="{ name: 'liquidition', params: { id: {{ Auth::user()->usertype_id }}  } }"
-                            class="dropdown-item">
+                            class="dropdown-item" style="font-size: 14px;">
                             <p>Liquidation Report</p>
                         </router-link>
                         <router-link :to="{ name: 'report_item', params: { id: {{ Auth::user()->usertype_id }}  } }"
-                            class="dropdown-item">
+                            class="dropdown-item" style="font-size: 14px;">
                             <p>Items Report</p>
                         </router-link>
                     </div>

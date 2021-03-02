@@ -118,7 +118,6 @@ class ReportController extends Controller
 
         if($filter === 'unavailable')
         {
-
             $filename = 'unavailable_items.xlsx'; 
             Excel::store(new ItemsExportStore($filter,$store),$filename);
             $file = Storage::get($filename);
@@ -136,11 +135,6 @@ class ReportController extends Controller
 
     public function getLiquidation(Request $request)
     {
-        // $this->validate($request, [
-        //     'store'         => 'required',
-        //     'dateFrom'      => 'required',    
-        //     'dateTo'   => 'required'
-        // ]);
 
         $buId = $request->get('store');
         $dateFrom = Carbon::parse($request->get('dateFrom'))->toDateString();
@@ -161,7 +155,6 @@ class ReportController extends Controller
 
             $result['b_unit'] = $getBU;
             $result['cashier_details'] = $cashier;
-            // $result['data'] = $data;
             return $result;
 
     }
