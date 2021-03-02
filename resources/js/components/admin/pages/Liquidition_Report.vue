@@ -1,8 +1,8 @@
 <template>
   <div class="container-fluid">
-    <div class="row mt-1">
-      <div class="col-3">
-        <div class="form-inline">
+    <div class="d-flex justify-content-between mt-1">
+      <div class="d-flex">
+        <div class="form-inline mx-2">
           <div class="form-group">
             <label for="store" class="form-label">Store:</label> &nbsp;
             <select
@@ -21,9 +21,7 @@
             </select>
           </div>
         </div>
-      </div>
-      <div class="col-3">
-        <div class="form-inline">
+        <div class="form-inline mx-2">
           <div class="form-group">
             <label for="from">Date From:</label>&nbsp;
             <input
@@ -34,9 +32,7 @@
             />
           </div>
         </div>
-      </div>
-      <div class="col-3">
-        <div class="form-inline">
+        <div class="form-inline mx-2">
           <div class="form-group">
             <label for="from">Date To:</label>&nbsp;
             <input
@@ -48,15 +44,16 @@
           </div>
         </div>
       </div>
-      <div class="col-3">
-        <button class="btn btn-primary btn-sm" @click="generate()" tabindex="4">
+      <div class="d-flex">
+        <button class="btn btn-primary btn-sm mx-2" @click="generate()" tabindex="4">
           Generate
         </button>
         <button
           tabindex="5"
           class="btn btn-success btn-sm"
           @click="printBtn()"
-          :disabled="transactions.b_unit === null"
+          v-if="transactions.b_unit != null "
+          :disabled="transactions.cashier_details.length >= 0"
         >
           <i class="fas fa-print"></i>
           Print
@@ -193,7 +190,7 @@ export default {
       filter: {
         dateFrom: null,
         dateTo: null,
-        store: '',
+        store: "",
       },
     };
   },
