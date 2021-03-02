@@ -4,7 +4,7 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <h4>Business Time Set-up</h4>
+            <h4>Store Time Set-up</h4>
           </div>
 
           <div class="card-body">
@@ -73,8 +73,8 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="storetime">
-              <h4 v-show="!editMode" class="lead">&nbsp;Add Business Time</h4>
-              <h4 v-show="editMode" class="lead">&nbsp;Edit Business Time</h4>
+              <h4 v-show="!editMode" class="lead">&nbsp;Add Store Time</h4>
+              <h4 v-show="editMode" class="lead">&nbsp;Edit Store Time</h4>
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>

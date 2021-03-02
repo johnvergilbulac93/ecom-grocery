@@ -41,14 +41,20 @@
             </div>
           </div>
           <div class="col-md-6">
-            <label for="" class="font-light float-right mx-1 mt-1">Entries</label>
+            <label for="" class="font-light float-right mx-1 mt-1"
+              >Entries</label
+            >
             <select
               v-model="tableData.length"
               class="form-control form-control-sm float-right"
               style="width: 110px"
               @change="getItems()"
             >
-              <option v-for="(records, index) in perPage" :key="index" :value="records">
+              <option
+                v-for="(records, index) in perPage"
+                :key="index"
+                :value="records"
+              >
                 {{ records }}
               </option>
             </select>
@@ -131,6 +137,9 @@ export default {
       items: [],
       selected: [],
       allSelected: false,
+      form: new Form({
+        itemIds: [],
+      }),
       perPage: ["10", "25", "100", "500", "1000", "2000"],
       tableData: {
         draw: 0,
@@ -149,9 +158,6 @@ export default {
         from: "",
         to: "",
       },
-      form: new Form({
-        itemIds: [],
-      }),
       index: -1,
     };
   },
@@ -195,9 +201,13 @@ export default {
     },
     selectAll() {
       this.form.itemIds = [];
+
+      // console.log(this.itemIds);
+      let item;
+
       if (!this.allSelected) {
-        for (user in this.items) {
-          this.form.itemIds.push(this.items[user].price_id.toString());
+        for (item in this.items) {
+          this.form.itemIds.push(this.items[item].price_id.toString());
         }
       }
     },

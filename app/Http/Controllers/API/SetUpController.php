@@ -241,6 +241,7 @@ class SetUpController extends Controller
                 'dept_id'    => $request->get('department'),
                 'status'    => $request->get('status'),
             );
+            
             gc_tenant::create($data);
  
              return response()->json([

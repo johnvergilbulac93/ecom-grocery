@@ -91,7 +91,7 @@ const routes = [
         name: 'picker_time',
         component: picker_time,
         beforeEnter: (to, from, next) => {
-            if(window.user === 6)
+            if(to.params.id === 6)
             {
                 next();
             }else{
@@ -104,7 +104,7 @@ const routes = [
          name: 'users',
          component: users,
          beforeEnter: (to, from, next) => {
-            if(window.user === 12)
+            if(to.params.id === 12)
             {
                 next();
             }else{

@@ -175,9 +175,11 @@ export default {
     },
     selectAll() {
       this.form.itemIds = [];
+      let item;
+
       if (!this.allSelected) {
-        for (user in this.items) {
-          this.form.itemIds.push(this.items[user].price_id.toString());
+        for (item in this.items) {
+          this.form.itemIds.push(this.items[item].price_id.toString());
         }
       }
     },

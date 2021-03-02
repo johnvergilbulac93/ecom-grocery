@@ -4,7 +4,7 @@
         <div class="mt-3">
             <a href="{{ route('home') }}" class="btn btn-danger  btn-sm float-right ">
                 <i class="fas fa-long-arrow-alt-left"></i>
-                BACK TO MENU
+                GO BACK
             </a>
         </div>
         <div class="mt-3 ">

@@ -110,6 +110,12 @@
                       <p>Delivery Charges</p>
                     </router-link>
                   </li>
+                  {{-- <li class="nav-item">
+                    <router-link :to="{ name: 'manage-users', params: { id: {{ Auth::user()->usertype_id}}  } }"  class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Manage Users</p>
+                    </router-link>
+                  </li> --}}
                   <li class="nav-item">
                     <router-link :to="{ name: 'users', params: { id: {{ Auth::user()->usertype_id}}  } }"  class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
