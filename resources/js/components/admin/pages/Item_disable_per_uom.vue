@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <Top></Top>
     <div class="card">
       <div class="card-header">
         <div class="row">
@@ -162,10 +163,6 @@ export default {
     };
   },
   methods: {
-    // clearSelect() {
-    //   this.allSelected = false;
-    //   this.form.itemIds = [];
-    // },
     clearData() {
       this.getItems();
       this.tableData.search = "";

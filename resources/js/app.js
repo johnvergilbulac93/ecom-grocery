@@ -80,7 +80,8 @@ window.serverDateTime = serverDateTime
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('page404', require('./components/admin/pages/404_page.vue').default);
-Vue.component('Liquidition', require('./components/admin/pages/Liquidition_Report.vue').default);
+Vue.component('Top', require('./components/admin/pages/Top.vue').default);
+
 
 
 /**
