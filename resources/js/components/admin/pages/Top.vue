@@ -6,7 +6,11 @@
 
 <script>
 export default {
-  data() {},
+  data() {
+    return {
+      
+    }
+  },
   methods: {
     goTopButton() {
       var btn = $("#button");

@@ -130,7 +130,7 @@ import Pagination from "./Pagination.vue";
 import Form from "vform";
 
 export default {
-  components: { pagination: Pagination },
+  components: { pagination: Pagination},
   name: "Tagging-Disable-UOM",
 
   data() {
