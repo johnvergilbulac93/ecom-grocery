@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" style="min-height: 300px;">
     <Upload
       multiple
       type="drag"

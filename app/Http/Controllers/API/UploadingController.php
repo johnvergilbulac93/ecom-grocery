@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\API;
 
 
+use App\Imports\ItemsImport;
 use Illuminate\Http\Request;
 use App\gc_item_log_available;
 use App\Imports\FilenameImport;
 use App\Imports\ItemCategoryImport;
-use App\Http\Controllers\Controller;
-use App\Imports\ItemsImport;
 use App\Imports\PriceChangedImport;
 use App\Imports\PriceHistoryImport;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class UploadingController extends Controller
@@ -84,10 +84,11 @@ class UploadingController extends Controller
     public function multipleImage(Request $request)
     {
         $this->validate($request, ['file' => 'image|mimes:jpeg,png,jpg,gif,svg',]);
-
-        $filename = $request->file->getClientOriginalName();
-        $path = public_path() . '/ITEM-IMAGES/' . $filename;
-
-        file_put_contents($path, $request->file);
+        $imageName = $request->file->getClientOriginalName();
+        $path = public_path() . '/ITEM-IMAGES/';
+        if (file_exists($path . $imageName)) {
+            @unlink($path . $imageName);
+        }
+        $request->file->move($path, $imageName);
     }
 }
