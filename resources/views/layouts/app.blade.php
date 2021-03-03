@@ -69,9 +69,7 @@
                 </div>
             </nav>
             <!-- Page Content -->
-            <div class="container-fluid">
                 @yield('menu')
-            </div>
 
             {{-- <footer class="footer-main">
                 <!-- To the right -->

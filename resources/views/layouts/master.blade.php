@@ -2,7 +2,7 @@
 @section('menu')
 
     @can('isSuperAdmin')
-        <nav class="main-sidenav navbar navbar-expand-md navbar-light navbar-white">
+        <header class="main-sidenav navbar navbar-expand-md navbar-light navbar-white">
             <div class="container">
                 <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -205,11 +205,11 @@
                     </ul>
                 </div>
             </div>
-        </nav>
+        </header>
     @endcan
 
     @can('isGGM')
-        <nav class="main-sidenav navbar navbar-expand-md navbar-light navbar-white">
+        <header class="main-sidenav navbar navbar-expand-md navbar-light navbar-white">
             <div class="container">
                 <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -240,11 +240,11 @@
                     </ul>
                 </div>
             </div>
-        </nav>
+        </header>
     @endcan
 
     @can('isIAD')
-        <nav class="main-sidenav navbar navbar-expand-md navbar-light navbar-white">
+        <header class="main-sidenav navbar navbar-expand-md navbar-light navbar-white">
             <div class="container">
                 <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -268,11 +268,11 @@
                     </ul>
                 </div>
             </div>
-        </nav>
+        </header>
     @endcan
 
     @can('isPurchasing')
-        <nav class="main-sidenav navbar navbar-expand-md navbar-light navbar-white">
+        <header class="main-sidenav navbar navbar-expand-md navbar-light navbar-white">
             <div class="container">
                 <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -296,11 +296,11 @@
                     </ul>
                 </div>
             </div>
-        </nav>
+        </header>
     @endcan
 
     @can('isAccounting')
-        <nav class="main-sidenav navbar navbar-expand-md navbar-light navbar-white">
+        <header class="main-sidenav navbar navbar-expand-md navbar-light navbar-white">
             <div class="container">
                 <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -318,11 +318,11 @@
                     </ul>
                 </div>
             </div>
-        </nav>
+        </header>
     @endcan
 
     @can('isSupervisor')
-        <nav class="main-sidenav navbar navbar-expand-md navbar-light navbar-white">
+        <header class="main-sidenav navbar navbar-expand-md navbar-light navbar-white">
             <div class="container">
                 <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -340,7 +340,7 @@
                     </ul>
                 </div>
             </div>
-        </nav>
+        </header>
     @endcan
     <div class="mt-2">
         <router-view></router-view>
