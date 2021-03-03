@@ -1,7 +1,7 @@
 <template>
-  <div class="container-fluid">
+  <div class="container">
     <div class="row justify-content-center">
-      <div class="col-lg-12 col-6 mt-3">
+      <div class="col-lg-12  mt-3">
         <label for="uploadingcategory"> Upload Batch Item Category </label>
         <Upload
           multiple
@@ -21,7 +21,7 @@
           </div>
         </Upload>
       </div>
-      <div class="col-lg-12 col-6 mt-3">
+      <div class="col-lg-12 mt-3">
         <label for="uploadingcategory"> Upload Batch Item Image Filename </label>
         <Upload
           multiple

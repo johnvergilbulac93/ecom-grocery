@@ -236,7 +236,7 @@ const routes = [
         name: 'liquidition',
         component: liquidition,
         beforeEnter: (to, from, next) => {
-            if (to.params.id === 14 || to.params.id === 12) {
+            if (to.params.id === 14 || to.params.id === 12 || to.params.id === 7) {
                 next();
             } else {
                 next('/');

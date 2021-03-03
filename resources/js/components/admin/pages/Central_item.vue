@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="container">
     <Top></Top>
     <div class="card">
       <div class="card-header">

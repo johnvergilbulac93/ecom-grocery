@@ -66,16 +66,28 @@ badge.inactive {
     background-color: #e9ecef !important;
 }
 
-.sidebar {
-    height: calc(100% - (3.5rem + 1px)) !important;
-    overflow-y: auto !important;
-    padding-bottom: 0 !important;
-    padding-left: 0.5rem !important;
-    padding-right: 0.5rem !important;
-    padding-top: 0 !important;
-    height: 530px !important;
-}
-
+// .sidebar {
+//     height: calc(100% - (3.5rem + 1px)) !important;
+//     overflow-y: auto !important;
+//     padding-bottom: 0 !important;
+//     padding-left: 0.5rem !important;
+//     padding-right: 0.5rem !important;
+//     padding-top: 0 !important;
+//     height: 530px !important;
+// }
+.sidenav {
+    height: 100%; /* Full-height: remove this if you want "auto" height */
+    width: 300px; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    top: 40; /* Stay at the top */
+    left: 10;
+    bottom: 20;
+    margin: 0px 15px;
+    overflow-x: hidden; /* Disable horizontal scroll */
+    // border-right: 1px solid rgb(196, 192, 192);
+    // padding: 0 10px;
+  }
 .checkmark {
     height: 18px;
     width: 18px;
@@ -128,6 +140,7 @@ badge.inactive {
     scrollbar-width: none;
     /* Firefox */
 }
+
 
 
 // .custom-footer {

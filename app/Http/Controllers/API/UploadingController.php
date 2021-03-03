@@ -89,6 +89,8 @@ class UploadingController extends Controller
         if (file_exists($path . $imageName)) {
             @unlink($path . $imageName);
         }
-        $request->file->move($path, $imageName);
+            $request->file->move($path, $imageName);
+        $url = "/ITEM-IMAGES/".$imageName;
+        return $url;
     }
 }
