@@ -15,7 +15,7 @@ export default {
     goTopButton() {
       var btn = $("#button");
       $(window).scroll(function () {
-        if ($(window).scrollTop() > 300) {
+        if ($(window).scrollTop() > 460) {
           btn.addClass("show");
         } else {
           btn.removeClass("show");
@@ -23,7 +23,7 @@ export default {
       });
       btn.on("click", function (e) {
         e.preventDefault();
-        $("html, body").animate({ scrollTop: 0 }, "300");
+        $("html, body").animate({ scrollTop: 0 }, "460");
       });
     },
   },
