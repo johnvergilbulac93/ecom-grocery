@@ -6,28 +6,25 @@
       </div>
 
       <div class="card-body">
-        <div class="row">
-          <div class="col-md-12">
-            <button
-              class="btn btn-success btn-sm float-right mb-1"
-              @click="showAddModalMinimum"
-              data-toggle="tooltip"
-              data-placement="bottom"
-              title="Add data"
-            >
-              <i class="fas fa-folder-plus"></i>
-              Add
-            </button>
-          </div>
-        </div>
         <div class="table-responsive">
-          <table class="table table-hover table-sm">
-            <thead>
+          <button
+            class="btn-block btn btn-primary btn-sm mb-1"
+            @click="showAddModalMinimum"
+            data-toggle="tooltip"
+            data-placement="bottom"
+            title="Add data"
+          >
+            <i class="fas fa-folder-plus"></i>
+            ADD
+          </button>
+          <table class="table custom-table table-sm"F>
+            <thead id="header-table">
               <tr>
+                <th style="width: 40px"></th>
                 <th>STORE</th>
                 <th>DEPARTMENT</th>
                 <th>AMOUNT</th>
-                <th></th>
+                <th style="width: 40px"></th>
               </tr>
             </thead>
             <tbody>
@@ -36,33 +33,32 @@
                 :key="i"
                 @mouseover="selectedMin(min)"
                 @mouseleave="unSelectedMin()"
+                class="tr-hover"
               >
-                <td style="width: 30%">{{ min.business_unit }}</td>
-                <td style="width: 30%">{{ min.name }}</td>
-                <td style="width: 20%">{{ min.amount }}</td>
-                <td style="width: 20%">
-                  <button
-                    class="btn btn-primary btn-sm"
-                    @click="showEditModalMinimum(min)"
-                    data-toggle="tooltip"
-                    data-placement="bottom"
-                    title="Edit/Update Details"
-                    v-if="min === selectMin"
-                  >
-                    <i class="far fa-edit"></i>
-                    Edit
-                  </button>
-                  <button
-                    class="btn btn-danger btn-sm"
+                <td style="width: 40px">
+                  <a
                     @click="deleteMinAmount(min.min_id)"
                     data-toggle="tooltip"
                     data-placement="bottom"
                     title="Delete data"
                     v-if="min === selectMin"
                   >
-                    <i class="fas fa-trash"></i>
-                    Delete
-                  </button>
+                    <i class="fas fa-trash-alt text-danger"></i>
+                  </a>
+                </td>
+                <td>{{ min.business_unit }}</td>
+                <td>{{ min.name }}</td>
+                <td>{{ min.amount }}</td>
+                <td style="width: 40px">
+                  <a
+                    @click="showEditModalMinimum(min)"
+                    data-toggle="tooltip"
+                    data-placement="bottom"
+                    title="Edit/Update Details"
+                    v-if="min === selectMin"
+                  >
+                    <i class="far fa-edit text-primary"></i>
+                  </a>
                 </td>
               </tr>
             </tbody>
@@ -86,14 +82,25 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="minimum">
-              <h4 v-show="!editMode" class="lead">&nbsp;Add Minimum Amount</h4>
-              <h4 v-show="editMode" class="lead">&nbsp;Edit Minimum Amount</h4>
+              <h4 v-show="!editMode" class="lead">
+                &nbsp;ADD MINIMUM ORDER AMOUNT
+              </h4>
+              <h4 v-show="editMode" class="lead">
+                &nbsp;EDIT MINIMUM ORDER AMOUNT
+              </h4>
             </h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <form v-on:submit.prevent="editMode ? updateMinimum() : createMinimum()">
+          <form
+            v-on:submit.prevent="editMode ? updateMinimum() : createMinimum()"
+          >
             <div class="modal-body">
               <div class="form-group">
                 <label for="Select Store">Select Store</label>
@@ -103,7 +110,11 @@
                   tabindex="1"
                   :class="{ 'is-invalid': form.errors.has('store') }"
                 >
-                  <option :value="store.bunit_code" v-for="(store, i) in stores" :key="i">
+                  <option
+                    :value="store.bunit_code"
+                    v-for="(store, i) in stores"
+                    :key="i"
+                  >
                     {{ store.business_unit }}
                   </option>
                 </select>
@@ -117,7 +128,11 @@
                   tabindex="2"
                   :class="{ 'is-invalid': form.errors.has('department') }"
                 >
-                  <option :value="dept.dept_id" v-for="(dept, i) in departments" :key="i">
+                  <option
+                    :value="dept.dept_id"
+                    v-for="(dept, i) in departments"
+                    :key="i"
+                  >
                     {{ dept.name }}
                   </option>
                 </select>

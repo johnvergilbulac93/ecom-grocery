@@ -6,7 +6,7 @@
         <div class="row">
           <div class="col-sm-6">
             <div class="row">
-              <div class="col-sm-8">
+              <div class="col-sm-8 py-1">
                 <div class="form-group has-search">
                   <span class="fa fa-search form-control-feedback"></span>
                   <input
@@ -18,9 +18,18 @@
                   />
                 </div>
               </div>
-              <div class="col-sm-4">
+              <div class="col-sm-2 py-1">
                 <button
-                  class="btn btn-primary btn-sm"
+                  class="btn btn-primary btn-sm btn-block"
+                  @click="getItems()"
+                  v-bind:disabled="tableData.search.length === 0"
+                >
+                  Find
+                </button>
+              </div>
+              <div class="col-sm-2 py-1">
+                <button
+                  class="btn btn-primary btn-sm btn-block"
                   @click="clearData"
                   v-bind:disabled="tableData.search.length === 0"
                 >
@@ -28,30 +37,21 @@
                 </button>
               </div>
             </div>
-            <!-- <div class="form-group has-search">
-              <span class="fa fa-search form-control-feedback"></span>
-              <input
-                type="text"
-                class="form-control form-control-sm"
-                placeholder="Search"
-                v-model="tableData.search"
-                @input="getItems()"
-              />
-            </div> -->
           </div>
-          <div class="col-sm-6">
-            <label for="" class="font-light float-right mx-1 mt-1">Entries</label>
+          <div class="col-sm-6 py-1">
             <select
               v-model="tableData.length"
-              class="form-control form-control-sm float-right"
-              style="width: 110px"
+              class="form-control form-control-sm col-sm-3 float-right"
               @change="getItems()"
             >
-              <option v-for="(records, index) in perPage" :key="index" :value="records">
+              <option
+                v-for="(records, index) in perPage"
+                :key="index"
+                :value="records"
+              >
                 {{ records }}
               </option>
             </select>
-            <label for="" class="font-light float-right mx-1 mt-1">Show</label>
           </div>
         </div>
       </div>
@@ -63,34 +63,43 @@
           @sort="sortBy"
         >
           <tbody>
-            <tr v-if="!items.length">
+            <tr v-if="!items.length" class="tr-hover">
               <td colspan="8" class="text-center">No matching records found</td>
             </tr>
-            <tr v-for="(item, i) in items" :key="i">
-              <td class="w-15">
-                <a @click="preview(item.image, item.product_name)">
+            <tr
+              v-for="(item, i) in items"
+              :key="i"
+              class="tr-hover"
+              @mouseover="selected(item)"
+              @mouseleave="unSelected()"
+            >
+              <td style="width: 40px">
+                <a
+                  @click="preview(item.image, item.product_name)"
+                  v-if="item === selectedData"
+                >
+                  <i class="fas fa-eye text-secondary"></i>
+                </a>
+                <!-- <a @click="preview(item.image, item.product_name)">
                   <center>
                     <img
                       :src="$root.url + item.image"
                       alt="item-image"
-                      class="img"
+                      class="item-image"
                       v-if="item.image"
-                      style="width: 60px; height: 50px; object-fit: scale-down"
                     />
                     <img
                       :src="$root.url + 'noimage.png'"
                       alt="item-image"
-                      class="img"
+                      class="item-image"
                       v-else
-                      style="width: 60px; height: 50px; object-fit: scale-down"
                     />
                   </center>
-                </a>
+                </a> -->
               </td>
               <td>{{ item.itemcode }}</td>
               <td>{{ item.product_name }}</td>
               <td>{{ item.category_name }}</td>
-              <!-- <td>{{ item.item_price.UOM }}</td> -->
               <td>
                 <select
                   style="width: 100px"
@@ -125,8 +134,15 @@
                   >
                 </a>
               </td>
-              <td class="text-center" style="width: 80px">
-                <Button
+              <td style="width: 40px">
+                <a
+                  @click="uploadImageItem(item, item.product_id)"
+                  v-if="item === selectedData"
+                  class="text-danger"
+                >
+                  <i class="fas fa-cloud-upload-alt text-primary"></i
+                ></a>
+                <!-- <Button
                   icon="ios-cloud-upload"
                   type="primary"
                   shape="circle"
@@ -138,8 +154,7 @@
                   type="error"
                   shape="circle"
                   @click="deleteItem(item.product_id, i)"
-                  v-show="$gate.isSuperAdmin()"
-                ></Button>
+                ></Button> -->
               </td>
             </tr>
           </tbody>
@@ -172,7 +187,12 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="uploadimageitem">Upload Image</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -188,7 +208,9 @@
                       ref="image"
                       :class="{ 'is-invalid': form.errors.has('image') }"
                     />
-                    <label class="custom-file-label" for="customFile">Choose file</label>
+                    <label class="custom-file-label" for="customFile"
+                      >Choose file</label
+                    >
                     <has-error :form="form" field="image"></has-error>
                   </div>
                 </div>
@@ -222,7 +244,9 @@
       <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="previewitem">{{ form.product_name }}</h5>
+            <h5 class="modal-title" id="previewitem">
+              {{ form.product_name }}
+            </h5>
           </div>
           <div class="modal-body">
             <center>
@@ -269,14 +293,14 @@ export default {
   data() {
     let sortOrders = {};
     let columns = [
-      { width: "10%", label: "IMAGE", name: "image" },
+      { width: "10%", label: "", name: "image" },
       { width: "10%", label: "CODE", name: "itemcode" },
       { width: "20%", label: "DESCRIPTION", name: "description" },
       { width: "15%", label: "CATEGORY", name: "category" },
       { width: "8%", label: "UOM", name: "uom" },
       { width: "10%", label: "PRICE", name: "price" },
       { width: "12%", label: "STATUS", name: "status" },
-      { width: "12%", label: "ACTION", name: "action" },
+      { width: "12%", label: "", name: "" },
     ];
     columns.forEach((column) => {
       sortOrders[column.name] = -1;
@@ -288,6 +312,7 @@ export default {
       columns: columns,
       sortKey: "itemcode",
       sortOrders: sortOrders,
+      selectedData: false,
       perPage: ["10", "25", "50", "100"],
       tableData: {
         draw: 0,
@@ -319,6 +344,12 @@ export default {
     };
   },
   methods: {
+    selected(data) {
+      this.selectedData = data;
+    },
+    unSelected() {
+      this.selectedData = false;
+    },
     clearData() {
       this.getItems();
       this.tableData.search = "";

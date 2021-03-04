@@ -8,26 +8,27 @@
           </div>
           <div class="card-body">
             <button
-              class="float-right btn btn-success btn-sm mb-1"
+              class="btn-block btn btn-primary btn-sm mb-1"
               @click="showAddModalDCharge()"
               data-toggle="tooltip"
               data-placement="bottom"
               title="Add Data"
             >
               <i class="fas fa-folder-plus"></i>
-              Add
+              ADD
             </button>
             <div class="table-responsive">
-              <table class="table table-hover table-sm">
-                <thead>
+              <table class="table custom-table table-sm">
+                <thead id="header-table">
                   <tr>
+                    <th style="width: 30px"></th>
                     <th>Province</th>
                     <th>Town</th>
                     <th>Barangay</th>
                     <th>Transportation Type</th>
                     <th>Charge Amount</th>
                     <th>Rider Share</th>
-                    <th></th>
+                    
                   </tr>
                 </thead>
                 <tbody>
@@ -36,25 +37,26 @@
                     :key="i"
                     @mouseover="selected(data)"
                     @mouseleave="unSelected()"
+                    class="tr-hover"
                   >
+                    <td>
+                      <a
+                        data-toggle="tooltip"
+                        data-placement="bottom"
+                        title="Delete data"
+                        v-if="data === selectedData"
+                        @click="deleteCharges(data.chrg_id, i)"
+                        style="width: 30px"
+                      >
+                        <i class="far fa-trash-alt text-danger"></i>
+                      </a>
+                    </td>
                     <td>{{ data.prov_name }}</td>
                     <td>{{ data.town_name }}</td>
                     <td>{{ data.brgy_name }}</td>
                     <td>{{ data.transpo_name }}</td>
                     <td>{{ data.charge_amt }}</td>
                     <td>{{ data.rider_shared }}</td>
-                    <td>
-                      <button
-                        class="btn btn-danger btn-sm"
-                        data-toggle="tooltip"
-                        data-placement="bottom"
-                        title="Delete data"
-                        v-if="data === selectedData"
-                        @click="deleteCharges(data.chrg_id, i)"
-                      >
-                        <i class="right far fa-trash-alt"></i>
-                      </button>
-                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -86,14 +88,25 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="d_charges">
-              <h4 v-show="!editMode" class="lead">&nbsp;Setup Delivery Charges</h4>
-              <h4 v-show="editMode" class="lead">&nbsp;Edit Delivery Charges</h4>
+              <h4 v-show="!editMode" class="lead">
+                &nbsp;Setup Delivery Charges
+              </h4>
+              <h4 v-show="editMode" class="lead">
+                &nbsp;Edit Delivery Charges
+              </h4>
             </h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <form v-on:submit.prevent="editMode ? updateCharge() : createCharge()">
+          <form
+            v-on:submit.prevent="editMode ? updateCharge() : createCharge()"
+          >
             <div class="modal-body">
               <div class="row">
                 <div class="col-md-6">
@@ -131,7 +144,11 @@
                       @change.prevent="getBarangay()"
                     >
                       <option value="">Select Town</option>
-                      <option :value="town.town_id" v-for="(town, i) in towns" :key="i">
+                      <option
+                        :value="town.town_id"
+                        v-for="(town, i) in towns"
+                        :key="i"
+                      >
                         {{ town.town_name }}
                       </option>
                     </select>

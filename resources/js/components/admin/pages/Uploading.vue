@@ -1,7 +1,7 @@
 <template>
-  <div class="container-fluid">
-    <div class="row justify-content-center">
-      <div class="col-lg-4 col-6 mt-3">
+  <div class="container">
+    <div class="row justify-content-center mt-2">
+      <div class="col-sm-4  ">
         <!-- small box -->
         <div class="small-box bg-orange text-white">
           <div class="inner">
@@ -19,7 +19,7 @@
         </div>
       </div>
       <!-- ./col -->
-      <div class="col-lg-4 col-6 mt-3">
+      <div class="col-sm-4 ">
         <!-- small box -->
         <div class="small-box bg-orange text-white">
           <div class="inner">

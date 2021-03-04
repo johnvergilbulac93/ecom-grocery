@@ -34,7 +34,7 @@
                 <div class="container">
                     <a href="#" class="navbar-brand">
                         <img src="{{ URL::asset('/img/alturush.png') }}" alt="Logo"
-                            style="height: 1.8rem; object-fit: cover" style="opacity: .8">
+                            style="height: 3rem; object-fit: cover" style="opacity: .8">
                         {{-- <span class="brand-text font-weight-light">GROCERY|ADMIN</span> --}}
                     </a>
                     <!-- Right navbar links -->
@@ -46,6 +46,7 @@
                             <a class="nav-link" data-toggle="dropdown" href="#">
                                 <img src="{{ URL::asset('/img/user1.png') }}" class="img-circle elevation-1"
                                     alt="User Image" style="height: 2rem;">
+                                <span class="text-uppercase">{{ Auth::user()->name }}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" style="font-size: 15px;">
                                 <a href="#" class="dropdown-item px-3 py-1" data-toggle="modal"

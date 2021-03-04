@@ -1,7 +1,7 @@
 <template>
   <div class="table-responsive">
-    <table class="table table-sm table-hover">
-      <thead class="thead-light">
+    <table class="table custom-table table-sm">
+      <thead id="header-table">
         <tr>
           <th
             v-for="column in columns"
@@ -14,7 +14,7 @@
                   : 'sorting_down'
                 : 'sorting_both'
             "
-            :style="'width:' + column.width + ';' + 'cursor:pointer;'"
+            style="cursor:pointer;"
           >
             {{ column.label }}
           </th>

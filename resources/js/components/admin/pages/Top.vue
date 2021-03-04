@@ -1,6 +1,6 @@
 <template>
   <div>
-       <a id="button"></a>
+       <a id="button" data-toggle="tooltip" title="GO UP"></a>
   </div>
 </template>
 

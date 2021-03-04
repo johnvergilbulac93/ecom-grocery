@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="container">
     <div class="d-flex justify-content-between mt-1">
       <div class="d-flex">
         <div class="form-inline mx-2">

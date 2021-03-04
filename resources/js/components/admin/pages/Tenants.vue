@@ -8,23 +8,25 @@
           </div>
 
           <div class="card-body">
-            <button
-              class="float-right btn btn-success btn-sm mb-1"
+
+            <div class="table-responsive">
+                          <button
+              class="btn-block btn btn-primary btn-sm mb-1"
               @click="showAddModalTenant()"
               data-toggle="tooltip"
               data-placement="bottom"
               title="Add tenant"
             >
               <i class="fas fa-folder-plus"></i>
-              Add
+              ADD
             </button>
-            <div class="table-responsive">
-              <table class="table table-hover table-sm">
-                <thead>
+              <table class="table custom-table table-sm">
+                <thead id="header-table">
                   <tr>
-                    <th style="width: 40%">Store</th>
-                    <th style="width: 40%">Tenant</th>
-                    <th style="width: 20%"></th>
+                    <th style="width: 50px"></th>
+                    <th>Store</th>
+                    <th>Tenant</th>
+                    <th style="width: 50px"></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -33,32 +35,31 @@
                     :key="i"
                     @mouseover="selected(data)"
                     @mouseleave="unSelected()"
+                    class="tr-hover"
                   >
-                    <td>{{ data.business_unit }}</td>
-                    <td>{{ data.name }}</td>
-                    <td>
-                      <button
-                        class="btn btn-primary btn-sm"
-                        @click="showEditModalTenant(data)"
-                        data-toggle="tooltip"
-                        data-placement="bottom"
-                        title="Show/Edit this tenant"
-                        v-if="data === selectedData"
-                      >
-                        <i class="far fa-edit"></i>
-                        Edit
-                      </button>
-                      <button
-                        class="btn btn-danger btn-sm"
+                    <td style="width: 50px">
+                      <a
                         @click="deleteTenant(data.tenant_id)"
                         data-toggle="tooltip"
                         data-placement="bottom"
                         title="Delete data"
                         v-if="data === selectedData"
                       >
-                        <i class="fas fa-trash"></i>
-                        Delete
-                      </button>
+                        <i class="fas fa-trash-alt text-danger"></i>
+                      </a>
+                    </td>
+                    <td>{{ data.business_unit }}</td>
+                    <td>{{ data.name }}</td>
+                    <td style="width: 50px">
+                      <a
+                        @click="showEditModalTenant(data)"
+                        data-toggle="tooltip"
+                        data-placement="bottom"
+                        title="Show/Edit this tenant"
+                        v-if="data === selectedData"
+                      >
+                        <i class="far fa-edit text-primary"></i>
+                      </a>
                     </td>
                   </tr>
                 </tbody>
@@ -67,7 +68,11 @@
           </div>
           <div class="card-footer">
             <!-- <pagination :data="tenants" @pagination-change-page="loadTenant"></pagination> -->
-            <pagination :data="tenants" @pagination-change-page="loadTenant" :limit="-1">
+            <pagination
+              :data="tenants"
+              @pagination-change-page="loadTenant"
+              :limit="-1"
+            >
               <span slot="prev-nav"><i class="fas fa-chevron-left"></i></span>
               <span slot="next-nav"><i class="fas fa-chevron-right"></i></span>
             </pagination>
@@ -90,14 +95,21 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="tenant">
-              <h4 v-show="!editMode" class="lead">&nbsp;Add Tenant</h4>
-              <h4 v-show="editMode" class="lead">&nbsp;Edit Tenant</h4>
+              <h4 v-show="!editMode" class="lead">&nbsp;ADD TENANT</h4>
+              <h4 v-show="editMode" class="lead">&nbsp;EDIT TENANT</h4>
             </h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <form v-on:submit.prevent="editMode ? updateTenant() : createTenant()">
+          <form
+            v-on:submit.prevent="editMode ? updateTenant() : createTenant()"
+          >
             <div class="modal-body">
               <div class="form-group">
                 <label for="Select Store">Select Store</label>
@@ -107,7 +119,11 @@
                   tabindex="1"
                   :class="{ 'is-invalid': form.errors.has('store') }"
                 >
-                  <option :value="store.bunit_code" v-for="(store, i) in stores" :key="i">
+                  <option
+                    :value="store.bunit_code"
+                    v-for="(store, i) in stores"
+                    :key="i"
+                  >
                     {{ store.business_unit }}
                   </option>
                 </select>
@@ -121,7 +137,11 @@
                   tabindex="2"
                   :class="{ 'is-invalid': form.errors.has('department') }"
                 >
-                  <option :value="dept.dept_id" v-for="(dept, i) in departments" :key="i">
+                  <option
+                    :value="dept.dept_id"
+                    v-for="(dept, i) in departments"
+                    :key="i"
+                  >
                     {{ dept.name }}
                   </option>
                 </select>

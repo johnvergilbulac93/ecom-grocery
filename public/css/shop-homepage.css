@@ -76,7 +76,7 @@
     font-weight: normal;
     font-style: normal;
     font-size: 2em;
-    line-height: 50px;
+    line-height: 40px;
     color: #fff;
     /* color:#fd7e14; */
   }
@@ -110,7 +110,7 @@
     color: #96a2a7;
   }
   .main-sidenav{
-    border-bottom: 1px solid #dee2e6;
+    border-bottom: 2px solid #dee2e6;
   }
   .footer-main{
     background: #fff;

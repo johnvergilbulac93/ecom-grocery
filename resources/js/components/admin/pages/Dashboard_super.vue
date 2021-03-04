@@ -1,10 +1,10 @@
 <template>
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-md-4">
+      <div class="col-sm-4">
         <!-- small box -->
-        <div class="small-box bg-info">
-          <div class="inner">
+        <div class="small-box bg-orange ">
+          <div class="inner text-white">
             <center>
               <h5>CHANGED PRICE COUNT</h5>
               <hr />
@@ -13,8 +13,8 @@
             <p>Today's Price Changed</p>
           </div>
 
-          <a @click="showModalPrice" class="small-box-footer"
-            >More info <i class="fas fa-arrow-circle-right"></i
+          <a @click="showModalPrice" class="small-box-footer "
+            > <span class="text-white">More info</span>  <i class="fas fa-arrow-circle-right text-white"></i
           ></a>
         </div>
       </div>

@@ -8,24 +8,24 @@
           </div>
 
           <div class="card-body">
-            <button
-              class="float-right btn btn-success btn-sm mb-1"
-              @click="showAddModalStoreTime()"
-              data-toggle="tooltip"
-              data-placement="bottom"
-              title="Add Store Time"
-            >
-              <i class="fas fa-folder-plus"></i>
-              Add
-            </button>
             <div class="table-responsive">
-              <table class="table table-hover table-sm">
-                <thead>
+              <button
+                class="btn-block btn btn-primary btn-sm mb-1"
+                @click="showAddModalStoreTime()"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                title="Add Store Time"
+              >
+                <i class="fas fa-folder-plus"></i>
+                ADD
+              </button>
+              <table class="table custom-table table-sm">
+                <thead id="header-table">
                   <tr>
+                    <th style="width: 40px"></th>
                     <th>Store</th>
                     <th>Opening Time</th>
                     <th>Closing Time</th>
-                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -34,22 +34,22 @@
                     :key="i"
                     @mouseover="selected(data)"
                     @mouseleave="unSelected()"
+                    class="tr-hover"
                   >
-                    <td style="width: 40%">{{ data.business_unit }}</td>
-                    <td style="width: 25%">{{ data.time_in }}</td>
-                    <td style="width: 25%">{{ data.time_out }}</td>
-                    <td style="width: 10%">
-                      <button
-                        class="btn btn-primary btn-sm"
+                    <td style="width: 40px">
+                      <a
                         @click="showEditModalTime(data)"
                         v-if="data === selectedData"
                         data-toggle="tooltip"
                         data-placement="bottom"
                         title="View/Update Details"
                       >
-                        <i class="right fas fa-angle-right"></i>
-                      </button>
+                        <i class="fas fa-info-circle text-primary"></i>
+                      </a>
                     </td>
+                    <td>{{ data.business_unit }}</td>
+                    <td>{{ data.time_in }}</td>
+                    <td>{{ data.time_out }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -73,10 +73,15 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="storetime">
-              <h4 v-show="!editMode" class="lead">&nbsp;Add Store Time</h4>
-              <h4 v-show="editMode" class="lead">&nbsp;Edit Store Time</h4>
+              <h4 v-show="!editMode" class="lead">&nbsp;ADD STORE TIME</h4>
+              <h4 v-show="editMode" class="lead">&nbsp;EDIT STORE TIME</h4>
             </h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -91,7 +96,11 @@
                   :class="{ 'is-invalid': form.errors.has('store') }"
                 >
                   <option value="">Select Store</option>
-                  <option :value="store.bunit_code" v-for="(store, i) in stores" :key="i">
+                  <option
+                    :value="store.bunit_code"
+                    v-for="(store, i) in stores"
+                    :key="i"
+                  >
                     {{ store.business_unit }}
                   </option>
                 </select>

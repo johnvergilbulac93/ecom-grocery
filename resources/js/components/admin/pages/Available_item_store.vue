@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <div class="row">
-      <div class="col-md-4">
+    <div class="row justify-content-center">
+      <div class="col-sm-4">
         <select
           class="form-control form-control-sm"
           v-model="filter.store"
@@ -32,13 +32,13 @@
       </div> -->
     </div>
 
-    <div class="row justify-content-center mt-4" v-if="filter.store != ''">
-      <div class="col-md-4">
+    <div class="row justify-content-center mt-2" v-if="filter.store != ''">
+      <div class="col-sm-4">
         <!-- small box -->
-        <div class="small-box bg-info">
-          <div class="inner">
+        <div class="small-box bg-orange ">
+          <div class="inner text-white">
             <center>
-              <h5 class="lead py-2">Available Items</h5>
+              <h5 class="lead py-2">AVAILABLE ITEMS</h5>
               <hr />
               <h1 class="py-2">{{ countItems }}</h1>
             </center>

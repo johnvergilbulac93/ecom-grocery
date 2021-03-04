@@ -1,7 +1,9 @@
 <template>
   <div class="container">
     <Top></Top>
-    <label for="limit"><p><span class="text-primary">NOTE:</span> LIMIT IMAGE IS 100.</p> </label>
+    <small class="form-text text-muted">
+      <span class="text-primary">NOTE:</span> Limit of images is 100.
+    </small>
     <hr />
     <div class="mt-2">
       <Upload

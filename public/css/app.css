@@ -37514,3 +37514,71 @@ badge.inactive {
   /* Firefox */
 }
 
+.ex1 {
+  height: 150px;
+  width: 430px;
+  overflow-y: auto;
+}
+
+.results {
+  margin-top: 2px;
+  position: absolute;
+  z-index: 1000;
+  border: 1px solid #ced4da;
+  background: #fff;
+  width: 453px;
+  height: 150px;
+  overflow-y: auto;
+  color: #333435;
+  text-align: left;
+  box-shadow: 0 4px 3px rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
+}
+
+.panel-footer.results p,
+a {
+  padding: 5px;
+  text-transform: uppercase;
+}
+
+.panel-footer.results p:hover {
+  background-color: #ddd;
+  font-weight: bold;
+  color: #f6993f;
+}
+
+.panel-footer.results {
+  border-radius: 5px 5px 5px 5px;
+}
+
+/* START HERE FOR Custom Table CSS */
+
+.table.custom-table {
+  border: 1px solid #869099;
+  box-shadow: 1px 1px 12px rgba(0, 0, 0, 0.2), -1px -1px -8px rgba(0, 0, 0, 0.2);
+}
+
+#header-table th,
+td {
+  cursor: pointer;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  margin: 0 auto;
+}
+
+#header-table {
+  background-color: #ddd;
+  color: #4e4c4c;
+}
+
+.tr-hover:hover {
+  background-color: #f8d8b9;
+}
+
+.item-image {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #dc3545;
+  align-items: center;
+}
+

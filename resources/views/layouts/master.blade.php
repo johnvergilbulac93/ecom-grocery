@@ -12,21 +12,28 @@
                 <div class="collapse navbar-collapse order-3 " id="navbarCollapse" style="font-size: 16px;">
                     <!-- Left navbar links -->
                     <ul class="navbar-nav">
+                        
                         <li class="nav-item d-none d-sm-inline-block">
+                           
                             <router-link :to="{ name: 'dashboard', params: { id: {{ Auth::user()->usertype_id }}  } }"
                                 class="nav-link ">
-                                <p>DASHBOARD</p>
+                                <i class="fas fa-home"></i>
+                               <span>DASHBOARD</span> 
                             </router-link>
                         </li>
                         <li class="nav-item dropdown ">
+                            
                             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                class="nav-link   dropdown-toggle"> MASTERFILE</a>
+                                class="nav-link   dropdown-toggle">
+                                <i class="fas fa-cog"></i>
+                                <span>MASTERFILE</span> 
+                            </a>
                             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu dropdown-menu-lg border-0 shadow"
                                 style="font-size: 12px;">
                                 <li>
                                     <router-link
                                         :to="{ name: 'business_rule', params: { id: {{ Auth::user()->usertype_id }}  } }"
-                                        class="dropdown-item">
+                                        class="dropdown-item">                         
                                         <p>BUSINESS RULES</p>
                                     </router-link>
                                 </li>
@@ -129,7 +136,10 @@
                         </li>
                         <li class="nav-item dropdown ">
                             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                class="nav-link   dropdown-toggle"> UPLOADING</a>
+                                class="nav-link   dropdown-toggle">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                               <span>UPLOADING</span> 
+                            </a>
                             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu dropdown-menu-lg border-0 shadow"
                                 style="font-size: 12px;">
                                 <li>
@@ -178,7 +188,10 @@
                         </li>
                         <li class="nav-item dropdown ">
                             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                class="nav-link   dropdown-toggle">REPORTS</a>
+                                class="nav-link   dropdown-toggle">
+                                <i class="fas fa-list-alt"></i>
+                               <span>REPORTS</span> 
+                            </a>
                             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu dropdown-menu-lg border-0 shadow"
                                 style="font-size: 12px;">
                                 <li>

@@ -1,24 +1,15 @@
 <template>
   <div class="container">
-    <div class="row" >
-      <div class="col-md-12 mb-1 float-right">
-        <button
-          type="button"
-          class="btn btn-success btn-sm float-right"
-          value="Add User"
-          @click="showAddUserModal()"
-        >
-          <i class="fas fa-user-plus"></i> Add User
-        </button>
-      </div>
-      <div class="col-md-12">
+    <Top></Top>
+    <div class="row">
+      <div class="col-sm-12">
         <div class="card">
           <!-- /.card-header -->
           <div class="card-header">
             <div class="row">
               <div class="col-sm-6">
                 <div class="row">
-                  <div class="col-sm-8">
+                  <div class="col-sm-8 py-1">
                     <div class="form-group has-search">
                       <span class="fa fa-search form-control-feedback"></span>
                       <input
@@ -30,16 +21,19 @@
                       />
                     </div>
                   </div>
-                  <div class="col-sm-4">
+                  <div class="col-sm-2 py-1">
                     <button
-                      class="btn btn-primary btn-sm"
+                      class="btn btn-primary btn-sm btn-block"
                       @click="getUsers()"
                       v-bind:disabled="tableData.search.length === 0"
                     >
                       Find
                     </button>
+                  </div>
+
+                  <div class="col-sm-2 py-1">
                     <button
-                      class="btn btn-primary btn-sm"
+                      class="btn btn-primary btn-sm btn-block"
                       @click="clearData"
                       v-bind:disabled="tableData.search.length === 0"
                     >
@@ -48,12 +42,10 @@
                   </div>
                 </div>
               </div>
-              <div class="col-sm-6">
-                <label for="" class="font-light float-right mx-1 mt-1">Entries</label>
+              <div class="col-sm-6 py-1">
                 <select
                   v-model="tableData.length"
-                  class="form-control form-control-sm float-right"
-                  style="width: 110px"
+                  class="form-control form-control-sm col-sm-3 float-right"
                   @change="getUsers()"
                 >
                   <option
@@ -64,12 +56,71 @@
                     {{ records }}
                   </option>
                 </select>
-                <label for="" class="font-light float-right mx-1 mt-1">Show</label>
               </div>
             </div>
           </div>
           <div class="card-body">
-            <datatable
+            <div class="table-responsive">
+              <button
+                type="button"
+                class="btn btn-primary btn-sm mb-1 btn-block"
+                value="Add User"
+                @click="showAddUserModal()"
+              >
+                <i class="fas fa-user-plus"></i> Add User
+              </button>
+
+              <table class="table custom-table table-sm">
+                <thead id="header-table">
+                  <tr>
+                    <th class="text-center" style="width: 30px"></th>
+                    <th>ID</th>
+                    <th>NAME</th>
+                    <th>USER NAME</th>
+                    <th>USER TYPE</th>
+                    <th>STORE</th>
+                    <th class="text-center" style="width: 30px"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-if="!users.length" class="tr-hover">
+                    <td colspan="6" class="text-center">
+                      No matching records found
+                    </td>
+                  </tr>
+                  <tr
+                    v-for="(user, i) in users"
+                    :key="i"
+                    class="tr-hover"
+                    @mouseover="selected(user)"
+                    @mouseleave="unSelected()"
+                  >
+                    <td class="text-center" style="width: 30px">
+                      <a
+                        v-if="user === selectedData"
+                        class="text-danger"
+                        @click="deleteUser(user.id, i)"
+                        ><i class="fas fa-trash-alt"></i
+                      ></a>
+                    </td>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.usertype }}</td>
+                    <td>{{ user.business_unit }}</td>
+                    <td class="text-center" style="width: 30px">
+                      <a
+                        v-if="user === selectedData"
+                        class="text-primary"
+                        @click="editUser(user, i)"
+                        ><i class="fas fa-info-circle"></i
+                      ></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- <datatable
               :columns="columns"
               :sortKey="sortKey"
               :sortOrders="sortOrders"
@@ -77,7 +128,9 @@
             >
               <tbody>
                 <tr v-if="!users.length">
-                  <td colspan="6" class="text-center">No matching records found</td>
+                  <td colspan="6" class="text-center">
+                    No matching records found
+                  </td>
                 </tr>
                 <tr v-for="(user, i) in users" :key="user.id">
                   <td>{{ user.id }}</td>
@@ -107,7 +160,7 @@
                   </td>
                 </tr>
               </tbody>
-            </datatable>
+            </datatable> -->
           </div>
           <div class="card-footer">
             <pagination
@@ -120,67 +173,6 @@
         </div>
       </div>
     </div>
-    <!-- modal user view-->
-    <div
-      class="modal fade"
-      id="user_view"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="user_view">
-              <h4 class="lead"><i class="nav-icon fas fa-user">&nbsp;</i>View User</h4>
-            </h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <form v-on:submit.prevent="">
-            <div class="modal-body">
-              <table class="table table-bordered" id="userTable">
-                <tbody>
-                  <tr>
-                    <td style="width: 150px" class="text-bold">ID:</td>
-                    <td>{{ form.id }}</td>
-                  </tr>
-                  <tr>
-                    <td class="text-bold">Name</td>
-                    <td>{{ form.name }}</td>
-                  </tr>
-                  <tr>
-                    <td class="text-bold">Username</td>
-                    <td>{{ form.username }}</td>
-                  </tr>
-                  <tr>
-                    <td class="text-bold">User Type</td>
-                    <td>{{ form.usertype }}</td>
-                  </tr>
-                  <tr>
-                    <td class="text-bold">Store</td>
-                    <td>{{ form.business_unit }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div class="modal-footer">
-              <input
-                type="button"
-                class="btn btn-secondary btn-sm"
-                data-dismiss="modal"
-                value="Close"
-              />
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-    <!-- /.modal user view-->
-
     <!-- modal user edit-->
     <div
       class="modal fade"
@@ -197,39 +189,46 @@
           <div class="modal-header">
             <h5 class="modal-title" id="user_edit">
               <h4 v-show="editMode" class="lead">
-                <i class="nav-icon fas fa-user">&nbsp;</i>Edit User
+                <i class="fas fa-user">&nbsp;</i> EDIT USER
               </h4>
               <h4 v-show="!editMode" class="lead">
-                <i class="nav-icon fas fa-user">&nbsp;</i>Add User
+                <i class="nav-icon fas fa-user">&nbsp;</i>ADD USER
               </h4>
             </h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <form v-on:submit.prevent="editMode ? updateUser() : createUser()">
             <div class="modal-body">
-              <table class="table table-bordered" id="sample">
+              <table class="table table-bordered table-sm" id="sample">
                 <tbody>
                   <tr v-show="!editMode">
                     <td colspan="2">
-                      <div class="float-none">
-                        <input
-                          type="text"
-                          class="form-control form-control-sm"
-                          v-model="query"
-                          name="name"
-                          placeholder="Search employee"
-                          @keyup="autoComplete"
-                        />
-                        <div
-                          class="panel-footer results"
-                          v-if="results.length && query != ''"
+                      <input
+                        type="text"
+                        class="form-control form-control-sm"
+                        v-model="query"
+                        name="name"
+                        placeholder="Search employee"
+                        @keyup="autoComplete"
+                      />
+                      <div
+                        class="panel-footer results"
+                        v-if="results.length && query != ''"
+                      >
+                        <p
+                          v-for="(result, i) in results"
+                          :key="i"
+                          @click.prevent="selectEmp(result)"
                         >
-                          <p v-for="(result, i) in results" :key="i">
-                            <a @click.prevent="selectEmp(result)">{{ result.name }} </a>
-                          </p>
-                        </div>
+                          <a>{{ result.name }} </a>
+                        </p>
                       </div>
                     </td>
                   </tr>
@@ -238,7 +237,7 @@
                     <td>
                       <input
                         type="text"
-                        class="form-control form-control-sm"
+                        class="form-control form-control-sm text-uppercase"
                         v-model="form.name"
                         name="name"
                       />
@@ -272,7 +271,11 @@
                         v-model="form.usertype"
                         class="form-control form-control-sm"
                       >
-                        <option v-for="(type, i) in types" :value="type.id" :key="i">
+                        <option
+                          v-for="(type, i) in types"
+                          :value="type.id"
+                          :key="i"
+                        >
                           {{ type.usertype }}
                         </option>
                       </select>
@@ -283,7 +286,10 @@
                   <tr>
                     <td class="text-bold">Store</td>
                     <td>
-                      <select v-model="form.store" class="form-control form-control-sm">
+                      <select
+                        v-model="form.store"
+                        class="form-control form-control-sm"
+                      >
                         <option
                           v-for="(store, i) in stores"
                           :value="store.bunit_code"
@@ -317,10 +323,18 @@
                 data-dismiss="modal"
                 value="Close"
               />
-              <button v-show="editMode" type="submit" class="btn btn-primary btn-sm">
+              <button
+                v-show="editMode"
+                type="submit"
+                class="btn btn-primary btn-sm"
+              >
                 Submit
               </button>
-              <button v-show="!editMode" type="submit" class="btn btn-primary btn-sm">
+              <button
+                v-show="!editMode"
+                type="submit"
+                class="btn btn-primary btn-sm"
+              >
                 Submit
               </button>
             </div>
@@ -388,6 +402,7 @@ export default {
       searchUser: null,
       query: "",
       results: [],
+      selectedData: false,
       form: new Form({
         id: "",
         name: "",
@@ -405,6 +420,12 @@ export default {
     };
   },
   methods: {
+    selected(data) {
+      this.selectedData = data;
+    },
+    unSelected() {
+      this.selectedData = false;
+    },
     clearData() {
       this.getUsers();
       this.tableData.search = "";
@@ -418,9 +439,11 @@ export default {
     },
     autoComplete: _.throttle(function () {
       if (this.query.length > 2) {
-        axios.get("/api/employee", { params: { query: this.query } }).then((response) => {
-          this.results = response.data;
-        });
+        axios
+          .get("/api/employee", { params: { query: this.query } })
+          .then((response) => {
+            this.results = response.data;
+          });
       }
     }, 1000),
 
@@ -570,21 +593,3 @@ export default {
 };
 </script>
 
-<style>
-.ex1 {
-  height: 150px;
-  width: 430px;
-  overflow-y: auto;
-}
-.results {
-  position: absolute;
-  z-index: 1000;
-  border: 1px solid #ccc;
-  background: #fff;
-  width: 441px;
-  height: 150px;
-  overflow-y: auto;
-  padding: 1px;
-  color: #2073cc;
-}
-</style>
