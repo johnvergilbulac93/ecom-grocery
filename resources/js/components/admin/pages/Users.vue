@@ -210,25 +210,27 @@
                 <tbody>
                   <tr v-show="!editMode">
                     <td colspan="2">
-                      <input
-                        type="text"
-                        class="form-control form-control-sm"
-                        v-model="query"
-                        name="name"
-                        placeholder="Search employee"
-                        @keyup="autoComplete"
-                      />
-                      <div
-                        class="panel-footer results"
-                        v-if="results.length && query != ''"
-                      >
-                        <p
-                          v-for="(result, i) in results"
-                          :key="i"
-                          @click.prevent="selectEmp(result)"
+                      <div class="wrapper-search">
+                        <input
+                          type="text"
+                          class="form-control form-control-sm"
+                          v-model="query"
+                          name="name"
+                          placeholder="Search employee"
+                          @keyup="autoComplete"
+                        />
+                        <div
+                          class="results"
+                          v-if="results.length && query != ''"
                         >
-                          <a>{{ result.name }} </a>
-                        </p>
+                          <p
+                            v-for="(result, i) in results"
+                            :key="i"
+                            @click.prevent="selectEmp(result)"
+                          >
+                            <a>{{ result.name }} </a>
+                          </p>
+                        </div>
                       </div>
                     </td>
                   </tr>
@@ -438,7 +440,7 @@ export default {
       this.form.emp_id = employee.emp_id;
     },
     autoComplete: _.throttle(function () {
-      if (this.query.length > 2) {
+      if (this.query.length > 0) {
         axios
           .get("/api/employee", { params: { query: this.query } })
           .then((response) => {

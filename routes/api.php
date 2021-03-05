@@ -50,16 +50,13 @@ Route::middleware('auth:api')->group(function () {
 
     Route::get('tagging_uom/disable', 'API\ItemController@disable_tagging_uom');
     Route::post('tagging/per_uom/disable', 'API\ItemController@disable_per_uom');
-    
+
     Route::get('tagging_uom/enable', 'API\ItemController@enable_tagging_uom');
     Route::post('tagging/per_uom/enable', 'API\ItemController@enable_per_uom');
     Route::get('price_changed/count', 'API\ItemController@price_count_changed');
     Route::get('price_changed/info', 'API\ItemController@price_count_changed_info');
 
     Route::get('show/available/item/store', 'API\ItemController@store_available_item');
-
-
-
 });
 
 Route::middleware('auth:api')->group(function () {
@@ -100,7 +97,6 @@ Route::middleware('auth:api')->group(function () {
     Route::get('show/charges', 'API\SetUpController@show_charge');
     Route::post('create/charge', 'API\SetUpController@create_charge');
     Route::delete('charges/remove/{id}', 'API\SetUpController@delete_charges');
-
 });
 
 Route::middleware('auth:api')->group(function () {
@@ -118,11 +114,11 @@ Route::middleware('auth:api')->group(function () {
     Route::get('employee', 'API\UserController@employees');
 
     Route::post('updateprofile', 'API\UserController@updateprofile');
-
 });
 
 Route::middleware('auth:api')->group(function () {
     Route::get('filter_report', 'API\ReportController@index');
     Route::get('filter_report_store', 'API\ReportController@store_item');
     Route::get('liquidation/report', 'API\ReportController@getLiquidation');
+    Route::get('accountability/report', 'API\ReportController@getAccountability');
 });

@@ -45,14 +45,18 @@
         </div>
       </div>
       <div class="d-flex">
-        <button class="btn btn-primary btn-sm mx-2" @click="generate()" tabindex="4">
+        <button
+          class="btn btn-primary btn-sm mx-2"
+          @click="generate()"
+          tabindex="4"
+        >
           Generate
         </button>
         <button
           tabindex="5"
           class="btn btn-success btn-sm"
           @click="printBtn()"
-          v-if="transactions.b_unit != null "
+          v-if="transactions.b_unit != null"
           :disabled="transactions.cashier_details.length >= 0"
         >
           <i class="fas fa-print"></i>
@@ -62,9 +66,9 @@
     </div>
     <hr class="mt-1" />
     <div id="section-to-print">
-      <div class="container" v-if="transactions.b_unit != null">
+      <div class="container">
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-sm-12" v-if="transactions.b_unit != null">
             <center>
               <img
                 alt="logo"
@@ -83,15 +87,17 @@
                 {{ filter.dateTo | formatDateNoTime }}
               </span>
             </center>
+          </div>
+          <div class="col-sm-12">
             <div
-              class="mt-3"
+              class="mt-2"
               id="body-content"
               v-for="(cashier, index) in transactions.cashier_details"
               :key="index"
             >
               <table
                 id="table-body-content"
-                class="table table-striped table-sm"
+                class="table table-bordered table-sm"
               >
                 <thead>
                   <tr>
@@ -106,8 +112,12 @@
                     <th>Picking Charge</th>
                     <th>Total</th>
                   </tr>
-                </thead>
+                </thead>              
                 <tbody>
+                  <tr v-if="!cashier.length">
+                    <td colspan="10" class="text-center"> NO DATA AVAILABLE </td>
+                  </tr>
+
                   <tr v-for="(trans, index) in cashier" :key="index">
                     <td>{{ trans.name }}</td>
                     <td>
@@ -145,8 +155,8 @@
                     </td>
                   </tr>
                   <tr class="font-weight-bold">
-                    <th colspan="4" class="text-center">
-                      <h6>GRAND TOTAL:</h6>
+                    <th colspan="4" class="text-primary text-center">
+                      GRAND TOTAL:
                     </th>
                     <th>{{ cashier.length }}</th>
                     <th>
@@ -167,7 +177,7 @@
                   </tr>
                 </tbody>
               </table>
-              <span class="float-right">Run Time: {{ dateNow }}</span>
+              <span class="text-right">Run Time: {{ dateNow }}</span>
             </div>
           </div>
         </div>
@@ -326,7 +336,7 @@ export default {
     );
     this.filter.dateTo = moment(this.$root.serverDateTime).format("YYYY-MM-DD");
     this.dateNow = moment(this.$root.serverDateTime).format(
-      "MMMM Do YYYY, h:mm:ss a"
+      "LLLL"
     );
   },
 };

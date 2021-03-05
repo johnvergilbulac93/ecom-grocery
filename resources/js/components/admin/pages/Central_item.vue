@@ -66,6 +66,8 @@
             <tr v-if="!items.length" class="tr-hover">
               <td colspan="8" class="text-center">No matching records found</td>
             </tr>
+
+            
             <tr
               v-for="(item, i) in items"
               :key="i"
