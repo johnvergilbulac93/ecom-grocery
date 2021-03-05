@@ -298,10 +298,14 @@ export default {
       return discountAmount;
     },
     async generate() {
-      const res = await axios.get("api/accountability/report", {
-        params: this.filter,
-      });
-      this.transactions = res.data;
+      if (this.filter.dateFrom > this.filter.dateTo) {
+        swal.fire("Invalid Date!", "Please check.", "warning");
+      } else {
+        const res = await axios.get("api/accountability/report", {
+          params: this.filter,
+        });
+        this.transactions = res.data;
+      }
     },
     async getStores() {
       const res = await axios.get("api/stores");

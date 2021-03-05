@@ -112,10 +112,10 @@
                     <th>Picking Charge</th>
                     <th>Total</th>
                   </tr>
-                </thead>              
+                </thead>
                 <tbody>
                   <tr v-if="!cashier.length">
-                    <td colspan="10" class="text-center"> NO DATA AVAILABLE </td>
+                    <td colspan="10" class="text-center">NO DATA AVAILABLE</td>
                   </tr>
 
                   <tr v-for="(trans, index) in cashier" :key="index">
@@ -305,23 +305,15 @@ export default {
       window.print();
     },
     async generate() {
-      // if (this.filter.store == null) {
-      //   swal.fire("Warning!", "Please select store.", "warning");
-      // } else if (this.filter.dateFrom == null) {
-      //   swal.fire("Warning!", "Date From is empty.", "warning");
-      // } else if (this.filter.dateTo == null) {
-      //   swal.fire("Warning!", "Date To is empty.", "warning");
-      // } else {
-      //
-      // }
-      const res = await axios.get("api/liquidation/report", {
-        params: this.filter,
-      });
-      this.transactions = res.data;
-      this.totalTransaction = res.data.cashier_details.length;
-      // this.totalOrderAmount(res.data.cashier_details);
-      // this.logo = res.data.b_unit.logo;
-      // $("#liquidation").modal("show");
+      if (this.filter.dateFrom > this.filter.dateTo) {
+        swal.fire("Invalid Date!", "Please check.", "warning");
+      } else {
+        const res = await axios.get("api/liquidation/report", {
+          params: this.filter,
+        });
+        this.transactions = res.data;
+        this.totalTransaction = res.data.cashier_details.length;
+      }
     },
     async getStores() {
       const res = await axios.get("api/stores");
@@ -335,9 +327,7 @@ export default {
       "YYYY-MM-DD"
     );
     this.filter.dateTo = moment(this.$root.serverDateTime).format("YYYY-MM-DD");
-    this.dateNow = moment(this.$root.serverDateTime).format(
-      "LLLL"
-    );
+    this.dateNow = moment(this.$root.serverDateTime).format("LLLL");
   },
 };
 </script>
