@@ -53,11 +53,13 @@ export default {
       axios
         .get("api/filter_report", { params: this.filter }, { responseType: "blob" })
         .then((res) => {
+          console.log(res.data.data);
           this.loading = false;
           let anchor = document.createElement("a");
           let filename;
+          
           if (this.filter.by === "all") {
-            filename = "Item_masterfile.xlsx";
+            filename = "Item_masterfile ";
           }
           if (this.filter.by === "available") {
             filename = "available_items.xlsx";

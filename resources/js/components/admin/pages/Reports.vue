@@ -67,6 +67,7 @@ export default {
       loading: false,
       stores: [],
       selectedstore: "",
+      storeName: '',
       filter: {
         by: "",
         store: "",

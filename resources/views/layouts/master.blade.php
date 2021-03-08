@@ -12,28 +12,28 @@
                 <div class="collapse navbar-collapse order-3 " id="navbarCollapse" style="font-size: 16px;">
                     <!-- Left navbar links -->
                     <ul class="navbar-nav">
-                        
+
                         <li class="nav-item d-none d-sm-inline-block">
-                           
+
                             <router-link :to="{ name: 'dashboard', params: { id: {{ Auth::user()->usertype_id }}  } }"
                                 class="nav-link ">
-                                <i class="fas fa-home text-orange"></i>
-                               <span>DASHBOARD</span> 
+                                <i class="fas fa-home text-orange fa-lg"></i>
+                                <span>DASHBOARD</span>
                             </router-link>
                         </li>
                         <li class="nav-item dropdown ">
-                            
+
                             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                 class="nav-link   dropdown-toggle">
-                                <i class="fas fa-cog text-orange"></i>
-                                <span>MASTERFILE</span> 
+                                <i class="fas fa-cog text-orange fa-lg"></i>
+                                <span>MASTERFILE</span>
                             </a>
                             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu dropdown-menu-lg border-0 shadow"
                                 style="font-size: 12px;">
                                 <li>
                                     <router-link
                                         :to="{ name: 'business_rule', params: { id: {{ Auth::user()->usertype_id }}  } }"
-                                        class="dropdown-item">                         
+                                        class="dropdown-item">
                                         <p>BUSINESS RULES</p>
                                     </router-link>
                                 </li>
@@ -137,8 +137,8 @@
                         <li class="nav-item dropdown ">
                             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                 class="nav-link   dropdown-toggle">
-                                <i class="fas fa-cloud-upload-alt text-orange"></i>
-                               <span>UPLOADING</span> 
+                                <i class="fas fa-cloud-upload-alt text-orange fa-lg"></i>
+                                <span>UPLOADING</span>
                             </a>
                             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu dropdown-menu-lg border-0 shadow"
                                 style="font-size: 12px;">
@@ -188,8 +188,8 @@
                         <li class="nav-item dropdown ">
                             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                 class="nav-link   dropdown-toggle">
-                                <i class="fas fa-list-alt text-orange"></i>
-                               <span>REPORTS</span> 
+                                <i class="fas fa-list-alt text-orange fa-lg"></i>
+                                <span>REPORTS</span>
                             </a>
                             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu dropdown-menu-lg border-0 shadow"
                                 style="font-size: 12px;">
@@ -233,22 +233,24 @@
                         <li class="nav-item d-none d-sm-inline-block">
                             <router-link :to="{ name: 'uploading', params: { id: {{ Auth::user()->usertype_id }}  } }"
                                 class="nav-link">
-                                <p>ITEM, PRICE</p>
+                                <i class="fas fa-cloud-upload-alt text-orange"></i>
+                                <span>ITEM, PRICE</span>
                             </router-link>
                         </li>
                         <li>
                             <router-link :to="{ name: 'setting', params: { id: {{ Auth::user()->usertype_id }}  } }"
                                 class="nav-link">
-                                <p>IMAGE FILENAME AND CATEGORY</p>
+                                <i class="fas fa-cloud-upload-alt text-orange fa-lg"></i>
+                                <span>IMAGE FILENAME AND CATEGORY</span>
                             </router-link>
                         </li>
                         <li class="nav-item">
                             <router-link :to="{ name: 'multiple', params: { id: {{ Auth::user()->usertype_id }}  } }"
                                 class="nav-link">
-                                <p>UPLOAD MULTIPLE IMAGES</p>
+                                <i class="fas fa-cloud-upload-alt text-orange fa-lg"></i>
+                                <span>UPLOAD MULTIPLE IMAGES</span>
                             </router-link>
                         </li>
-
                     </ul>
                 </div>
             </div>
@@ -266,15 +268,19 @@
                     <!-- Left navbar links -->
                     <ul class="navbar-nav">
                         <li class="nav-item d-none d-sm-inline-block">
-                            <router-link :to="{ name: 'liquidition', params: { id: {{ Auth::user()->usertype_id }}  } }"
+                            <router-link
+                                :to="{ name: 'liquidition_store', params: { id: {{ Auth::user()->usertype_id }}  } }"
                                 class="nav-link">
-                                <p>LIQUIDITION REPORT</p>
+                                <i class="fas fa-clipboard-list text-orange fa-lg"></i>
+                                <span>LIQUIDITION REPORT</span>
                             </router-link>
                         </li>
                         <li>
-                            <router-link :to="{ name: 'accountability', params: { id: {{ Auth::user()->usertype_id }}  } }"
+                            <router-link
+                                :to="{ name: 'accountability_store', params: { id: {{ Auth::user()->usertype_id }}  } }"
                                 class="nav-link">
-                                <p>CASHIER ACCOUNTABILITY REPORT</p>
+                                <i class="fas fa-clipboard-list text-orange fa-lg"></i>
+                                <span>CASHIER ACCOUNTABILITY REPORT</span>
                             </router-link>
                         </li>
                     </ul>
@@ -294,15 +300,24 @@
                     <!-- Left navbar links -->
                     <ul class="navbar-nav">
                         <li class="nav-item d-none d-sm-inline-block">
-                            <router-link :to="{ name: 'central_item', params: { id: {{ Auth::user()->usertype_id }}  } }"
+                            <router-link :to="{ name: 'item', params: { id: {{ Auth::user()->usertype_id }}  } }"
                                 class="nav-link">
-                                <p>ITEM MASTERFILE</p>
+                                <i class="fas fa-shopping-cart text-orange fa-lg"></i>
+                                <span>ITEM MASTERFILE</span>
                             </router-link>
                         </li>
                         <li>
                             <router-link :to="{ name: 'disabled_item', params: { id: {{ Auth::user()->usertype_id }}  } }"
                                 class="nav-link ">
-                                <p>UPLOAD ITEM CODE TO DISABLE</p>
+                                <i class="fas fa-cloud-upload-alt text-orange fa-lg"></i>
+                                <span>UPLOAD ITEM CODE TO DISABLE</span>
+                            </router-link>
+                        </li>
+                        <li>
+                            <router-link :to="{ name: 'reports_store', params: { id: {{ Auth::user()->usertype_id }}  } }"
+                                class="nav-link ">
+                                <i class="fas fa-clipboard-list text-orange fa-lg"></i>
+                                <span>ITEM REPORT</span>
                             </router-link>
                         </li>
                     </ul>
@@ -354,6 +369,7 @@
             </div>
         </header>
     @endcan
+
     <div class="mt-2">
         <router-view></router-view>
     </div>

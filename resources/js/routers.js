@@ -29,6 +29,10 @@ import enable_uom from './components/admin/pages/Item_enable_per_uom'
 import minimum_delivery from './components/admin/pages/Minimum_order_delivery'
 import delivery_charges from './components/admin/pages/Delivery_charges'
 import multiple from './components/admin/pages/Multiple-images'
+import liquidition_store from './components/admin/pages/Liquidition-Report-Store'
+import accountability_store from './components/admin/pages/Accountability-Report-Store'
+
+
 
 
 const routes = [
@@ -236,7 +240,7 @@ const routes = [
         name: 'liquidition',
         component: liquidition,
         beforeEnter: (to, from, next) => {
-            if (to.params.id === 14 || to.params.id === 12 || to.params.id === 7) {
+            if (to.params.id === 12) {
                 next();
             } else {
                 next('/');
@@ -332,8 +336,32 @@ const routes = [
         name: 'multiple',
         component: multiple,
         beforeEnter: (to, from, next) => {
-            if (to.params.id === 12) {
+            if (to.params.id === 12 || to.params.id === 6) {
                 next();
+            } else {
+                next('/');
+            }
+        }
+    },
+    {
+        path: '/liquidition_store',
+        name: 'liquidition_store',
+        component: liquidition_store,
+        beforeEnter: (to, from, next) => {
+            if (to.params.id === 7) {
+                next();
+            } else {
+                next('/');
+            }
+        }
+    },
+    {
+        path: '/accountability_store',
+        name: 'accountability_store',
+        component: accountability_store,
+        beforeEnter: (to, from, next) => {
+            if (to.params.id === 7) {
+                next(); 
             } else {
                 next('/');
             }

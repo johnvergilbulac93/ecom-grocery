@@ -121,4 +121,6 @@ Route::middleware('auth:api')->group(function () {
     Route::get('filter_report_store', 'API\ReportController@store_item');
     Route::get('liquidation/report', 'API\ReportController@getLiquidation');
     Route::get('accountability/report', 'API\ReportController@getAccountability');
+    Route::get('liquidation/store/report', 'API\ReportController@getLiquidation_store');
+    Route::get('accountability/store/report', 'API\ReportController@getAccountability_store');
 });

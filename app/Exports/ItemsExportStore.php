@@ -44,6 +44,7 @@ FromCollection
         }
         if($this->filter === 'available')
         {
+            
             $query =  DB::table('gc_product_items')
                     ->join('gc_product_prices','gc_product_items.itemcode','=','gc_product_prices.itemcode')
                     ->select('gc_product_items.itemcode','gc_product_items.product_name','gc_product_items.category_name','gc_product_items.category_no','gc_product_prices.UOM','gc_product_prices.price_with_vat')

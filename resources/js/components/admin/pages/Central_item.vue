@@ -67,7 +67,6 @@
               <td colspan="8" class="text-center">No matching records found</td>
             </tr>
 
-            
             <tr
               v-for="(item, i) in items"
               :key="i"
@@ -75,12 +74,15 @@
               @mouseover="selected(item)"
               @mouseleave="unSelected()"
             >
-              <td style="width: 40px">
+              <td style="width: 50px">
                 <a
                   @click="preview(item.image, item.product_name)"
                   v-if="item === selectedData"
+                  data-toggle="tooltip"
+                  data-placement="bottom"
+                  title="View Image"
                 >
-                  <i class="fas fa-eye text-secondary"></i>
+                  <i class="fas fa-eye text-secondary fa-lg mt-2"></i>
                 </a>
                 <!-- <a @click="preview(item.image, item.product_name)">
                   <center>
@@ -136,13 +138,17 @@
                   >
                 </a>
               </td>
-              <td style="width: 40px">
+              <td style="width: 50px">
                 <a
                   @click="uploadImageItem(item, item.product_id)"
                   v-if="item === selectedData"
                   class="text-danger"
+                  data-toggle="tooltip"
+                  data-placement="bottom"
+                  title="Upload Image"
+                 
                 >
-                  <i class="fas fa-cloud-upload-alt text-primary"></i
+                  <i class="fas fa-cloud-upload-alt fa-lg text-primary mt-2"></i
                 ></a>
                 <!-- <Button
                   icon="ios-cloud-upload"

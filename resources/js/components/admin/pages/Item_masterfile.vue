@@ -1,11 +1,12 @@
 <template>
   <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-12">
-        <div class="card mt-2">
-          <div class="card-header">
+    <Top></Top>
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-sm-6">
             <div class="row">
-              <div class="col-sm-6">
+              <div class="col-sm-8 py-1">
                 <div class="form-group has-search">
                   <span class="fa fa-search form-control-feedback"></span>
                   <input
@@ -13,70 +14,103 @@
                     class="form-control form-control-sm"
                     placeholder="Search"
                     v-model="tableData.search"
-                    @input="getItems()"
+                    @keyup.enter="getItems()"
                   />
                 </div>
               </div>
-              <div class="col-sm-6">
-                <label for="" class="font-light float-right mx-1 mt-1">Entries</label>
-                <select
-                  v-model="tableData.length"
-                  class="form-control form-control-sm float-right"
-                  style="width: 110px"
-                  @change="getItems()"
+              <div class="col-sm-2 py-1">
+                <button
+                  class="btn btn-primary btn-sm btn-block"
+                  @click="getItems()"
+                  v-bind:disabled="tableData.search.length === 0"
                 >
-                  <option
-                    v-for="(records, index) in perPage"
-                    :key="index"
-                    :value="records"
-                  >
-                    {{ records }}
-                  </option>
-                </select>
-                <label for="" class="font-light float-right mx-1 mt-1">Show</label>
+                  Find
+                </button>
+              </div>
+              <div class="col-sm-2 py-1">
+                <button
+                  class="btn btn-primary btn-sm btn-block"
+                  @click="clearData"
+                  v-bind:disabled="tableData.search.length === 0"
+                >
+                  Clear
+                </button>
               </div>
             </div>
           </div>
-          <div class="card-body">
-            <datatable
-              :columns="columns"
-              :sortKey="sortKey"
-              :sortOrders="sortOrders"
-              @sort="sortBy"
+          <div class="col-sm-6 py-1">
+            <select
+              v-model="tableData.length"
+              class="form-control form-control-sm col-sm-3 float-right"
+              @change="getItems()"
             >
-              <tbody>
-                <tr v-if="!items.length">
-                  <td colspan="4" class="text-center">No matching records found</td>
-                </tr>
-                <tr
-                  v-for="(item, i) in items"
-                  :key="i"
-                  v-bind:class="{ 'text-red font-weight-bold': item.items !== null }"
+              <option
+                v-for="(records, index) in perPage"
+                :key="index"
+                :value="records"
+              >
+                {{ records }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <datatable
+          :columns="columns"
+          :sortKey="sortKey"
+          :sortOrders="sortOrders"
+          @sort="sortBy"
+        >
+          <tbody>
+            <tr v-if="!items.length">
+              <td colspan="4" class="text-center">No matching records found</td>
+            </tr>
+            <tr
+              v-for="(item, i) in items"
+              :key="i"
+              v-bind:class="{
+                'text-danger font-weight-bold': item.items !== null,
+              }"
+              @mouseover="selected(item)"
+              @mouseleave="unSelected()"
+              class="tr-hover"
+            >
+              <td style="width: 45px">
+                <a
+                  @click="preview(item.image, item.product_name)"
+                  v-if="item === selectedData"
+                  data-toggle="tooltip"
+                  data-placement="bottom"
+                  title="View Image"
                 >
-                  <td class="w-15">
-                    <a @click="preview(item.image, item.product_name)">
-                      <center>
-                        <img
-                          :src="$root.url + item.image"
-                          alt="item-image"
-                          class="img"
-                          v-if="item.image"
-                          style="width: 60px; height: 50px; object-fit: scale-down"
-                        />
-                        <img
-                          :src="$root.url + 'noimage.png'"
-                          alt="item-image"
-                          class="img"
-                          v-else
-                          style="width: 60px; height: 50px; object-fit: scale-down"
-                        />
-                      </center>
-                    </a>
-                  </td>
-                  <td>{{ item.itemcode }}</td>
-                  <td>{{ item.product_name }}</td>
-                  <td>{{ item.category_name }}</td>
-                  <td class="text-center" style="width: 50px">
+                  <i class="fas fa-eye text-secondary fa-lg mt-1"></i>
+                </a>
+              </td>
+              <td>{{ item.itemcode }}</td>
+              <td>{{ item.product_name }}</td>
+              <td>{{ item.category_name }}</td>
+              <td style="width: 45px">
+                <a
+                  v-if="item.items !== null"
+                  @click="tagItemEnable(item.itemcode, item.product_name)"
+                  data-toggle="tooltip"
+                  data-placement="bottom"
+                  title="Disable Item"
+                >
+                  <i class="fas fa-times fa-lg text-danger mt-1 px-1"></i>
+                </a>
+                <a
+                  v-else
+                  @click="tagItemDisable(item.itemcode, item.product_name)"
+                  data-toggle="tooltip"
+                  data-placement="bottom"
+                  title="Enable Item"
+                >
+                  <i class="fas fa-check fa-lg text-success mt-1"></i>
+                </a>
+              </td>
+              <!-- <td class="text-center" style="width: 50px">
                     <Button
                       v-if="item.items !== null"
                       icon="md-close"
@@ -91,20 +125,18 @@
                       shape="circle"
                       @click="tagItemDisable(item.itemcode, item.product_name)"
                     ></Button>
-                  </td>
-                </tr>
-              </tbody>
-            </datatable>
-          </div>
-          <div class="card-footer">
-            <pagination
-              :pagination="pagination"
-              @prev="getItems(pagination.prevPageUrl)"
-              @next="getItems(pagination.nextPageUrl)"
-            >
-            </pagination>
-          </div>
-        </div>
+                  </td> -->
+            </tr>
+          </tbody>
+        </datatable>
+      </div>
+      <div class="card-footer">
+        <pagination
+          :pagination="pagination"
+          @prev="getItems(pagination.prevPageUrl)"
+          @next="getItems(pagination.nextPageUrl)"
+        >
+        </pagination>
       </div>
     </div>
 
@@ -120,7 +152,9 @@
       <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="previewitem">{{ form.product_name }}</h5>
+            <h5 class="modal-title" id="previewitem">
+              {{ form.product_name }}
+            </h5>
           </div>
           <div class="modal-body">
             <center>
@@ -166,11 +200,11 @@ export default {
   data() {
     let sortOrders = {};
     let columns = [
-      { width: "10%", label: "IMAGE", name: "image" },
+      { width: "5%", label: "", name: "image" },
       { width: "10%", label: "CODE", name: "itemcode" },
       { width: "40%", label: "DESCRIPTION", name: "description" },
       { width: "20%", label: "CATEGORY", name: "category" },
-      { width: "10%", label: "ACTION", name: "action" },
+      { width: "10%", label: "", name: "action" },
     ];
     columns.forEach((column) => {
       sortOrders[column.name] = -1;
@@ -180,6 +214,7 @@ export default {
       columns: columns,
       sortKey: "itemcode",
       sortOrders: sortOrders,
+      selectedData: false,
       perPage: ["10", "25", "50", "100"],
       tableData: {
         draw: 0,
@@ -211,6 +246,16 @@ export default {
     };
   },
   methods: {
+    clearData() {
+      this.getItems();
+      this.tableData.search = "";
+    },
+    selected(data) {
+      this.selectedData = data;
+    },
+    unSelected() {
+      this.selectedData = false;
+    },
     preview(image, description) {
       this.form.previewImage = image;
       this.form.product_name = description;
