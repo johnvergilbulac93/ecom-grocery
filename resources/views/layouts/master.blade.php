@@ -17,7 +17,7 @@
                            
                             <router-link :to="{ name: 'dashboard', params: { id: {{ Auth::user()->usertype_id }}  } }"
                                 class="nav-link ">
-                                <i class="fas fa-home"></i>
+                                <i class="fas fa-home text-orange"></i>
                                <span>DASHBOARD</span> 
                             </router-link>
                         </li>
@@ -25,7 +25,7 @@
                             
                             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                 class="nav-link   dropdown-toggle">
-                                <i class="fas fa-cog"></i>
+                                <i class="fas fa-cog text-orange"></i>
                                 <span>MASTERFILE</span> 
                             </a>
                             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu dropdown-menu-lg border-0 shadow"
@@ -137,7 +137,7 @@
                         <li class="nav-item dropdown ">
                             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                 class="nav-link   dropdown-toggle">
-                                <i class="fas fa-cloud-upload-alt"></i>
+                                <i class="fas fa-cloud-upload-alt text-orange"></i>
                                <span>UPLOADING</span> 
                             </a>
                             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu dropdown-menu-lg border-0 shadow"
@@ -161,7 +161,6 @@
                                         <p>UPLOAD MULTIPLE IMAGES</p>
                                     </router-link>
                                 </li>
-                                <li class="dropdown-divider"></li>
                                 {{-- <li class="dropdown-submenu dropdown-hover">
                                 <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false" class="dropdown-item dropdown-toggle">UPLOADING</a>
@@ -189,7 +188,7 @@
                         <li class="nav-item dropdown ">
                             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                 class="nav-link   dropdown-toggle">
-                                <i class="fas fa-list-alt"></i>
+                                <i class="fas fa-list-alt text-orange"></i>
                                <span>REPORTS</span> 
                             </a>
                             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu dropdown-menu-lg border-0 shadow"

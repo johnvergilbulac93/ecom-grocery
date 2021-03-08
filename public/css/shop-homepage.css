@@ -17,16 +17,18 @@
     background: #ffffff;
     display: block;
     z-index: 1032;
-}   
+}
 
+/* @page section-to-print {
+    margin: .5in .5in .5in .5in;
+    mso-header-margin: .5in;
+    mso-footer-margin: .5in;
+} */
 
-@media print{
-    @page {
-        margin-top: 1cm;
-        margin-bottom: 1cm;
-        margin-left: 1cm;
-        margin-right: 1cm;
-        orientation: landscape;
+@media print {
+
+    @page{
+       margin: 1cm;
     }
 
     body * {
@@ -43,7 +45,7 @@
 
     #section-to-print,
     #section-to-print * {
-        visibility: visible;  
+        visibility: visible;
     }
 
 }
@@ -69,8 +71,9 @@
     opacity: 0;
     visibility: hidden;
     z-index: 1000;
-  }
-  #button::after {
+}
+
+#button::after {
     content: " \25B2";
     font-family: FontAwesome;
     font-weight: normal;
@@ -79,42 +82,50 @@
     line-height: 40px;
     color: #fff;
     /* color:#fd7e14; */
-  }
-  #button:hover {
+}
+
+#button:hover {
     cursor: pointer;
     background-color: #555;
-  }
-  #button:active {
+}
+
+#button:active {
     background-color: #555;
-  }
-  #button.show {
+}
+
+#button.show {
     opacity: 1;
     visibility: visible;
-  }
-  
-  @media (min-width: 500px) {
+}
+
+@media (min-width: 500px) {
     .content {
-      width: 43%;
+        width: 43%;
     }
+
     #button {
-      margin: 30px;
+        margin: 30px;
     }
-  }
-  .content h1 {
+}
+
+.content h1 {
     margin-bottom: -10px;
     color: #03a9f4;
     line-height: 1.5;
-  }
-  .content h3 {
+}
+
+.content h3 {
     font-style: italic;
     color: #96a2a7;
-  }
-  .main-sidenav{
+}
+
+.main-sidenav {
     border-bottom: 2px solid #dee2e6;
-  }
-  .footer-main{
+}
+
+.footer-main {
     background: #fff;
     border-top: 1px solid #dee2e6;
     color: #869099;
     padding: 20px 10px;
-  }
+}

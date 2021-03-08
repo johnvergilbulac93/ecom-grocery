@@ -26,27 +26,42 @@
     {{-- <link href="{{ asset('css/ionicons.min.css')}}" rel="stylesheet"> --}}
 </head>
 
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
+    header {
+        font-family: 'Roboto', sans-serif;
+    }
+
+    .user {
+        font-family: 'Roboto', sans-serif;
+    }
+
+</style>
+
+
+
 <body>
     <div id='app'>
         <!-- Navigation -->
         <div class="wrapper">
             <nav class="main-sidenav navbar navbar-expand-md navbar-light navbar-white">
                 <div class="container">
-                    <a href="#" class="navbar-brand">
+                    <router-link to="/" class="navbar-brand">
                         <img src="{{ URL::asset('/img/alturush.png') }}" alt="Logo"
                             style="height: 3rem; object-fit: cover" style="opacity: .8">
                         {{-- <span class="brand-text font-weight-light">GROCERY|ADMIN</span> --}}
-                    </a>
+                    </router-link>
                     <!-- Right navbar links -->
                     <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
 
 
                         <!-- User Dropdown Menu -->
-                        <li class="nav-item dropdown" >
+                        <li class="nav-item dropdown">
                             <a class="nav-link" data-toggle="dropdown" href="#">
                                 <img src="{{ URL::asset('/img/user1.png') }}" class="img-circle elevation-1"
                                     alt="User Image" style="height: 2rem;">
-                                <span class="text-uppercase">{{ Auth::user()->name }}</span>
+                                <span class="user text-uppercase">{{ Auth::user()->name }}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" style="font-size: 15px;">
                                 <a href="#" class="dropdown-item px-3 py-1" data-toggle="modal"
@@ -70,7 +85,7 @@
                 </div>
             </nav>
             <!-- Page Content -->
-                @yield('menu')
+            @yield('menu')
 
             {{-- <footer class="footer-main">
                 <!-- To the right -->
@@ -93,8 +108,8 @@
                         </div>
                         <div class="modal-body">
                             <center>
-                                <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg"
-                                    name="aboutme" width="140" height="140" border="0" class="img-circle"></a>
+                                <img src="{{ URL::asset('/img/user1.png') }}" class="img-circle elevation-1"
+                                    alt="User Image" style="height: 3rem;">
                                 <h3> {{ Auth::user()->name }} </h3>
 
                             </center>
@@ -102,25 +117,25 @@
                             <button class="text-left btn btn-outline-primary btn-sm" type="button"
                                 data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
                                 aria-controls="collapseExample">
-                                Change Username & Password
+                                CHANGE USERNAME & PASSWORD
                             </button>
                             <div class="collapse mt-2" id="collapseExample">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="username">Username</label>
-                                            <input v-model="form.username" type="text" class="form-control"
+                                            <label for="username">USERNAME</label>
+                                            <input v-model="form.username" type="text" class="form-control form-control-sm"
                                                 name="username" id="username"
                                                 :class="{ 'is-invalid': form.errors.has('username') }">
                                             <has-error :form="form" field="username"></has-error>
                                         </div>
                                         <div class="form-group">
-                                            <label for="passsword">New Password</label>
-                                            <input v-model="form.password" type="password" class="form-control">
+                                            <label for="passsword">NEW PASSWORD</label>
+                                            <input v-model="form.password" type="password" class="form-control form-control-sm">
                                         </div>
                                     </div>
                                     <div class="col-md-12">
-                                        <button type="button" class="btn btn-outline-success"
+                                        <button type="button" class="btn btn-outline-success btn-sm"
                                             @click.prevent="updateProfile"
                                             v-bind:disabled="form.username.length == 0 && form.password.length == 0">
                                             Save changes</button>
