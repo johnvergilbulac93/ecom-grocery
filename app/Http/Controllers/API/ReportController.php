@@ -95,7 +95,7 @@ class ReportController extends Controller
             }
             return response()->json([
                 'success' => true,
-                'data' => $fileLink      
+                'data' => $fileLink
             ], 200);
         }
 
@@ -146,7 +146,9 @@ class ReportController extends Controller
             ->join('gc_order_statuses', 'gc_order_statuses.ticket_id', '=', 'gc_cashier_monitoring.ticket_id')
             ->where('gc_order_statuses.paid_status', true)
             ->where('gc_order_statuses.bu_id', '=', $buId)
-            ->whereBetween('gc_order_statuses.order_pickup', [$dateFrom, $dateTo])
+            // ->whereBetween('gc_order_statuses.order_pickup', [$dateFrom, $dateTo])
+            ->whereDate('gc_order_statuses.order_pickup', '>=', $dateFrom)
+            ->whereDate('gc_order_statuses.order_pickup', '<=', $dateTo)
             ->orderBy('gc_order_statuses.order_pickup')
             ->get()
             ->groupBy('bunit_code');
@@ -183,7 +185,9 @@ class ReportController extends Controller
             ->where('gc_order_statuses.paid_status', true)
             ->where('gc_order_statuses.bu_id', '=', $buId)
             // ->whereDate('gc_order_statuses.order_pickup', $date)
-            ->whereBetween('gc_order_statuses.order_pickup', [$dateFrom, $dateTo])
+            // ->whereBetween('gc_order_statuses.order_pickup', [$dateFrom, $dateTo])
+            ->whereDate('gc_order_statuses.order_pickup', '>=', $dateFrom)
+            ->whereDate('gc_order_statuses.order_pickup', '<=', $dateTo)
             ->orderBy('gc_order_statuses.order_pickup')
             ->get();
 
@@ -208,7 +212,9 @@ class ReportController extends Controller
             ->join('gc_order_statuses', 'gc_order_statuses.ticket_id', '=', 'gc_cashier_monitoring.ticket_id')
             ->where('gc_order_statuses.paid_status', true)
             ->where('gc_order_statuses.bu_id', '=', $buId)
-            ->whereBetween('gc_order_statuses.order_pickup', [$dateFrom, $dateTo])
+            // ->whereBetween('gc_order_statuses.order_pickup', [$dateFrom, $dateTo])
+            ->whereDate('gc_order_statuses.order_pickup', '>=', $dateFrom)
+            ->whereDate('gc_order_statuses.order_pickup', '<=', $dateTo)
             ->orderBy('gc_order_statuses.order_pickup')
             ->get()
             ->groupBy('bunit_code');
@@ -244,8 +250,9 @@ class ReportController extends Controller
             ->JOIN('gc_transactions', 'gc_transactions.ticket_id', '=', 'ticket')
             ->where('gc_order_statuses.paid_status', true)
             ->where('gc_order_statuses.bu_id', '=', $buId)
-            // ->whereDate('gc_order_statuses.order_pickup', $date)
-            ->whereBetween('gc_order_statuses.order_pickup', [$dateFrom, $dateTo])
+            ->whereDate('gc_order_statuses.order_pickup', '>=', $dateFrom)
+            ->whereDate('gc_order_statuses.order_pickup', '<=', $dateTo)
+            // ->whereBetween('gc_order_statuses.order_pickup', [$dateFrom, $dateTo])
             ->orderBy('gc_order_statuses.order_pickup')
             ->get();
 
@@ -253,7 +260,9 @@ class ReportController extends Controller
         $result['b_unit'] = $getBU;
         $result['data'] = $data;
         return $result;
-        dd($buId);
+    }
+    public function get_transactions_today(Request $request)
+    {
 
     }
 }

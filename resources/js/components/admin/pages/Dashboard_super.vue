@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <Top></Top>
     <div class="row">
       <div class="col-sm-6"></div>
       <div class="col-sm-6">
@@ -9,7 +10,7 @@
               <div class="inner text-white">
                 <h3>6</h3>
 
-                <p>Today's Orders</p>
+                <p>Today's Order</p>
               </div>
               <div class="icon">
                 <i class="fas fa-shopping-cart"></i>
@@ -115,6 +116,7 @@ export default {
       prices: [],
       loading: true,
       priceCount: null,
+      transactionCount: null,
     };
   },
 
@@ -126,6 +128,10 @@ export default {
       const { data } = await axios.get("api/price_changed/count");
       this.priceCount = data;
     },
+    // async getPriceChanged() {
+    //   const { data } = await axios.get("api/price_changed/count");
+    //   this.priceCount = data;
+    // },
   },
 
   mounted() {

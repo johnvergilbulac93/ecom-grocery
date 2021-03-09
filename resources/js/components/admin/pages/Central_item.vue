@@ -82,7 +82,12 @@
                   data-placement="bottom"
                   title="View Image"
                 >
-                  <i class="fas fa-eye text-secondary fa-lg mt-2"></i>
+                  <i
+                    class="fas fa-eye fa-lg mt-2"
+                    v-bind:class="{
+                      'text-danger ': item.image == null 
+                    }"
+                  ></i>
                 </a>
                 <!-- <a @click="preview(item.image, item.product_name)">
                   <center>
@@ -146,7 +151,6 @@
                   data-toggle="tooltip"
                   data-placement="bottom"
                   title="Upload Image"
-                 
                 >
                   <i class="fas fa-cloud-upload-alt fa-lg text-primary mt-2"></i
                 ></a>

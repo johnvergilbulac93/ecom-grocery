@@ -59,8 +59,6 @@
           </ul>
         </div>
       </div>
-    </div>
-    <div class="row mt-1">
       <div class="col-sm-6">
         <div class="menu-custom">
           <div class="menu-header">
@@ -133,8 +131,6 @@
           </ul>
         </div>
       </div>
-    </div>
-    <div class="row mt-1">
       <div class="col-sm-6">
         <div class="menu-custom">
           <div class="menu-header">
@@ -159,7 +155,7 @@
             </li>
             <li class="custom-item">
               <router-link
-                :to="{ name: 'accountability', params: { id: $root.userType  } }"
+                :to="{ name: 'accountability', params: { id: $root.userType } }"
               >
                 <span>Accountability Report</span>
               </router-link>

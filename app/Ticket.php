@@ -6,6 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ticket extends Model
 {
+    public function finalOrderStore($request)
+    {
+        
+        return $this->hasMany(GCFinalOrder::class, 'ticket_id', 'id')->selectRaw('gc_final_order.*, 
+        gc_product_items.product_name, 
+        gc_product_items.itemcode, 
+        gc_product_uoms.UOM')
+            ->where('bu_id', auth()->user()->bunit_code)
+            ->join('gc_product_items', 'gc_product_items.product_id', 'gc_final_order.product_id')
+            ->join('gc_product_uoms', 'gc_product_uoms.uom_id', 'gc_final_order.uom_id');
+    }
     public function finalOrders()
     {
         return $this->hasMany(GCFinalOrder::class, 'ticket_id', 'id')->selectRaw('gc_final_order.*, 

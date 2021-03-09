@@ -84,7 +84,12 @@
                   data-placement="bottom"
                   title="View Image"
                 >
-                  <i class="fas fa-eye text-secondary fa-lg mt-1"></i>
+                  <i
+                    class="fas fa-eye fa-lg mt-1"
+                    v-bind:class="{
+                      'text-danger ': item.image == null,
+                    }"
+                  ></i>
                 </a>
               </td>
               <td>{{ item.itemcode }}</td>
