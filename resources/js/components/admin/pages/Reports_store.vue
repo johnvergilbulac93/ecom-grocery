@@ -53,19 +53,19 @@ export default {
       axios
         .get("api/filter_report", { params: this.filter }, { responseType: "blob" })
         .then((res) => {
-          console.log(res.data.data);
           this.loading = false;
           let anchor = document.createElement("a");
           let filename;
-          
+          let storename = res.data.bunit.acroname;
+
           if (this.filter.by === "all") {
-            filename = "Item_masterfile ";
+            filename = storename +"-"+ "Item_masterfile" + ".xlsx";
           }
           if (this.filter.by === "available") {
-            filename = "available_items.xlsx";
+            filename = storename +"-"+"available_items" + ".xlsx";
           }
           if (this.filter.by === "unavailable") {
-            filename = "unavailable_items.xlsx";
+            filename = storename +"-"+"unavailable_items" + ".xlsx";
           }
           anchor.setAttribute("download", filename);
           anchor.setAttribute("href", res.data.data);
