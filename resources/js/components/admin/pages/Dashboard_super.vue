@@ -1,8 +1,48 @@
 <template>
   <div class="container">
-    <div class="row justify-content-center">
+    <div class="row">
+      <div class="col-sm-6"></div>
+      <div class="col-sm-6">
+        <div class="row justify-content-end">
+          <div class="col-sm-6">
+            <div class="small-box bg-orange">
+              <div class="inner text-white">
+                <h3>6</h3>
+
+                <p>Today's Orders</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </div>
+              <a class="small-box-footer">
+                <span class="text-white">More info</span>
+                <i class="fas fa-arrow-circle-right text-white"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="row justify-content-end">
+          <div class="col-sm-6">
+            <div class="small-box bg-orange">
+              <div class="inner text-white">
+                <h3>{{ priceCount }}</h3>
+
+                <p>Today's Changed Price</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-tag"></i>
+              </div>
+              <a @click="showModalPrice" class="small-box-footer">
+                <span class="text-white">More info</span>
+                <i class="fas fa-arrow-circle-right text-white"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="row justify-content-center">
       <div class="col-sm-4">
-        <!-- small box -->
         <div class="small-box bg-orange ">
           <div class="inner text-white">
             <center>
@@ -18,7 +58,7 @@
           ></a>
         </div>
       </div>
-    </div>
+    </div> -->
     <div
       class="modal fade"
       id="price_info"
@@ -35,7 +75,12 @@
             <h5 class="modal-title" id="price_info">
               <h4 class="lead">&nbsp;TODAY'S PRICE CHANGED</h4>
             </h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
