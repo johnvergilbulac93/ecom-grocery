@@ -66,8 +66,15 @@ Vue.filter('toCurrency', function(value) {
   })
 
 let serverDateTime = document.head.querySelector('meta[name="server-datetime"]').content
+let userType = document.head.querySelector('meta[name="user-type"]').content
+
 
 window.serverDateTime = serverDateTime
+window.userType = userType
+
+
+
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -102,6 +109,7 @@ const app = new Vue({
         url: "/ITEM-IMAGES/",
         path: "/img/",
         serverDateTime,
+        userType,
         logo_path: 'https://apanel.alturush.com/',
         form: new Form({
             username: '',

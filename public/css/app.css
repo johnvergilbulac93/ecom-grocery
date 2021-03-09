@@ -37535,10 +37535,8 @@ badge.inactive {
   white-space: nowrap;
 }
 
-.results p,
-a {
+.results p {
   padding: 5px;
-  text-transform: uppercase;
 }
 
 .results p:hover {
@@ -37555,6 +37553,41 @@ a {
   /* position: relative; */
   width: auto;
   height: auto;
+}
+
+.menu-custom {
+  height: 100px auto;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+.menu-custom,
+ul {
+  list-style-type: none;
+  padding: 10px;
+}
+
+.menu-custom,
+ul,
+li {
+  padding: 10px;
+}
+
+.menu-header {
+  color: #6c757d;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.menu-header,
+ul {
+  margin-bottom: 10px;
+}
+
+.custom-item:hover {
+  background-color: #e6e4e4;
+  cursor: pointer;
+  font-weight: bolder;
 }
 
 /* START HERE FOR Custom Table CSS */

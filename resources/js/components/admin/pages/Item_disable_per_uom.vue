@@ -77,7 +77,7 @@
         <div class="table-responsive">
           <table class="table table-hover table-sm">
             <thead>
-              <tr class="text-center">
+              <tr >
                 <th>
                   <input
                     type="checkbox"
@@ -93,8 +93,8 @@
                 <th>PRICE</th>
               </tr>
             </thead>
-            <tbody class="text-center">
-              <tr v-for="(item, i) in items" :key="i">
+            <tbody>
+              <tr v-for="(item, i) in items" :key="i" class="tr-hover">
                 <th>
                   <input
                     type="checkbox"

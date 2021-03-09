@@ -8,6 +8,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="name" content="{{ Auth::user()->name }}">
+    <meta name="user-type" content="{{ Auth::user()->usertype_id }}">
     <meta name="server-datetime" content="{{ now() }}">
     <title>Alturush | GROCERY-ADMIN</title>
     <link rel="icon" type="image/x-icon" href="https://www.alturush.com/alturush_logo/AlturushDeliveryLogoGradient.png">

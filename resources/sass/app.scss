@@ -153,6 +153,7 @@ badge.inactive {
     width: 430px;
     overflow-y: auto;
 }
+
 .results {
     margin-top: 2px;
     position: absolute;
@@ -168,10 +169,9 @@ badge.inactive {
     white-space: nowrap;
 }
 
-.results p,
-a {
+.results p{
     padding: 5px;
-    text-transform: uppercase;
+    // text-transform: uppercase;
 }
 
 .results p:hover {
@@ -184,11 +184,51 @@ a {
     border-radius: 5px 5px 5px 5px;
 }
 
-.wrapper-search{
+.wrapper-search {
     /* position: relative; */
     width: auto;
     height: auto;
-  }
+}
+
+.menu-custom {
+    //   width: 600px ;
+    height: 100px auto;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    
+
+}
+
+.menu-custom,
+ul {
+    list-style-type: none;
+    padding: 10px;
+
+}
+
+.menu-custom,
+ul,
+li {
+    padding: 10px;
+    //   color:#007bff;
+}
+
+.menu-header {
+    color: #6c757d;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.menu-header,
+ul {
+    margin-bottom: 10px;
+}
+
+.custom-item:hover {
+    background-color: rgb(230, 228, 228);
+    cursor: pointer;
+    font-weight: bolder;
+}
 
 /* START HERE FOR Custom Table CSS */
 
@@ -213,10 +253,10 @@ td {
 .tr-hover:hover {
     background-color: #f8d8b9;
 }
-.item-image{
+
+.item-image {
     width: 30px;
     height: 30px;
     border: 1px solid #dc3545;
     align-items: center;
 }
- 
