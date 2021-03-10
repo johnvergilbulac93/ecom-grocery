@@ -39,101 +39,166 @@
             </div>
           </div>
           <div class="col-sm-6 py-1">
-            <select
-              v-model="tableData.length"
-              class="form-control form-control-sm col-sm-3 float-right"
-              @change="getItems()"
-            >
-              <option
-                v-for="(records, index) in perPage"
-                :key="index"
-                :value="records"
-              >
-                {{ records }}
-              </option>
-            </select>
+            <div class="row">
+              <div class="col-sm-8">
+                <select
+                  v-model="tableData.category"
+                  class="form-control form-control-sm d-block"
+                  @change="getItems()"
+                >
+                  <option value="">Please select category</option>
+                  <option
+                    :value="data.category_name"
+                    v-for="(data, i) in category"
+                    :key="i"
+                  >
+                    {{ data.category_name }}
+                  </option>
+                </select>
+              </div>
+              <div class="col-sm-4">
+                <select
+                  v-model="tableData.length"
+                  class="form-control form-control-sm d-block"
+                  @change="getItems()"
+                >
+                  <option
+                    v-for="(records, index) in perPage"
+                    :key="index"
+                    :value="records"
+                  >
+                    {{ records }}
+                  </option>
+                </select>
+              </div>
+            </div>
           </div>
         </div>
       </div>
       <div class="card-body">
-        <datatable
-          :columns="columns"
-          :sortKey="sortKey"
-          :sortOrders="sortOrders"
-          @sort="sortBy"
+        <a
+          class="btn btn-danger btn-sm mb-1"
+          v-if="form.itemIds.length != 0"
+          @click="disabledAll"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Disable all selected item"
         >
-          <tbody>
-            <tr v-if="!items.length">
-              <td colspan="4" class="text-center">No matching records found</td>
-            </tr>
-            <tr
-              v-for="(item, i) in items"
-              :key="i"
-              v-bind:class="{
-                'text-danger font-weight-bold': item.items !== null,
-              }"
-              @mouseover="selected(item)"
-              @mouseleave="unSelected()"
-              class="tr-hover"
-            >
-              <td style="width: 45px">
-                <a
-                  @click="preview(item.image, item.product_name)"
-                  v-if="item === selectedData"
-                  data-toggle="tooltip"
-                  data-placement="bottom"
-                  title="View Image"
+          <i class="fas fa-times fa-lg text-white"></i>
+        </a>
+
+        <a
+          class="btn btn-primary btn-sm mb-1"
+          v-if="form.itemIds.length != 0"
+          @click="enabledAll"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Enable all selected item"
+        >
+          <i class="fas fa-check fa-lg text-white"></i>
+        </a>
+
+        <div class="table-responsive">
+          <table class="table custom-table table-sm">
+            <thead>
+              <tr>
+                <th style="width: 45px"></th>
+                <th>
+                  <input
+                    type="checkbox"
+                    class="checkmark"
+                    @click="selectAll"
+                    v-model="allSelected"
+                  />
+                </th>
+                <th>ITEMCODE</th>
+                <th>DESCRIPTION</th>
+                <th>CATEGORY NAME</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-if="!items.length">
+                <td colspan="4" class="text-center">
+                  No matching records found
+                </td>
+              </tr>
+              <tr
+                v-for="(item, i) in items"
+                :key="i"
+                @mouseover="selected(item)"
+                @mouseleave="unSelected()"
+                class="tr-hover"
+              >
+                <td style="width: 45px">
+                  <a
+                    @click="preview(item.image, item.product_name)"
+                    data-toggle="tooltip"
+                    data-placement="bottom"
+                    title="View Image"
+                  >
+                    <i
+                      class="fas fa-eye fa-lg mt-1"
+                      v-bind:class="{
+                        'text-danger ': item.image == null,
+                      }"
+                    ></i>
+                  </a>
+                </td>
+                <td>
+                  <input
+                    type="checkbox"
+                    class="checkmark-body"
+                    :value="item.itemcode"
+                    v-model="form.itemIds"
+                    @click="chosen"
+                  />
+                </td>
+                <td
+                  v-bind:class="{
+                    'text-danger font-weight-bold': item.items !== null,
+                  }"
                 >
-                  <i
-                    class="fas fa-eye fa-lg mt-1"
-                    v-bind:class="{
-                      'text-danger ': item.image == null,
-                    }"
-                  ></i>
-                </a>
-              </td>
-              <td>{{ item.itemcode }}</td>
-              <td>{{ item.product_name }}</td>
-              <td>{{ item.category_name }}</td>
-              <td style="width: 45px">
-                <a
-                  v-if="item.items !== null"
-                  @click="tagItemEnable(item.itemcode, item.product_name)"
-                  data-toggle="tooltip"
-                  data-placement="bottom"
-                  title="Disable Item"
+                  {{ item.itemcode }}
+                </td>
+                <td
+                  v-bind:class="{
+                    'text-danger font-weight-bold': item.items !== null,
+                  }"
                 >
-                  <i class="fas fa-times fa-lg text-danger mt-1 px-1"></i>
-                </a>
-                <a
-                  v-else
-                  @click="tagItemDisable(item.itemcode, item.product_name)"
-                  data-toggle="tooltip"
-                  data-placement="bottom"
-                  title="Enable Item"
+                  {{ item.product_name }}
+                </td>
+                <td
+                  v-bind:class="{
+                    'text-danger font-weight-bold': item.items !== null,
+                  }"
                 >
-                  <i class="fas fa-check fa-lg text-success mt-1"></i>
-                </a>
-              </td>
-              <!-- <td class="text-center" style="width: 50px">
-                    <Button
-                      v-if="item.items !== null"
-                      icon="md-close"
-                      type="error"
-                      shape="circle"
-                      @click="tagItemEnable(item.itemcode, item.product_name)"
-                    ></Button>
-                    <Button
-                      v-else
-                      icon="md-checkmark"
-                      type="success"
-                      shape="circle"
-                      @click="tagItemDisable(item.itemcode, item.product_name)"
-                    ></Button>
-                  </td> -->
-            </tr>
-          </tbody>
-        </datatable>
+                  {{ item.category_name }}
+                </td>
+                <td style="width: 45px">
+                  <a
+                    v-if="item.items !== null"
+                    @click="tagItemEnable(item.itemcode, item.product_name)"
+                    data-toggle="tooltip"
+                    data-placement="bottom"
+                    title="Disable Item"
+                  >
+                    <i class="fas fa-times fa-lg text-danger mt-1 px-1"></i>
+                  </a>
+                  <a
+                    v-else
+                    @click="tagItemDisable(item.itemcode, item.product_name)"
+                    data-toggle="tooltip"
+                    data-placement="bottom"
+                    title="Enable Item"
+                  >
+                    <i class="fas fa-check fa-lg text-success mt-1"></i>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
       <div class="card-footer">
         <pagination
@@ -216,10 +281,12 @@ export default {
     });
     return {
       items: [],
+      category: [],
       columns: columns,
       sortKey: "itemcode",
       sortOrders: sortOrders,
       selectedData: false,
+      allSelected: false,
       perPage: ["10", "25", "50", "100"],
       tableData: {
         draw: 0,
@@ -227,6 +294,7 @@ export default {
         search: "",
         column: 1,
         dir: "desc",
+        category: "",
       },
       pagination: {
         lastPage: "",
@@ -246,14 +314,104 @@ export default {
         image: "",
         status: "",
         previewImage: "",
+        itemIds: [],
       }),
       index: -1,
     };
   },
   methods: {
+    async getCategory() {
+      const data = await axios.get("api/count/category");
+      this.category = data.data;
+      console.log(data);
+    },
+    enabledAll() {
+      swal
+        .fire({
+          title: "Confirmation",
+          text: "Do you want to enable the selected item?",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, disabled it.",
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            this.form.post("api/selected/enable/item").then((res) => {
+              Fire.$emit("refresh_item");
+              this.tableData.search = "";
+              this.form.itemIds = [];
+              this.allSelected = false;
+              // if (res.data === 0) {
+              //   swal.fire(
+              //     "Success!",
+              //     "Selected item successfully enabled.",
+              //     "success"
+              //   );
+              // } else {
+              //   swal.fire(
+              //     "Information",
+              //     `System detect ${res.data} item already enabled.`,
+              //     "info"
+              //   );
+              // }
+            });
+          }
+        });
+    },
+    disabledAll() {
+      swal
+        .fire({
+          title: "Confirmation",
+          text: "Do you want to  disabled selected item?",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, disabled it.",
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            this.form.post("api/selected/disable/item").then((res) => {
+              Fire.$emit("refresh_item");
+              this.tableData.search = "";
+              this.form.itemIds = [];
+              this.allSelected = false;
+              // if (res.data === 0) {
+              //   swal.fire(
+              //     "Success!",
+              //     "Selected item successfully disabled.",
+              //     "success"
+              //   );
+              // } else {
+              //   swal.fire(
+              //     "Information",
+              //     `System detect ${res.data} item already disabled.`,
+              //     "info"
+              //   );
+              // }
+            });
+          }
+        });
+    },
+    selectAll() {
+      this.form.itemIds = [];
+      let item;
+      if (!this.allSelected) {
+        for (item in this.items) {
+          this.form.itemIds.push(this.items[item].itemcode.toString());
+        }
+      }
+    },
+    chosen() {
+      this.allSelected = false;
+    },
     clearData() {
       this.getItems();
       this.tableData.search = "";
+      this.form.itemIds = [];
+      this.allSelected = false;
     },
     selected(data) {
       this.selectedData = data;
@@ -369,6 +527,7 @@ export default {
   },
   created() {
     this.getItems();
+    this.getCategory();
     Fire.$on("refresh_item", () => {
       this.getItems();
     });

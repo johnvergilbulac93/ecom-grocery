@@ -95,7 +95,7 @@
             </thead>
             <tbody>
               <tr v-for="(item, i) in items" :key="i" class="tr-hover">
-                <th>
+                <td>
                   <input
                     type="checkbox"
                     class="checkmark-body"
@@ -103,7 +103,7 @@
                     v-model="form.itemIds"
                     @click="select"
                   />
-                </th>
+                </td>
                 <td>{{ item.itemcode }}</td>
                 <td>{{ item.product_name }}</td>
                 <td>{{ item.category_name }}</td>

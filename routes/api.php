@@ -57,6 +57,11 @@ Route::middleware('auth:api')->group(function () {
     Route::get('price_changed/info', 'API\ItemController@price_count_changed_info');
 
     Route::get('show/available/item/store', 'API\ItemController@store_available_item');
+    Route::get('count/category', 'API\ItemController@count_per_category');
+    Route::post('selected/disable/item','API\ItemController@disabled_selected_item');
+    Route::post('selected/enable/item','API\ItemController@enabled_selected_item');
+
+
 });
 
 Route::middleware('auth:api')->group(function () {
@@ -124,7 +129,6 @@ Route::middleware('auth:api')->group(function () {
     Route::get('liquidation/store/report', 'API\ReportController@getLiquidation_store');
     Route::get('accountability/store/report', 'API\ReportController@getAccountability_store');
     Route::get('transactions/today/report', 'API\ReportController@get_transactions_today');
-
 });
 
 // Route::middleware('auth:api')->group(function () {

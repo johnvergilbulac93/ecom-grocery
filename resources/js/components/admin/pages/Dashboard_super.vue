@@ -2,7 +2,11 @@
   <div class="container">
     <Top></Top>
     <div class="row">
-      <div class="col-sm-6"></div>
+      <div class="col-sm-6">
+        <div class="chart">
+          <Chart :data="labeldata" :options="chartOptions"></Chart>
+        </div>
+      </div>
       <div class="col-sm-6">
         <div class="row justify-content-end">
           <div class="col-sm-6">
@@ -107,9 +111,10 @@
 
 <script>
 import InfoPrice from "./Info_Price_History.vue";
+import Chart from "./Chart";
 
 export default {
-  components: { infoprice: InfoPrice },
+  components: { infoprice: InfoPrice, Chart: Chart },
 
   data() {
     return {
@@ -117,10 +122,36 @@ export default {
       loading: true,
       priceCount: null,
       transactionCount: null,
+      labeldata: [],
+      chartOptions: {
+        hoverBorderWidth: 20,
+      },
+      chartData: {
+        hoverBackgroundColor: "red",
+        hoverBorderWidth: 10,
+        labels: ["Green", "Red", "Blue"],
+        datasets: [
+          {
+            label: "Data One",
+            backgroundColor: ["#41B883", "#E46651", "#00D8FF"],
+            data: [1, 10, 5],
+          },
+        ],
+      },
     };
   },
 
   methods: {
+    async getCountCategory() {
+      const data = await axios.get("api/count/category");
+      // this.labeldata = data;
+      console.log(data);
+      // this.dataChart = {
+      //   hoverBackgroundColor: "red",
+      //   hoverBorderWidth: 10,
+      //   labels: 
+      // };
+    },
     showModalPrice() {
       $("#price_info").modal("show");
     },
@@ -133,9 +164,21 @@ export default {
     //   this.priceCount = data;
     // },
   },
-
   mounted() {
     this.getPriceChanged();
+    this.getCountCategory();
   },
 };
 </script>
+
+<style scoped>
+.chart {
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  /* height: 100px; */
+  /* margin-top: 60px; */
+}
+</style>
