@@ -1,14 +1,9 @@
 <template>
   <div class="container">
     <Top></Top>
-    <div class="row">
+    <div class="row justify-content-start">
       <div class="col-sm-6">
-        <div class="chart">
-          <Chart :data="labeldata" :options="chartOptions"></Chart>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="row justify-content-end">
+        <div class="row justify-content-start">
           <div class="col-sm-6">
             <div class="small-box bg-orange">
               <div class="inner text-white">
@@ -26,7 +21,7 @@
             </div>
           </div>
         </div>
-        <div class="row justify-content-end">
+        <div class="row justify-content-start">
           <div class="col-sm-6">
             <div class="small-box bg-orange">
               <div class="inner text-white">
@@ -43,6 +38,15 @@
               </a>
             </div>
           </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="chart">
+          <Chart
+            :data="chartData"
+            :options="chartOptions"
+            :height="300"
+          ></Chart>
         </div>
       </div>
     </div>
@@ -149,7 +153,7 @@ export default {
       // this.dataChart = {
       //   hoverBackgroundColor: "red",
       //   hoverBorderWidth: 10,
-      //   labels: 
+      //   labels:
       // };
     },
     showModalPrice() {

@@ -366,8 +366,6 @@ class ItemController extends Controller
             ->orderBy('count', 'desc')
             ->groupBy('category_name')
             ->get();
-
-
         return $data;
     }
     public function disabled_selected_item(Request $request)
