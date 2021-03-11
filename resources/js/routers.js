@@ -74,7 +74,7 @@ const routes = [
         name: 'uploading',
         component: uploading,
         beforeEnter: (to, from, next) => {
-            if (from.params.id === 6 || from.params.id === 12) {
+            if (to.params.id === 6 || from.params.id === 12) {
                 next();
             } else {
                 next('/');
@@ -170,7 +170,7 @@ const routes = [
         name: 'setting',
         component: setting,
         beforeEnter: (to, from, next) => {
-            if (from.params.id === 6 || from.params.id === 12) {
+            if (to.params.id === 6 || from.params.id === 12) {
                 next();
             } else {
                 next('/');
@@ -208,7 +208,7 @@ const routes = [
         name: 'transaction',
         component: transaction,
         beforeEnter: (to, from, next) => {
-            if (to.params.id === 17 || to.params.id === 12) {
+            if (to.params.id === 17 || from.params.id === 12) {
                 next();
             } else {
                 next('/');
@@ -220,7 +220,7 @@ const routes = [
         name: 'export',
         component: exporting,
         beforeEnter: (to, from, next) => {
-            if (to.params.id === 8 || to.params.id === 12) {
+            if (to.params.id === 8 || from.params.id === 12) {
                 next();
             } else {
                 next('/');
@@ -232,7 +232,7 @@ const routes = [
         name: 'accountability',
         component: accountability,
         beforeEnter: (to, from, next) => {
-            if (from.params.id === 7 || from.params.id === 12) {
+            if (from.params.id === 12) {
                 next();
             } else {
                 next('/');
@@ -340,7 +340,7 @@ const routes = [
         name: 'multiple',
         component: multiple,
         beforeEnter: (to, from, next) => {
-            if (from.params.id === 12 || from.params.id === 6) {
+            if (from.params.id === 12 || to.params.id === 6) {
                 next();
             } else {
                 next('/');
@@ -352,7 +352,7 @@ const routes = [
         name: 'liquidition_store',
         component: liquidition_store,
         beforeEnter: (to, from, next) => {
-            if (to.params.id === 7) {
+            if (to.params.id === 7 || to.params.id === 14) {
                 next();
             } else {
                 next('/');

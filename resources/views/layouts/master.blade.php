@@ -174,9 +174,10 @@
                     <!-- Left navbar links -->
                     <ul class="navbar-nav">
                         <li class="nav-item d-none d-sm-inline-block">
-                            <router-link :to="{ name: 'liquidition', params: { id: {{ Auth::user()->usertype_id }}  } }"
+                            <router-link :to="{ name: 'liquidition_store', params: { id: {{ Auth::user()->usertype_id }}  } }"
                                 class="nav-link">
-                                <p>LIQUIDITION REPORT</p>
+                                <i class="fas fa-clipboard-list text-orange fa-lg"></i>
+                                <span>LIQUIDITION REPORT</span>
                             </router-link>
                         </li>
                     </ul>

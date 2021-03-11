@@ -4,13 +4,13 @@
       <div class="col-sm-4  ">
         <!-- small box -->
         <div class="small-box bg-orange text-white">
-          <div class="inner">
+          <div class="inner text-white">
             <h3>{{ itemcount }}</h3>
 
             <p>Uploaded Item</p>
           </div>
           <div class="icon">
-            <i class="ion ion-bag"></i>
+            <i class="fas fa-shopping-cart"></i>
           </div>
           <a href="#" class="small-box-footer" @click="uploaditemmodal">
             <span class="text-white">Click here to upload new item</span>
@@ -22,13 +22,13 @@
       <div class="col-sm-4 ">
         <!-- small box -->
         <div class="small-box bg-orange text-white">
-          <div class="inner">
+          <div class="inner text-white">
             <h3>{{ pricecount }}</h3>
 
             <p>Uploaded Price</p>
           </div>
-          <div class="icon">
-            <i class="ion ion-stats-bars"></i>
+          <div class="icon ">
+             <i class="fas fa-tag"></i>
           </div>
           <a href="#" class="small-box-footer text-white" @click="uploadpricemodal"
             ><span class="text-white">Click here to update price</span>
