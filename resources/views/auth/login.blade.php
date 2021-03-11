@@ -4,6 +4,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="server-datetime" content="{{ now() }}" >
+    <meta name="name" content="">
+    <meta name="user-type" content="">
     <title>Alturush | Grocery-Admin</title>
     <link rel="icon" type="image/x-icon" href="https://www.alturush.com/alturush_logo/AlturushDeliveryLogoGradient.png">
 
