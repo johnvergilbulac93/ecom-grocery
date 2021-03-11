@@ -53,13 +53,13 @@ class ItemController extends Controller
 
             $query->where(function ($query) use ($searchValue) {
                 $query->where('itemcode', 'like', '%' . $searchValue . '%')
-                    ->orWhere('product_name', 'like', '%' . $searchValue . '%');    
+                    ->orWhere('product_name', 'like', '%' . $searchValue . '%');
             });
         }
 
         if ($categoryValue) {
             $query->where(function ($query) use ($categoryValue) {
-                $query->where('category_name', 'like', '%' . $categoryValue . '%');   
+                $query->where('category_name', 'like', '%' . $categoryValue . '%');
             });
         }
 
@@ -75,14 +75,20 @@ class ItemController extends Controller
         $column = $request->input('column');
         $dir = $request->input('dir');
         $searchValue = $request->input('search');
+        $categoryValue = $request->input('category');
 
         $query = gc_product_item::with(['item_price'])->orderBy($columns[$column], $dir);
 
         if ($searchValue) {
             $query->where(function ($query) use ($searchValue) {
                 $query->where('itemcode', 'like', '%' . $searchValue . '%')
-                    ->orWhere('product_name', 'like', '%' . $searchValue . '%')
-                    ->orWhere('category_name', 'like', '%' . $searchValue . '%');
+                    ->orWhere('product_name', 'like', '%' . $searchValue . '%');
+            });
+        }
+
+        if ($categoryValue) {
+            $query->where(function ($query) use ($categoryValue) {
+                $query->where('category_name', 'like', '%' . $categoryValue . '%');
             });
         }
 
@@ -243,6 +249,7 @@ class ItemController extends Controller
         $column = $request->input('column');
         $dir = $request->input('dir');
         $searchValue = $request->input('search');
+        $categoryValue = $request->input('category');
 
         $query =  DB::table('gc_product_items')
             ->join('gc_product_prices', 'gc_product_items.itemcode', '=', 'gc_product_prices.itemcode')
@@ -255,6 +262,12 @@ class ItemController extends Controller
                 $query->where('gc_product_prices.itemcode', 'like', '%' . $searchValue . '%')
                     ->orWhere('gc_product_items.product_name', 'like', '%' . $searchValue . '%')
                     ->orWhere('gc_product_prices.UOM', 'like', '%' . $searchValue . '%');
+            });
+        }
+
+        if ($categoryValue) {
+            $query->where(function ($query) use ($categoryValue) {
+                $query->where('gc_product_items.category_name', 'like', '%' . $categoryValue . '%');
             });
         }
 
@@ -285,6 +298,7 @@ class ItemController extends Controller
         $column = $request->input('column');
         $dir = $request->input('dir');
         $searchValue = $request->input('search');
+        $categoryValue = $request->input('category');
 
         $query =  DB::table('gc_product_items')
             ->join('gc_product_prices', 'gc_product_items.itemcode', '=', 'gc_product_prices.itemcode')
@@ -297,6 +311,12 @@ class ItemController extends Controller
                 $query->where('gc_product_prices.itemcode', 'like', '%' . $searchValue . '%')
                     ->orWhere('gc_product_items.product_name', 'like', '%' . $searchValue . '%')
                     ->orWhere('gc_product_prices.UOM', 'like', '%' . $searchValue . '%');
+            });
+        }
+
+        if ($categoryValue) {
+            $query->where(function ($query) use ($categoryValue) {
+                $query->where('gc_product_items.category_name', 'like', '%' . $categoryValue . '%');
             });
         }
 
@@ -366,7 +386,9 @@ class ItemController extends Controller
             ->orderBy('count', 'desc')
             ->groupBy('category_name')
             ->get();
-        return $data;
+        return response()->json([
+            'categories' =>  $data,
+        ], 200);
     }
     public function disabled_selected_item(Request $request)
     {
@@ -393,8 +415,8 @@ class ItemController extends Controller
     public function enabled_selected_item(Request $request)
     {
         $itemcode = $request->get('itemIds');
-        foreach ($itemcode as $key => $code) { 
-            gc_item_log_available::where('itemcode', $code)->where('store',Auth::user()->bunit_code)->delete();            
+        foreach ($itemcode as $key => $code) {
+            gc_item_log_available::where('itemcode', $code)->where('store', Auth::user()->bunit_code)->delete();
         }
     }
 }

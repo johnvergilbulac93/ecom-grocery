@@ -322,8 +322,8 @@ export default {
   methods: {
     async getCategory() {
       const data = await axios.get("api/count/category");
-      this.category = data.data;
-      console.log(data);
+      this.category = data.data.categories;
+      // console.log(data);
     },
     enabledAll() {
       swal

@@ -3,7 +3,7 @@
     <Top></Top>
     <div class="row justify-content-start">
       <div class="col-sm-6">
-        <div class="row justify-content-start">
+        <!-- <div class="row justify-content-start">
           <div class="col-sm-6">
             <div class="small-box bg-orange">
               <div class="inner text-white">
@@ -20,7 +20,7 @@
               </a>
             </div>
           </div>
-        </div>
+        </div> -->
         <div class="row justify-content-start">
           <div class="col-sm-6">
             <div class="small-box bg-orange">
@@ -41,13 +41,11 @@
         </div>
       </div>
       <div class="col-sm-6">
-        <div class="chart">
-          <Chart
-            :data="chartData"
-            :options="chartOptions"
-            :height="300"
-          ></Chart>
-        </div>
+        <!-- <div class="chart">
+          <Chart :chart-data="counts" :options="chartOptions">
+            ref="mychart" ></Chart
+          >
+        </div> -->
       </div>
     </div>
     <!-- <div class="row justify-content-center">
@@ -126,35 +124,52 @@ export default {
       loading: true,
       priceCount: null,
       transactionCount: null,
-      labeldata: [],
+      counts: [],
+      labels: [],
       chartOptions: {
-        hoverBorderWidth: 20,
+        borderWidth: 10,
+        hoverBackgroundColor: "red",
+        hoverBorderWidth: 10,
       },
       chartData: {
         hoverBackgroundColor: "red",
         hoverBorderWidth: 10,
-        labels: ["Green", "Red", "Blue"],
+        labels: this.labels,
         datasets: [
           {
             label: "Data One",
             backgroundColor: ["#41B883", "#E46651", "#00D8FF"],
-            data: [1, 10, 5],
+            data: this.counts,
           },
         ],
       },
     };
   },
-
+  mounted() {
+    this.filldata();
+    this.getPriceChanged();
+    this.getCountCategory();
+  },
   methods: {
+    filldata() {
+      this.dataCollection = {
+        hoverBackgroundColor: "red",
+        hoverBorderWidth: 10,
+        labels: ["Green", "Red", "Blue"],
+        datasets: [
+          {
+            label: "CATEGORY",
+            backgroundColor: ["#41B883", "#E46651", "#00D8FF"],
+            data: [1, 10, 5],
+          },
+        ],
+      };
+    },
     async getCountCategory() {
       const data = await axios.get("api/count/category");
-      // this.labeldata = data;
-      console.log(data);
-      // this.dataChart = {
-      //   hoverBackgroundColor: "red",
-      //   hoverBorderWidth: 10,
-      //   labels:
-      // };
+      // console.log(data);
+      this.labels = data.data.categories.map((entry) => entry.category_name);
+      this.counts = data.data.categories.map((entry) => entry.count);
     },
     showModalPrice() {
       $("#price_info").modal("show");
@@ -167,10 +182,6 @@ export default {
     //   const { data } = await axios.get("api/price_changed/count");
     //   this.priceCount = data;
     // },
-  },
-  mounted() {
-    this.getPriceChanged();
-    this.getCountCategory();
   },
 };
 </script>

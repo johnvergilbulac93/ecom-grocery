@@ -169,7 +169,7 @@ badge.inactive {
     white-space: nowrap;
 }
 
-.results p{
+.results p {
     padding: 5px;
     // text-transform: uppercase;
 }
@@ -195,7 +195,7 @@ badge.inactive {
     height: 100px auto;
     border: 1px solid #ddd;
     border-radius: 10px;
-    
+
 
 }
 
@@ -259,4 +259,22 @@ td {
     height: 30px;
     border: 1px solid #dc3545;
     align-items: center;
+}
+
+
+.has-search .form-control {
+    padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    margin-top: -3px;
+    color: #007bff;
 }

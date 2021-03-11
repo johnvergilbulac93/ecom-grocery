@@ -4,21 +4,9 @@
     <div class="card">
       <div class="card-header">
         <div class="row">
-          <!-- <div class="col-md-4">
-          <button
-            class="btn btn-danger btn-sm mb-2"
-            v-if="Ids.length != 0"
-            @click="disabledAll"
-            data-toggle="tooltip"
-            data-placement="bottom"
-            title="Disable all selected item/uom"
-          >
-            <span>Disable</span>
-          </button>
-        </div> -->
-          <div class="col-md-6">
+          <div class="col-sm-6">
             <div class="row">
-              <div class="col-sm-8">
+              <div class="col-sm-8 py-1">
                 <div class="form-group has-search">
                   <span class="fa fa-search form-control-feedback"></span>
                   <input
@@ -30,9 +18,18 @@
                   />
                 </div>
               </div>
-              <div class="col-sm-4">
+              <div class="col-sm-2 py-1">
                 <button
-                  class="btn btn-primary btn-sm"
+                  class="btn btn-primary btn-sm col-sm-12"
+                  @click="getItems()"
+                  v-bind:disabled="tableData.search.length === 0"
+                >
+                  Find
+                </button>
+              </div>
+              <div class="col-sm-2 py-1">
+                <button
+                  class="btn btn-primary btn-sm col-sm-12"
                   @click="clearData"
                   v-bind:disabled="tableData.search.length === 0"
                 >
@@ -41,25 +38,40 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6">
-            <label for="" class="font-light float-right mx-1 mt-1"
-              >Entries</label
-            >
-            <select
-              v-model="tableData.length"
-              class="form-control form-control-sm float-right"
-              style="width: 110px"
-              @change="getItems()"
-            >
-              <option
-                v-for="(records, index) in perPage"
-                :key="index"
-                :value="records"
-              >
-                {{ records }}
-              </option>
-            </select>
-            <label for="" class="font-light float-right mx-1 mt-1">Show</label>
+          <div class="col-sm-6">
+            <div class="row">
+              <div class="col-sm-8 py-1">
+                <select
+                  v-model="tableData.category"
+                  class="form-control form-control-sm d-block"
+                  @change="getItems()"
+                >
+                  <option value="">Please select category</option>
+                  <option
+                    :value="data.category_name"
+                    v-for="(data, i) in category"
+                    :key="i"
+                  >
+                    {{ data.category_name }}
+                  </option>
+                </select>
+              </div>
+              <div class="col-sm-4 py-1">
+                <select
+                  v-model="tableData.length"
+                  class="form-control form-control-sm d-block"
+                  @change="getItems()"
+                >
+                  <option
+                    v-for="(records, index) in perPage"
+                    :key="index"
+                    :value="records"
+                  >
+                    {{ records }}
+                  </option>
+                </select>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -77,7 +89,7 @@
         <div class="table-responsive">
           <table class="table table-hover table-sm">
             <thead>
-              <tr >
+              <tr>
                 <th>
                   <input
                     type="checkbox"
@@ -130,13 +142,14 @@ import Pagination from "./Pagination.vue";
 import Form from "vform";
 
 export default {
-  components: { pagination: Pagination},
+  components: { pagination: Pagination },
   name: "Tagging-Disable-UOM",
 
   data() {
     return {
       items: [],
       selected: [],
+      category: [],
       allSelected: false,
       form: new Form({
         itemIds: [],
@@ -148,6 +161,7 @@ export default {
         search: "",
         column: 1,
         dir: "asc",
+        category: "",
       },
       pagination: {
         lastPage: "",
@@ -163,6 +177,11 @@ export default {
     };
   },
   methods: {
+    async getCategory() {
+      const data = await axios.get("api/count/category");
+      this.category = data.data.categories;
+      // console.log(data);
+    },
     clearData() {
       this.getItems();
       this.tableData.search = "";
@@ -266,6 +285,7 @@ export default {
   },
   created() {
     this.getItems();
+    this.getCategory();
     Fire.$on("reload", () => {
       this.getItems();
     });

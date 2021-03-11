@@ -39,19 +39,39 @@
             </div>
           </div>
           <div class="col-sm-6 py-1">
-            <select
-              v-model="tableData.length"
-              class="form-control form-control-sm col-sm-3 float-right"
-              @change="getItems()"
-            >
-              <option
-                v-for="(records, index) in perPage"
-                :key="index"
-                :value="records"
-              >
-                {{ records }}
-              </option>
-            </select>
+            <div class="row">
+              <div class="col-sm-8">
+                <select
+                  v-model="tableData.category"
+                  class="form-control form-control-sm d-block"
+                  @change="getItems()"
+                >
+                  <option value="">Please select category</option>
+                  <option
+                    :value="data.category_name"
+                    v-for="(data, i) in category"
+                    :key="i"
+                  >
+                    {{ data.category_name }}
+                  </option>
+                </select>
+              </div>
+              <div class="col-sm-4">
+                <select
+                  v-model="tableData.length"
+                  class="form-control form-control-sm d-block"
+                  @change="getItems()"
+                >
+                  <option
+                    v-for="(records, index) in perPage"
+                    :key="index"
+                    :value="records"
+                  >
+                    {{ records }}
+                  </option>
+                </select>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -85,7 +105,7 @@
                   <i
                     class="fas fa-eye fa-lg mt-2"
                     v-bind:class="{
-                      'text-danger ': item.image == null 
+                      'text-danger ': item.image == null,
                     }"
                   ></i>
                 </a>
@@ -321,6 +341,7 @@ export default {
       loading: false,
       token: null,
       items: [],
+      category: [],
       columns: columns,
       sortKey: "itemcode",
       sortOrders: sortOrders,
@@ -332,6 +353,7 @@ export default {
         search: "",
         column: 1,
         dir: "desc",
+        category: "",
       },
       pagination: {
         lastPage: "",
@@ -356,6 +378,11 @@ export default {
     };
   },
   methods: {
+    async getCategory() {
+      const data = await axios.get("api/count/category");
+      this.category = data.data.categories;
+      // console.log(data);
+    },
     selected(data) {
       this.selectedData = data;
     },
@@ -569,6 +596,7 @@ export default {
   },
   created() {
     this.token = $("meta[name=csrf-token]").attr("content");
+    this.getCategory();
     this.getItems();
     Fire.$on("refresh_item", () => {
       this.getItems();
@@ -576,23 +604,7 @@ export default {
   },
 };
 </script>
-<style>
-.has-search .form-control {
-  padding-left: 2.375rem;
-}
-
-.has-search .form-control-feedback {
-  position: absolute;
-  z-index: 2;
-  display: block;
-  width: 2.375rem;
-  height: 2.375rem;
-  line-height: 2.375rem;
-  text-align: center;
-  pointer-events: none;
-  margin-top: -3px;
-  color: #007bff;
-}
+<style scoped>
 .table {
   width: 100%;
 }
