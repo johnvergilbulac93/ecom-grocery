@@ -87,15 +87,16 @@
             </nav>
             <!-- Page Content -->
             @yield('menu')
-
-            {{-- <footer class="footer-main">
+{{-- 
+            <footer class="footer-main">
                 <!-- To the right -->
                 <div class="float-right d-none d-sm-inline">
-                  Version 3.2.1
+                    Version 3.2.1
                 </div>
                 <!-- Default to the left -->
-                <strong>Copyright © 2019-2020 <a href="https://admin.alturush.com"> ALTURUSH GROCERY | ADMIN</a>.</strong> All rights reserved.
-              </footer> --}}
+                <strong>Copyright © 2019-2020 <a href="https://admin.alturush.com"> ALTURUSH GROCERY |
+                        ADMIN</a>.</strong> All rights reserved.
+            </footer> --}}
 
             <div class="modal fade" id="useraccount" tabindex="-1" role="dialog" aria-labelledby="useraccount"
                 aria-hidden="true">
@@ -125,14 +126,15 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="username">USERNAME</label>
-                                            <input v-model="form.username" type="text" class="form-control form-control-sm"
-                                                name="username" id="username"
+                                            <input v-model="form.username" type="text"
+                                                class="form-control form-control-sm" name="username" id="username"
                                                 :class="{ 'is-invalid': form.errors.has('username') }">
                                             <has-error :form="form" field="username"></has-error>
                                         </div>
                                         <div class="form-group">
                                             <label for="passsword">NEW PASSWORD</label>
-                                            <input v-model="form.password" type="password" class="form-control form-control-sm">
+                                            <input v-model="form.password" type="password"
+                                                class="form-control form-control-sm">
                                         </div>
                                     </div>
                                     <div class="col-md-12">

@@ -116,9 +116,18 @@
 
 .footer-main {
     background: #fff;
-    border-top: 1px solid #dee2e6;
+    border-top: 2px solid #dee2e6;
     color: #869099;
     padding: 20px 10px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    /* height: 100px; */
+    /* background-color: red; */
+    /* color: white; */
+    text-align: center;
+    margin-top: 10px;
 }
 
 /* CUSTOM CSS */
