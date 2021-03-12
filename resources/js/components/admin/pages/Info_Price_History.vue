@@ -61,7 +61,7 @@
         </thead>
         <tbody>
           <tr v-if="!prices.length">
-            <td colspan="5" class="text-center">NO CHANGED PRICE TODAY</td>
+            <td colspan="5" class="text-center">NO DATA AVAILABLE</td>
           </tr>
           <tr v-for="(data, i) in prices" :key="i">
             <td>{{ data.itemcode }}</td>

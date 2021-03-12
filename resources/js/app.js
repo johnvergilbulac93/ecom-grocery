@@ -18,6 +18,9 @@ import moment from 'moment';
 import gate from './gate';
 // import { format } from 'numeral';
 import Form from "vform";
+import excel from 'vue-excel-export'
+ 
+Vue.use(excel)
 
 // Vue.use(DataTable);
 

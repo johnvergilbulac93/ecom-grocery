@@ -123,7 +123,7 @@ Route::middleware('auth:api')->group(function () {
 
 Route::middleware('auth:api')->group(function () {
     Route::get('filter_report', 'API\ReportController@index');
-    Route::get('filter_report_store', 'API\ReportController@store_item');
+    Route::get('filter_report_store', 'API\ReportController@      ');
     Route::get('liquidation/report', 'API\ReportController@getLiquidation');
     Route::get('accountability/report', 'API\ReportController@getAccountability');
     Route::get('liquidation/store/report', 'API\ReportController@getLiquidation_store');

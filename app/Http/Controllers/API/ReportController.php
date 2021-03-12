@@ -27,52 +27,79 @@ class ReportController extends Controller
         $getBU = DB::table('locate_business_units')->where('bunit_code', $buId)->first();
 
         if ($filter === 'all') {
-            $filename = 'item_masterfile.xlsx';
-            Excel::store(new ItemsExport($filter),  $filename);
+            //             $filename = 'item_masterfile.xlsx';
+            //             Excel::store(new ItemsExport($filter),  $filename);
+            // 
+            //             $file = Storage::get($filename);
+            //             if ($file) {
+            //                 $fileLink = 'data:application/vnd.ms-excel;base64,' . base64_encode($file);
+            //             }
+            //             return response()->json([
+            //                 'success' => true,
+            //                 'data' => $fileLink,
+            //                 'bunit' => $getBU
+            //             ], 200);
 
-            $file = Storage::get($filename);
-            if ($file) {
-                $fileLink = 'data:application/vnd.ms-excel;base64,' . base64_encode($file);
-            }
-            return response()->json([
-                'success' => true,
-                'data' => $fileLink,
-                'bunit' => $getBU
-            ], 200);
+            return  DB::table('gc_product_items')
+                ->join('gc_product_prices', 'gc_product_items.itemcode', '=', 'gc_product_prices.itemcode')
+                ->select('gc_product_items.itemcode', 'gc_product_items.product_name', 'gc_product_items.category_name', 'gc_product_items.category_no', 'gc_product_prices.UOM', 'gc_product_prices.price_with_vat')
+                ->where('gc_product_items.status', 'active')
+                ->get();
+
+            //             return response()->json([
+            //                 'success' => true,
+            //                 'data' => $fileLink,
+            //                 'bunit' => $getBU
+            //             ], 200);
         }
 
         if ($filter === 'available') {
 
-            $filename = 'available_items.xlsx';
-            Excel::store(new ItemsExport($filter),  $filename);
-
-            $file = Storage::get($filename);
-            if ($file) {
-                $fileLink = 'data:application/vnd.ms-excel;base64,' . base64_encode($file);
-            }
-
-            return response()->json([
-                'success' => true,
-                'data' => $fileLink,
-                'bunit' => $getBU
-            ], 200);
+            //             $filename = 'available_items.xlsx';
+            //             Excel::store(new ItemsExport($filter),  $filename);
+            // 
+            //             $file = Storage::get($filename);
+            //             if ($file) {
+            //                 $fileLink = 'data:application/vnd.ms-excel;base64,' . base64_encode($file);
+            //             }
+            // 
+            //             return response()->json([
+            //                 'success' => true,
+            //                 'data' => $fileLink,
+            //                 'bunit' => $getBU
+            //             ], 200);
+            return  DB::table('gc_product_items')
+                ->join('gc_product_prices', 'gc_product_items.itemcode', '=', 'gc_product_prices.itemcode')
+                ->select('gc_product_items.itemcode', 'gc_product_items.product_name', 'gc_product_items.category_name', 'gc_product_items.category_no', 'gc_product_prices.UOM', 'gc_product_prices.price_with_vat')
+                ->where('gc_product_items.status', 'active')
+                ->whereNotIn('gc_product_items.itemcode', function ($query) {
+                    $query->select('gc_item_log_availables.itemcode')->from('gc_item_log_availables')->where('gc_item_log_availables.store', '=', Auth::user()->bunit_code);
+                })->get();
         }
 
         if ($filter === 'unavailable') {
 
-            $filename = 'unavailable_items.xlsx';
-            Excel::store(new ItemsExport($filter),  $filename);
-            $file = Storage::get($filename);
-            if ($file) {
-                $fileLink = 'data:application/vnd.ms-excel;base64,' . base64_encode($file);
-            }
-
-            return response()->json([
-                'success' => true,
-                'data' => $fileLink,
-                'bunit' => $getBU
-            ], 200);
+            //             $filename = 'unavailable_items.xlsx';
+            //             Excel::store(new ItemsExport($filter),  $filename);
+            //             $file = Storage::get($filename);
+            //             if ($file) {
+            //                 $fileLink = 'data:application/vnd.ms-excel;base64,' . base64_encode($file);
+            //             }
+            // 
+            //             return response()->json([
+            //                 'success' => true,
+            //                 'data' => $fileLink,
+            //                 'bunit' => $getBU
+            //             ], 200);
+            return  DB::table('gc_product_items')
+                ->join('gc_product_prices', 'gc_product_items.itemcode', '=', 'gc_product_prices.itemcode')
+                ->select('gc_product_items.itemcode', 'gc_product_items.product_name', 'gc_product_items.category_name', 'gc_product_items.category_no', 'gc_product_prices.UOM', 'gc_product_prices.price_with_vat')
+                ->whereIn('gc_product_items.itemcode', function ($query) {
+                    $query->select('gc_item_log_availables.itemcode')->from('gc_item_log_availables')->where('gc_item_log_availables.store', '=', Auth::user()->bunit_code);
+            })->get();
         }
+
+
     }
 
     public function store_item(Request $request)
@@ -86,47 +113,73 @@ class ReportController extends Controller
         $store = $request->get('store');
 
         if ($filter === 'all') {
-            $filename = 'item_masterfile.xlsx';
-            Excel::store(new ItemsExportStore($filter, $store),  $filename);
 
-            $file = Storage::get($filename);
-            if ($file) {
-                $fileLink = 'data:application/vnd.ms-excel;base64,' . base64_encode($file);
-            }
-            return response()->json([
-                'success' => true,
-                'data' => $fileLink
-            ], 200);
+            //             $filename = 'item_masterfile.xlsx';
+            //             Excel::store(new ItemsExportStore($filter, $store), $filename);
+            // 
+            //             $file = Storage::get($filename);
+            //             if ($file) {
+            //                 $fileLink = 'data:application/vnd.ms-excel;base64,' . base64_encode($file);
+            //             }
+            //             return response()->json([
+            //                 'success' => true,
+            //                 'data' => $fileLink
+            //             ], 200);
+
+            return DB::table('gc_product_items')
+                ->join('gc_product_prices', 'gc_product_items.itemcode', '=', 'gc_product_prices.itemcode')
+                ->select('gc_product_items.itemcode', 'gc_product_items.product_name', 'gc_product_items.category_name', 'gc_product_items.category_no', 'gc_product_prices.UOM', 'gc_product_prices.price_with_vat')
+                ->where('gc_product_items.status', 'active')
+                ->get();
+            // return $query;
         }
 
         if ($filter === 'available') {
 
-            $filename = 'available_items.xlsx';
-            Excel::store(new ItemsExportStore($filter, $store),  $filename);
+            //             $filename = 'available_items.xlsx';
+            //             Excel::store(new ItemsExportStore($filter, $store), $filename);
+            // 
+            //             $file = Storage::get($filename);
+            //             if ($file) {
+            //                 $fileLink = 'data:application/vnd.ms-excel;base64,' . base64_encode($file);
+            //             }
+            //             return response()->json([
+            //                 'success' => true,
+            //                 'data' => $fileLink
+            //             ], 200);
 
-            $file = Storage::get($filename);
-            if ($file) {
-                $fileLink = 'data:application/vnd.ms-excel;base64,' . base64_encode($file);
-            }
-            return response()->json([
-                'success' => true,
-                'data' => $fileLink
-            ], 200);
+            return  DB::table('gc_product_items')
+                ->join('gc_product_prices', 'gc_product_items.itemcode', '=', 'gc_product_prices.itemcode')
+                ->select('gc_product_items.itemcode', 'gc_product_items.product_name', 'gc_product_items.category_name', 'gc_product_items.category_no', 'gc_product_prices.UOM', 'gc_product_prices.price_with_vat')
+                ->where('gc_product_items.status', 'active')
+                ->whereNotIn('gc_product_items.itemcode', function ($query) use ($store) {
+                    $query->select('gc_item_log_availables.itemcode')->from('gc_item_log_availables')->where('gc_item_log_availables.store', '=', $store);
+                })->get();
+            // return $query;
         }
 
         if ($filter === 'unavailable') {
 
 
-            $filename = 'unavailable_items.xlsx';
-            Excel::store(new ItemsExportStore($filter, $store), $filename);
-            $file = Storage::get($filename);
-            if ($file) {
-                $fileLink = 'data:application/vnd.ms-excel;base64,' . base64_encode($file);
-            }
-            return response()->json([
-                'success' => true,
-                'data' => $fileLink
-            ], 200);
+            // $filename = 'unavailable_items.xlsx';
+            // Excel::store(new ItemsExportStore($filter, $store), $filename);
+            // $file = Storage::get($filename);
+            // if ($file) {
+            //     $fileLink = 'data:application/vnd.ms-excel;base64,' . base64_encode($file);
+            // }
+            // return response()->json([
+            //     'success' => true,
+            //     'data' => $fileLink
+            // ], 200);
+
+            return DB::table('gc_product_items')
+                ->join('gc_product_prices', 'gc_product_items.itemcode', '=', 'gc_product_prices.itemcode')
+                ->select('gc_product_items.itemcode', 'gc_product_items.product_name', 'gc_product_items.category_name', 'gc_product_items.category_no', 'gc_product_prices.UOM', 'gc_product_prices.price_with_vat')
+                ->whereIn('gc_product_items.itemcode', function ($query) use ($store) {
+                    $query->select('gc_item_log_availables.itemcode')->from('gc_item_log_availables')->where('gc_item_log_availables.store', '=', $store);
+                })->get();
+
+            // return $results['data'] =$query;
         }
     }
 
@@ -263,6 +316,5 @@ class ReportController extends Controller
     }
     public function get_transactions_today(Request $request)
     {
-
     }
 }

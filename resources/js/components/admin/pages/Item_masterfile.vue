@@ -76,7 +76,7 @@
         </div>
       </div>
       <div class="card-body">
-        <a
+        <!-- <a
           class="btn btn-danger btn-sm mb-1"
           v-if="form.itemIds.length != 0"
           @click="disabledAll"
@@ -96,8 +96,17 @@
           title="Enable all selected item"
         >
           <i class="fas fa-check fa-lg text-white"></i>
-        </a>
-
+        </a> -->
+        <div class="btn-group btn-group-toggle mb-1 " data-toggle="buttons" v-if="form.itemIds.length != 0">
+          <label class="btn btn-danger btn-sm ">
+            <i class="fas fa-times text-white p-1"></i>
+            <input type="radio" name="options" id="option1" autocomplete="off" @click="disabledAll"> <small>DISABLE</small>
+          </label>
+          <label class="btn btn-primary btn-sm">
+            <i class="fas fa-check text-white"></i>
+            <input type="radio" name="options" id="option2" autocomplete="off" @click="enabledAll"> <small>ENABLE</small>
+          </label>
+        </div>
         <div class="table-responsive">
           <table class="table custom-table table-sm">
             <thead>
