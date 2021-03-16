@@ -1,23 +1,28 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-md-4">
-        <!-- small box -->
-        <div class="small-box bg-info">
-          <div class="inner">
-            <center class="py-2">
-              <h5>ITEM NOT AVAILABLE</h5>
-              <hr />
-              <h3>{{ countItems }}</h3>
-            </center>
-          </div>
+      <div class="col-sm-6">
+        <div class="row justify-content-start">
+          <div class="col-sm-6">
+            <div class="small-box bg-orange">
+              <div class="inner text-white">
+                <h3>{{ countItems }}</h3>
 
-          <a @click="viewItem" class="small-box-footer"
-            >More info <i class="fas fa-arrow-circle-right"></i
-          ></a>
+                <p>Items not available</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </div>
+              <a @click="viewItem" class="small-box-footer">
+                <span class="text-white">More info</span>
+                <i class="fas fa-arrow-circle-right text-white"></i>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
     <div
       class="modal fade"
       id="viewitem"
@@ -32,7 +37,12 @@
             <h5 class="modal-title" id="viewitem">
               <h4 class="lead">&nbsp;ITEM DETAILS</h4>
             </h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -68,8 +78,12 @@
                     :data="items"
                     @pagination-change-page="getResults"
                   >
-                    <span slot="prev-nav"><i class="fas fa-angle-left"></i></span>
-                    <span slot="next-nav"><i class="fas fa-angle-right"></i></span>
+                    <span slot="prev-nav"
+                      ><i class="fas fa-angle-left"></i
+                    ></span>
+                    <span slot="next-nav"
+                      ><i class="fas fa-angle-right"></i
+                    ></span>
                   </pagination>
                 </div>
               </div>

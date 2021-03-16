@@ -43,14 +43,14 @@ const routes = [
         path: '/',
         name: 'main-page',
         component: landing_page
-        
+
     },
     {
         path: '/home',
         name: 'home',
         component: home,
         beforeEnter: (to, from, next) => {
-            if (to.params.id === 6) {
+            if (to.params.id != 12) {
                 next();
             } else {
                 next('/');
@@ -208,7 +208,7 @@ const routes = [
         name: 'transaction',
         component: transaction,
         beforeEnter: (to, from, next) => {
-            if (to.params.id === 17 || from.params.id === 12) {
+            if (from.params.id === 12) {
                 next();
             } else {
                 next('/');

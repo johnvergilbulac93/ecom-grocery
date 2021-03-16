@@ -67,7 +67,8 @@
                             <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" style="font-size: 15px;">
                                 <a href="#" class="dropdown-item px-3 py-1" data-toggle="modal"
                                     data-target="#useraccount">
-                                    <i class="fas fa-user-alt text-gray mx-2"></i> ACCOUNT
+                                    <i class="fas fa-user-alt text-gray mx-2"></i> 
+                                    <span class="text-gray">ACCOUNT</span> 
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item px-3 py-1" href="{{ route('logout') }}" onclick="event.preventDefault();

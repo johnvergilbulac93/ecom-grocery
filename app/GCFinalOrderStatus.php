@@ -22,4 +22,13 @@ class GCFinalOrderStatus extends Model
     {
         return $this->hasMany(GCFinalOrder::class, 'ticket_id', 'ticket_id');
     }
+    public function finalOrdersCancel()
+    {
+        return $this->hasMany(GCFinalOrder::class, 'ticket_id', 'ticket_id')->where('canceled_status',0);
+    }
+    public function finalOrdersCancelItem()
+    {
+        return $this->hasMany(GCFinalOrder::class, 'ticket_id', 'ticket_id')->where('canceled_status',1);
+    }
+
 }

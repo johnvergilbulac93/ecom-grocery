@@ -14,7 +14,6 @@
                     <ul class="navbar-nav">
 
                         <li class="nav-item d-none d-sm-inline-block">
-
                             <router-link :to="{ name: 'dashboard', params: { id: {{ Auth::user()->usertype_id }}  } }"
                                 class="nav-link ">
                                 <i class="fas fa-home text-orange fa-lg"></i>
@@ -45,6 +44,13 @@
                 <div class="collapse navbar-collapse order-3 " id="navbarCollapse" style="font-size: 16px;">
                     <!-- Left navbar links -->
                     <ul class="navbar-nav">
+                        <li class="nav-item d-none d-sm-inline-block">
+                            <router-link :to="{ name: 'home', params: { id: {{ Auth::user()->usertype_id }}  } }"
+                                class="nav-link ">
+                                <i class="fas fa-home text-orange fa-lg"></i>
+                                <span>DASHBOARD</span>
+                            </router-link>
+                        </li>
                         <li class="nav-item d-none d-sm-inline-block">
                             <router-link :to="{ name: 'uploading', params: { id: {{ Auth::user()->usertype_id }}  } }"
                                 class="nav-link">
@@ -83,8 +89,7 @@
                     <!-- Left navbar links -->
                     <ul class="navbar-nav">
                         <li class="nav-item d-none d-sm-inline-block">
-                            <router-link
-                                :to="{ name: 'liquidition_store', params: { id: {{ Auth::user()->usertype_id }}  } }"
+                            <router-link :to="{ name: 'liquidition_store', params: { id: {{ Auth::user()->usertype_id }}  } }"
                                 class="nav-link">
                                 <i class="fas fa-clipboard-list text-orange fa-lg"></i>
                                 <span>LIQUIDITION REPORT</span>
@@ -114,6 +119,13 @@
                 <div class="collapse navbar-collapse order-3 " id="navbarCollapse" style="font-size: 16px;">
                     <!-- Left navbar links -->
                     <ul class="navbar-nav">
+                        <li class="nav-item d-none d-sm-inline-block">
+                            <router-link :to="{ name: 'home', params: { id: {{ Auth::user()->usertype_id }}  } }"
+                                class="nav-link ">
+                                <i class="fas fa-home text-orange fa-lg"></i>
+                                <span>DASHBOARD</span>
+                            </router-link>
+                        </li>
                         <li class="nav-item d-none d-sm-inline-block">
                             <router-link :to="{ name: 'item', params: { id: {{ Auth::user()->usertype_id }}  } }"
                                 class="nav-link">
@@ -174,7 +186,8 @@
                     <!-- Left navbar links -->
                     <ul class="navbar-nav">
                         <li class="nav-item d-none d-sm-inline-block">
-                            <router-link :to="{ name: 'liquidition_store', params: { id: {{ Auth::user()->usertype_id }}  } }"
+                            <router-link
+                                :to="{ name: 'liquidition_store', params: { id: {{ Auth::user()->usertype_id }}  } }"
                                 class="nav-link">
                                 <i class="fas fa-clipboard-list text-orange fa-lg"></i>
                                 <span>LIQUIDITION REPORT</span>

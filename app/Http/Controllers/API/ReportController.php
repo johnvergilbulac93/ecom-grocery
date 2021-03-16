@@ -8,6 +8,7 @@ use App\Exports\ItemsExport;
 use App\GcCashierMonitoring;
 use Illuminate\Http\Request;
 use App\Exports\ItemsExportStore;
+use App\GCFinalOrderStatus;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -305,7 +306,34 @@ class ReportController extends Controller
         $result['data'] = $data;
         return $result;
     }
-    public function get_transactions_today(Request $request)
+    public function getTransactions(Request $request)
     {
+
+        $buId = $request->get('store');
+        $status = $request->get('status');
+        $dateFrom = Carbon::parse($request->get('dateFrom'))->toDateString();
+        $dateTo = Carbon::parse($request->get('dateTo'))->toDateTimeString();
+        $getBU = DB::table('locate_business_units')->where('bunit_code', $buId)->first();
+
+        if ($status == 1) {
+
+            $data = GCFinalOrderStatus::with(['finalOrdersCancel', 'customerBills', 'tickets'])
+                ->where('bu_id', $buId)
+                ->where('paid_status', 1)
+                ->whereDate('order_pickup', '>=', $dateFrom)
+                ->whereDate('order_pickup', '<=', $dateTo)
+                ->get();
+        } else {
+
+            $data = GCFinalOrderStatus::with(['finalOrdersCancelItem', 'customerBills', 'tickets'])
+                ->where('bu_id', $buId)
+                ->where('cancelled_status', 1)
+                ->whereDate('cancelled_at', '>=', $dateFrom)
+                ->whereDate('cancelled_at', '<=', $dateTo)
+                ->get();
+        }
+        $result['b_unit'] = $getBU;
+        $result['data'] = $data;
+        return $result;
     }
 }
