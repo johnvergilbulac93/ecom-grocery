@@ -57,37 +57,59 @@
         </div>
       </div>
       <div class="col-sm-2">
-        <button
-          class="btn btn-primary btn-sm btn-block mt-4"
-          @click="generate()"
-        >
-          <span
-            class="spinner-border spinner-border-sm"
-            role="status"
-            aria-hidden="true"
-            v-if="loading"
-          ></span>
-          {{ loading ? "Loading..." : "Generate" }}
-        </button>
+        <div class="row">
+          <div class="col-sm-6">
+            <button
+              class="btn btn-primary btn-sm btn-block mt-4"
+              @click="generate()"
+            >
+              <span
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+                v-if="loading"
+              ></span>
+              {{ loading ? "Loading..." : "Generate" }}
+            </button>
+          </div>
+          <div class="col-sm-6">
+            <button
+              class="btn btn-success btn-sm btn-block mt-4"
+              v-if="transactions.b_unit != null"
+              :disabled="!transactions.data.length"
+            >
+              <i class="fas fa-print"></i>
+              Print
+            </button>
+          </div>
+        </div>
       </div>
-      <div class="d-flex">
-        <!-- <button
-          class="btn btn-primary btn-sm mx-2"
-          @click="generate()"
-          tabindex="4"
-        >
-          Generate
-        </button>
-        <button
-          tabindex="5"
-          class="btn btn-success btn-sm"
-          @click="printBtn()"
-          v-if="transactions.b_unit != null"
-          :disabled="!transactions.data.length"
-        >
-          <i class="fas fa-print"></i>
-          Print
-        </button> -->
+    </div>
+    <hr class="mt-1" />
+    <div id="section-to-print">
+      <div class="container" v-if="transactions.b_unit != null">
+        <div class="row">
+          <div class="col-sm-12">
+            <center>
+              <img
+                alt="logo"
+                :src="$root.logo_path + '' + transactions.b_unit.logo"
+                style="width: 220px; height: 150px; object-fit: contain"
+              />
+              <h4>
+                {{
+                  transactions.hasOwnProperty("b_unit") &&
+                  transactions.b_unit.business_unit
+                }}
+              </h4>
+              <h4 class="">TOTAL ORDERS REPORT</h4>
+              <span class="text-center font-semibold text-gray-500"
+                >{{ filter.dateFrom | formatDateNoTime }} To
+                {{ filter.dateTo | formatDateNoTime }}
+              </span>
+            </center>
+          </div>
+        </div>
       </div>
     </div>
   </div>
