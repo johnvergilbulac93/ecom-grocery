@@ -40,6 +40,8 @@ class ReportController extends Controller
             //                 'bunit' => $getBU
             //             ], 200);
 
+            $filename = $getBU->acroname . '-ALL-ITEMS-' . Carbon::now()->format('Y-m-d-hms') . '.xls';
+
             $query =   DB::table('gc_product_items')
                 ->join('gc_product_prices', 'gc_product_items.itemcode', '=', 'gc_product_prices.itemcode')
                 ->select('gc_product_items.itemcode', 'gc_product_items.product_name', 'gc_product_items.category_name', 'gc_product_items.category_no', 'gc_product_prices.UOM', 'gc_product_prices.price_with_vat')
@@ -47,6 +49,7 @@ class ReportController extends Controller
                 ->get();
 
             $result['items'] = $query;
+            $result['filename'] = $filename;
             return $result;
 
             //             return response()->json([
@@ -71,6 +74,8 @@ class ReportController extends Controller
             //                 'data' => $fileLink,
             //                 'bunit' => $getBU
             //             ], 200);
+            $filename = $getBU->acroname . '-AVAILABLE-ITEMS-' . Carbon::now()->format('Y-m-d-hms') . '.xls';
+
             $query =   DB::table('gc_product_items')
                 ->join('gc_product_prices', 'gc_product_items.itemcode', '=', 'gc_product_prices.itemcode')
                 ->select('gc_product_items.itemcode', 'gc_product_items.product_name', 'gc_product_items.category_name', 'gc_product_items.category_no', 'gc_product_prices.UOM', 'gc_product_prices.price_with_vat')
@@ -79,6 +84,7 @@ class ReportController extends Controller
                     $query->select('gc_item_log_availables.itemcode')->from('gc_item_log_availables')->where('gc_item_log_availables.store', '=', Auth::user()->bunit_code);
                 })->get();
             $result['items'] = $query;
+            $result['filename'] = $filename;
             return $result;
         }
 
@@ -96,6 +102,8 @@ class ReportController extends Controller
             //                 'data' => $fileLink,
             //                 'bunit' => $getBU
             //             ], 200);
+            $filename = $getBU->acroname . '-UNAVAILABLE-ITEMS-' . Carbon::now()->format('Y-m-d-hms') . '.xls';
+
             $query =   DB::table('gc_product_items')
                 ->join('gc_product_prices', 'gc_product_items.itemcode', '=', 'gc_product_prices.itemcode')
                 ->select('gc_product_items.itemcode', 'gc_product_items.product_name', 'gc_product_items.category_name', 'gc_product_items.category_no', 'gc_product_prices.UOM', 'gc_product_prices.price_with_vat')
@@ -103,6 +111,7 @@ class ReportController extends Controller
                     $query->select('gc_item_log_availables.itemcode')->from('gc_item_log_availables')->where('gc_item_log_availables.store', '=', Auth::user()->bunit_code);
                 })->get();
             $result['items'] = $query;
+            $result['filename'] = $filename;
             return $result;
         }
     }
@@ -116,9 +125,11 @@ class ReportController extends Controller
 
         $filter = $request->get('by');
         $store = $request->get('store');
-        $storeUser = DB::table('locate_business_units')->where('bunit_code', $store)->first();
+        $getBU = DB::table('locate_business_units')->where('bunit_code', $store)->first();
 
         if ($filter === 'all') {
+
+            $filename = $getBU->acroname . '-ALL-ITEMS-' . Carbon::now()->format('Y-m-d-hms') . '.xls';
 
             $query =   DB::table('gc_product_items')
                 ->join('gc_product_prices', 'gc_product_items.itemcode', '=', 'gc_product_prices.itemcode')
@@ -127,10 +138,13 @@ class ReportController extends Controller
                 ->where('gc_product_prices.status', 1)
                 ->get();
             $result['items'] = $query;
+            $result['filename'] = $filename;
             return $result;
         }
 
         if ($filter === 'available') {
+
+            $filename = $getBU->acroname . '-AVAILABLE-ITEMS-' . Carbon::now()->format('Y-m-d-hms') . '.xls';
 
             $query =   DB::table('gc_product_items')
                 ->join('gc_product_prices', 'gc_product_items.itemcode', '=', 'gc_product_prices.itemcode')
@@ -142,10 +156,13 @@ class ReportController extends Controller
                 })
                 ->get();
             $result['items'] = $query;
+            $result['filename'] = $filename;
             return $result;
         }
 
         if ($filter === 'unavailable') {
+
+            $filename = $getBU->acroname . '-UNAVAILABLE-ITEMS-' . Carbon::now()->format('Y-m-d-hms') . '.xls';
 
             $query =  DB::table('gc_product_items')
                 ->join('gc_product_prices', 'gc_product_items.itemcode', '=', 'gc_product_prices.itemcode')
@@ -156,6 +173,7 @@ class ReportController extends Controller
                 })->get();
 
             $result['items'] = $query;
+            $result['filename'] = $filename;
             return $result;
         }
     }

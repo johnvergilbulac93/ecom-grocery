@@ -27,6 +27,7 @@
           class="form-control form-control-sm"
           v-model="filter.by"
           tabindex="2"
+          @change="changestore"
         >
           <option value="">Choose Filter</option>
           <option value="all">All Items</option>
@@ -69,7 +70,7 @@
           :fields="json_fields"
           type="xls"
           :worksheet="filter.by"
-          :name="selectedstore.text + '-' + filter.by + '-' + 'items' + '.xls'"
+          :name="filename"
           v-if="results.length"
         >
           <i class="far fa-file-excel"></i>
@@ -103,6 +104,7 @@ export default {
       selectedstore: "",
       storeName: "",
       results: [],
+      filename: "",
       filter: {
         by: "",
         store: "",
@@ -126,17 +128,6 @@ export default {
     };
   },
   methods: {
-    forceFileDownload(response) {
-      const url = window.URL.createObjectURL(
-        new Blob([response.data.data])
-      );
-      const link = document.createElement("a");
-      console.log(url);
-      link.href = url;
-      link.setAttribute("download", response.data.filename + '.xlsx'); //or any other extension
-      document.body.appendChild(link);
-      link.click();
-    },
     changestore() {
       this.results = [];
     },
@@ -149,6 +140,7 @@ export default {
         .then((data) => {
           this.loading = false;
           this.results = data.data.items;
+          this.filename = data.data.filename;
           swal.fire(
             "Success",
             "Download your excel file now, by clicking the download excel button.",

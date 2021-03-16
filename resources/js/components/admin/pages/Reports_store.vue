@@ -38,7 +38,7 @@
           :fields="json_fields"
           type="xls"
           :worksheet="filter.by"
-          :name="filter.by + '-' + 'items' + '.xls'"
+          :name="filename"
           v-if="results.length"
         >
           <i class="far fa-file-excel"></i>
@@ -67,6 +67,7 @@ export default {
     return {
       loading: false,
       results: [],
+      filename: '',
       filter: {
         by: "",
       },
@@ -89,40 +90,6 @@ export default {
     };
   },
   methods: {
-    //     generateBy() {
-    //       this.loading = true;
-    //       axios
-    //         .get("api/filter_report", { params: this.filter }, { responseType: "blob" })
-    //         .then((res) => {
-    //           this.loading = false;
-    //           let anchor = document.createElement("a");
-    //           let filename;
-    //           let storename = res.data.bunit.acroname;
-    //
-    //           if (this.filter.by === "all") {
-    //             filename = storename +"-"+ "Item_masterfile" + ".xlsx";
-    //           }
-    //           if (this.filter.by === "available") {
-    //             filename = storename +"-"+"available_items" + ".xlsx";
-    //           }
-    //           if (this.filter.by === "unavailable") {
-    //             filename = storename +"-"+"unavailable_items" + ".xlsx";
-    //           }
-    //           anchor.setAttribute("download", filename);
-    //           anchor.setAttribute("href", res.data.data);
-    //           document.body.appendChild(anchor);
-    //           anchor.click();
-    //           document.body.removeChild(anchor);
-    //           swal.fire("Success", "Exported to excel successfully.", "success");
-    //         })
-    //         .catch((error) => {
-    //           this.loading = false;
-    //           if (error.response.status == 422) {
-    //             swal.fire("Error", "Please choose filter", "error");
-    //             this.loading = false;
-    //           }
-    //         });
-    //     },
     changestore() {
       this.results = [];
     },
@@ -133,6 +100,7 @@ export default {
         .then((data) => {
           this.loading = false;
           this.results = data.data.items;
+          this.filename = data.data.filename;
           swal.fire(
             "Success",
             "Download your excel file now, by clicking the Download Excel button.",
