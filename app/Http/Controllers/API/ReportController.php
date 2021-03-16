@@ -40,11 +40,14 @@ class ReportController extends Controller
             //                 'bunit' => $getBU
             //             ], 200);
 
-            return  DB::table('gc_product_items')
+            $query =   DB::table('gc_product_items')
                 ->join('gc_product_prices', 'gc_product_items.itemcode', '=', 'gc_product_prices.itemcode')
                 ->select('gc_product_items.itemcode', 'gc_product_items.product_name', 'gc_product_items.category_name', 'gc_product_items.category_no', 'gc_product_prices.UOM', 'gc_product_prices.price_with_vat')
                 ->where('gc_product_items.status', 'active')
                 ->get();
+
+            $result['items'] = $query;
+            return $result;
 
             //             return response()->json([
             //                 'success' => true,
@@ -68,13 +71,15 @@ class ReportController extends Controller
             //                 'data' => $fileLink,
             //                 'bunit' => $getBU
             //             ], 200);
-            return  DB::table('gc_product_items')
+            $query =   DB::table('gc_product_items')
                 ->join('gc_product_prices', 'gc_product_items.itemcode', '=', 'gc_product_prices.itemcode')
                 ->select('gc_product_items.itemcode', 'gc_product_items.product_name', 'gc_product_items.category_name', 'gc_product_items.category_no', 'gc_product_prices.UOM', 'gc_product_prices.price_with_vat')
                 ->where('gc_product_items.status', 'active')
                 ->whereNotIn('gc_product_items.itemcode', function ($query) {
                     $query->select('gc_item_log_availables.itemcode')->from('gc_item_log_availables')->where('gc_item_log_availables.store', '=', Auth::user()->bunit_code);
                 })->get();
+            $result['items'] = $query;
+            return $result;
         }
 
         if ($filter === 'unavailable') {
@@ -91,15 +96,15 @@ class ReportController extends Controller
             //                 'data' => $fileLink,
             //                 'bunit' => $getBU
             //             ], 200);
-            return  DB::table('gc_product_items')
+            $query =   DB::table('gc_product_items')
                 ->join('gc_product_prices', 'gc_product_items.itemcode', '=', 'gc_product_prices.itemcode')
                 ->select('gc_product_items.itemcode', 'gc_product_items.product_name', 'gc_product_items.category_name', 'gc_product_items.category_no', 'gc_product_prices.UOM', 'gc_product_prices.price_with_vat')
                 ->whereIn('gc_product_items.itemcode', function ($query) {
                     $query->select('gc_item_log_availables.itemcode')->from('gc_item_log_availables')->where('gc_item_log_availables.store', '=', Auth::user()->bunit_code);
-            })->get();
+                })->get();
+            $result['items'] = $query;
+            return $result;
         }
-
-
     }
 
     public function store_item(Request $request)
@@ -111,75 +116,47 @@ class ReportController extends Controller
 
         $filter = $request->get('by');
         $store = $request->get('store');
+        $storeUser = DB::table('locate_business_units')->where('bunit_code', $store)->first();
 
         if ($filter === 'all') {
 
-            //             $filename = 'item_masterfile.xlsx';
-            //             Excel::store(new ItemsExportStore($filter, $store), $filename);
-            // 
-            //             $file = Storage::get($filename);
-            //             if ($file) {
-            //                 $fileLink = 'data:application/vnd.ms-excel;base64,' . base64_encode($file);
-            //             }
-            //             return response()->json([
-            //                 'success' => true,
-            //                 'data' => $fileLink
-            //             ], 200);
-
-            return DB::table('gc_product_items')
+            $query =   DB::table('gc_product_items')
                 ->join('gc_product_prices', 'gc_product_items.itemcode', '=', 'gc_product_prices.itemcode')
                 ->select('gc_product_items.itemcode', 'gc_product_items.product_name', 'gc_product_items.category_name', 'gc_product_items.category_no', 'gc_product_prices.UOM', 'gc_product_prices.price_with_vat')
                 ->where('gc_product_items.status', 'active')
+                ->where('gc_product_prices.status', 1)
                 ->get();
-            // return $query;
+            $result['items'] = $query;
+            return $result;
         }
 
         if ($filter === 'available') {
 
-            //             $filename = 'available_items.xlsx';
-            //             Excel::store(new ItemsExportStore($filter, $store), $filename);
-            // 
-            //             $file = Storage::get($filename);
-            //             if ($file) {
-            //                 $fileLink = 'data:application/vnd.ms-excel;base64,' . base64_encode($file);
-            //             }
-            //             return response()->json([
-            //                 'success' => true,
-            //                 'data' => $fileLink
-            //             ], 200);
-
-            return  DB::table('gc_product_items')
+            $query =   DB::table('gc_product_items')
                 ->join('gc_product_prices', 'gc_product_items.itemcode', '=', 'gc_product_prices.itemcode')
                 ->select('gc_product_items.itemcode', 'gc_product_items.product_name', 'gc_product_items.category_name', 'gc_product_items.category_no', 'gc_product_prices.UOM', 'gc_product_prices.price_with_vat')
                 ->where('gc_product_items.status', 'active')
+                ->where('gc_product_prices.status', 1)
                 ->whereNotIn('gc_product_items.itemcode', function ($query) use ($store) {
                     $query->select('gc_item_log_availables.itemcode')->from('gc_item_log_availables')->where('gc_item_log_availables.store', '=', $store);
-                })->get();
-            // return $query;
+                })
+                ->get();
+            $result['items'] = $query;
+            return $result;
         }
 
         if ($filter === 'unavailable') {
 
-
-            // $filename = 'unavailable_items.xlsx';
-            // Excel::store(new ItemsExportStore($filter, $store), $filename);
-            // $file = Storage::get($filename);
-            // if ($file) {
-            //     $fileLink = 'data:application/vnd.ms-excel;base64,' . base64_encode($file);
-            // }
-            // return response()->json([
-            //     'success' => true,
-            //     'data' => $fileLink
-            // ], 200);
-
-            return DB::table('gc_product_items')
+            $query =  DB::table('gc_product_items')
                 ->join('gc_product_prices', 'gc_product_items.itemcode', '=', 'gc_product_prices.itemcode')
                 ->select('gc_product_items.itemcode', 'gc_product_items.product_name', 'gc_product_items.category_name', 'gc_product_items.category_no', 'gc_product_prices.UOM', 'gc_product_prices.price_with_vat')
+                ->where('gc_product_prices.status', 1)
                 ->whereIn('gc_product_items.itemcode', function ($query) use ($store) {
                     $query->select('gc_item_log_availables.itemcode')->from('gc_item_log_availables')->where('gc_item_log_availables.store', '=', $store);
                 })->get();
 
-            // return $results['data'] =$query;
+            $result['items'] = $query;
+            return $result;
         }
     }
 
@@ -189,7 +166,6 @@ class ReportController extends Controller
 
         $buId = $request->get('store');
         $dateFrom = Carbon::parse($request->get('dateFrom'))->toDateString();
-        // $dateTo = Carbon::parse($request->get('dateTo'))->toDateString();
         $dateTo = Carbon::parse($request->get('dateTo'))->toDateTimeString();
         $getBU = DB::table('locate_business_units')->where('bunit_code', $buId)->first();
 
@@ -215,7 +191,6 @@ class ReportController extends Controller
     {
         $buId = $request->get('store');
         $dateFrom = Carbon::parse($request->get('dateFrom'))->toDateString();
-        // $dateTo = Carbon::parse($request->get('dateTo'))->toDateString();
         $dateTo = Carbon::parse($request->get('dateTo'))->toDateTimeString();
         $getBU = DB::table('locate_business_units')->where('bunit_code', $buId)->first();
 
@@ -255,7 +230,6 @@ class ReportController extends Controller
 
         $buId = Auth::user()->bunit_code;
         $dateFrom = Carbon::parse($request->get('dateFrom'))->toDateString();
-        // $dateTo = Carbon::parse($request->get('dateTo'))->toDateString();
         $dateTo = Carbon::parse($request->get('dateTo'))->toDateTimeString();
         $getBU = DB::table('locate_business_units')->where('bunit_code', $buId)->first();
 
@@ -281,7 +255,6 @@ class ReportController extends Controller
     {
         $buId = Auth::user()->bunit_code;
         $dateFrom = Carbon::parse($request->get('dateFrom'))->toDateString();
-        // $dateTo = Carbon::parse($request->get('dateTo'))->toDateString();
         $dateTo = Carbon::parse($request->get('dateTo'))->toDateTimeString();
         $getBU = DB::table('locate_business_units')->where('bunit_code', $buId)->first();
 

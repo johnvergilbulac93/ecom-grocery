@@ -19,7 +19,7 @@ import gate from './gate';
 // import { format } from 'numeral';
 import Form from "vform";
 import excel from 'vue-excel-export'
- 
+
 Vue.use(excel)
 
 // Vue.use(DataTable);
@@ -107,10 +107,10 @@ const app = new Vue({
     data(){
         return {
        
-        url: "https://admin.alturush.com/ITEM-IMAGES/",
-        path: "https://admin.alturush.com/img/",
-        // url: "/ITEM-IMAGES/",
-        // path: "/img/",
+        // url: "https://admin.alturush.com/ITEM-IMAGES/",
+        // path: "https://admin.alturush.com/img/",
+        url: "/ITEM-IMAGES/",
+        path: "/img/",
         serverDateTime,
         userType,
         logo_path: 'https://apanel.alturush.com/',

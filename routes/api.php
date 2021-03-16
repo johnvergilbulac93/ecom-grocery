@@ -58,10 +58,8 @@ Route::middleware('auth:api')->group(function () {
 
     Route::get('show/available/item/store', 'API\ItemController@store_available_item');
     Route::get('count/category', 'API\ItemController@count_per_category');
-    Route::post('selected/disable/item','API\ItemController@disabled_selected_item');
-    Route::post('selected/enable/item','API\ItemController@enabled_selected_item');
-
-
+    Route::post('selected/disable/item', 'API\ItemController@disabled_selected_item');
+    Route::post('selected/enable/item', 'API\ItemController@enabled_selected_item');
 });
 
 Route::middleware('auth:api')->group(function () {
@@ -123,7 +121,7 @@ Route::middleware('auth:api')->group(function () {
 
 Route::middleware('auth:api')->group(function () {
     Route::get('filter_report', 'API\ReportController@index');
-    Route::get('filter_report_store', 'API\ReportController@      ');
+    Route::get('filter_report_store', 'API\ReportController@store_item');
     Route::get('liquidation/report', 'API\ReportController@getLiquidation');
     Route::get('accountability/report', 'API\ReportController@getAccountability');
     Route::get('liquidation/store/report', 'API\ReportController@getLiquidation_store');

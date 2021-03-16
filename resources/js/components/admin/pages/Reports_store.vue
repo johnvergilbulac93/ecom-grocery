@@ -132,7 +132,7 @@ export default {
         .get("api/filter_report", { params: this.filter })
         .then((data) => {
           this.loading = false;
-          this.results = data.data;
+          this.results = data.data.items;
           swal.fire(
             "Success",
             "Download your excel file now, by clicking the Download Excel button.",

@@ -93,7 +93,7 @@
 
 <script>
 // import excel from "vue-excel-export";
-
+// import FileSaver from "file-saver";
 export default {
   name: "Reports",
   data() {
@@ -126,40 +126,17 @@ export default {
     };
   },
   methods: {
-    // generateBy() {
-    //   let storename = this.selectedstore.text;
-    //   this.loading = true;
-    //   this.filter.store = this.selectedstore.id;
-    //   axios
-    //     .get("api/filter_report_store", { params: this.filter })
-    //     .then((res) => {
-    //       this.loading = false;
-    //       let anchor = document.createElement("a");
-    //       let filename;
-    //       if (this.filter.by === "all") {
-    //         filename = storename + "-" + "Item-masterfile" + ".xlsx";
-    //       }
-    //       if (this.filter.by === "available") {
-    //         filename = storename + "-" + "available_items" + ".xlsx";
-    //       }
-    //       if (this.filter.by === "unavailable") {
-    //         filename = storename + "-" + "unavailable_items" + ".xlsx";
-    //       }
-    //       anchor.setAttribute("download", filename);
-    //       anchor.setAttribute("href", res.data.data);
-    //       document.body.appendChild(anchor);
-    //       anchor.click();
-    //       document.body.removeChild(anchor);
-    //       swal.fire("Success", "Exported to excel successfully.", "success");
-    //     })
-    //     .catch((error) => {
-    //       this.loading = false;
-    //       if (error.response.status == 422) {
-    //         swal.fire("Error", "Please choose Store/filter", "error");
-    //         this.loading = false;
-    //       }
-    //     });
-    // },
+    forceFileDownload(response) {
+      const url = window.URL.createObjectURL(
+        new Blob([response.data.data])
+      );
+      const link = document.createElement("a");
+      console.log(url);
+      link.href = url;
+      link.setAttribute("download", response.data.filename + '.xlsx'); //or any other extension
+      document.body.appendChild(link);
+      link.click();
+    },
     changestore() {
       this.results = [];
     },
@@ -171,7 +148,7 @@ export default {
         .get("api/filter_report_store", { params: this.filter })
         .then((data) => {
           this.loading = false;
-          this.results = data.data;
+          this.results = data.data.items;
           swal.fire(
             "Success",
             "Download your excel file now, by clicking the download excel button.",
