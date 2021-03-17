@@ -188,7 +188,7 @@
 
 <script>
 export default {
-  name: "Liquidition-Report",
+  name: "Liquidation-Report",
   data() {
     return {
       total_result: null,

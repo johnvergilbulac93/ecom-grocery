@@ -11,6 +11,7 @@
             @change="clearData"
           >
             <option value="">Select Store</option>
+            <option value="all">ALL STORE</option>
             <option
               v-for="(store, i) in stores"
               :value="store.bunit_code"

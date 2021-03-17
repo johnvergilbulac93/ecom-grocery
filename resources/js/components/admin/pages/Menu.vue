@@ -154,7 +154,7 @@
               <router-link
                 :to="{ name: 'liquidition', params: { id: $root.userType } }"
               >
-                <span>Liquidition Report</span>
+                <span>Liquidation Report</span>
               </router-link>
             </li>
             <li class="custom-item">

@@ -2,9 +2,9 @@
 @section('menu')
 
     @can('isSuperAdmin')
-        <header class="main-sidenav navbar navbar-expand-md navbar-light navbar-white">
+        <header class="main-sidenav navbar navbar-expand-sm navbar-light navbar-white layout-navbar-fixed">
             <div class="container">
-                <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                <button class="navbar-toggler order-3" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -12,7 +12,6 @@
                 <div class="collapse navbar-collapse order-3 " id="navbarCollapse" style="font-size: 16px;">
                     <!-- Left navbar links -->
                     <ul class="navbar-nav">
-
                         <li class="nav-item d-none d-sm-inline-block">
                             <router-link :to="{ name: 'dashboard', params: { id: {{ Auth::user()->usertype_id }}  } }"
                                 class="nav-link ">

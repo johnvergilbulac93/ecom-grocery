@@ -42,7 +42,7 @@
 
 
 
-<body>
+<body ">
     <div id='app'>
         <!-- Navigation -->
         <div class="wrapper">
