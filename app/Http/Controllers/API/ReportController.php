@@ -317,19 +317,59 @@ class ReportController extends Controller
 
         if ($status == 1) {
 
-            $data = GCFinalOrderStatus::with(['finalOrdersCancel', 'customerBills', 'tickets'])
-                ->where('bu_id', $buId)
-                ->where('paid_status', 1)
-                ->whereDate('order_pickup', '>=', $dateFrom)
-                ->whereDate('order_pickup', '<=', $dateTo)
+            $data = Ticket::with(['finalOrders', 'finalOrderStatus', 'discountAmount', 'customerBill', 'CashierMonitoring'])
+                ->selectRaw('CONCAT(customer_delivery_infos.firstname ," " ,customer_delivery_infos.lastname) AS customer,
+            emp_no,
+            name as picker_name,
+            tickets.*,
+                receipt,
+                gc_transactions.status
+            ')
+                ->join('customer_delivery_infos', 'customer_delivery_infos.ticket_id', '=', 'tickets.id')
+                ->JOIN('barangays', 'barangays.brgy_id', '=', 'customer_delivery_infos.barangay_id')
+                ->JOIN('towns', 'towns.town_id', '=', 'barangays.town_id')
+                ->JOIN('province', 'province.prov_id', '=', 'towns.prov_id')
+                ->JOIN('gc_picker_taggings', 'gc_picker_taggings.ticket_id', '=', 'tickets.id')
+                ->JOIN('gc_pickers', 'gc_pickers.id', '=', 'gc_picker_taggings.picker_id')
+                ->JOIN('gc_order_statuses', 'gc_order_statuses.ticket_id', '=', 'tickets.id')
+                ->JOIN('gc_transactions', 'gc_transactions.ticket_id', '=', 'ticket')
+                ->where('gc_order_statuses.paid_status', true)
+                ->where('gc_order_statuses.bu_id', '=', $buId)
+                ->whereDate('gc_order_statuses.order_pickup', '>=', $dateFrom)
+                ->whereDate('gc_order_statuses.order_pickup', '<=', $dateTo)
+                // ->whereBetween('gc_order_statuses.order_pickup', [$dateFrom, $dateTo])
                 ->get();
         } else {
 
-            $data = GCFinalOrderStatus::with(['finalOrdersCancelItem', 'customerBills', 'tickets'])
-                ->where('bu_id', $buId)
-                ->where('cancelled_status', 1)
-                ->whereDate('cancelled_at', '>=', $dateFrom)
-                ->whereDate('cancelled_at', '<=', $dateTo)
+            // $data = GCFinalOrderStatus::with(['customerBill', 'tickets'])
+            //     ->selectRaw('CONCAT(customer_delivery_infos.firstname ," " ,customer_delivery_infos.lastname) AS customer,
+            // emp_no,
+            // name as picker_name,
+            // gc_order_statuses.*
+            // ')
+            //     ->join('customer_delivery_infos', 'customer_delivery_infos.ticket_id', '=', 'gc_order_statuses.ticket_id')
+            //     ->JOIN('barangays', 'barangays.brgy_id', '=', 'customer_delivery_infos.barangay_id')
+            //     ->JOIN('towns', 'towns.town_id', '=', 'barangays.town_id')
+            //     ->JOIN('province', 'province.prov_id', '=', 'towns.prov_id')
+            //     ->JOIN('gc_picker_taggings', 'gc_picker_taggings.ticket_id', '=', 'gc_order_statuses.ticket_id')
+            //     ->JOIN('gc_pickers', 'gc_pickers.id', '=', 'gc_picker_taggings.picker_id')
+            //     ->where('gc_order_statuses.bu_id', $buId)
+            //     ->where('gc_order_statuses.cancelled_status', 1)
+            //     ->whereDate('gc_order_statuses.cancelled_at', '>=', $dateFrom)
+            //     ->whereDate('gc_order_statuses.cancelled_at', '<=', $dateTo)
+            //     ->get();
+            $data = Ticket::with(['customerBill','finalOrders', 'finalOrderStatus'])
+                ->selectRaw('CONCAT(customer_delivery_infos.firstname ," " ,customer_delivery_infos.lastname) AS customer,
+                tickets.*
+                ')
+                ->JOIN('gc_order_statuses', 'gc_order_statuses.ticket_id', '=', 'tickets.id')
+                ->join('customer_delivery_infos', 'customer_delivery_infos.ticket_id', '=', 'tickets.id')
+                // ->JOIN('gc_order_statuses', 'gc_order_statuses.ticket_id', '=', 'tickets.id')
+                ->where('gc_order_statuses.bu_id', '=', $buId)
+                ->where('gc_order_statuses.cancelled_status', 1)
+                ->whereDate('gc_order_statuses.cancelled_at', '>=', $dateFrom)
+                ->whereDate('gc_order_statuses.cancelled_at', '<=', $dateTo)
+                // ->whereBetween('gc_order_statuses.order_pickup', [$dateFrom, $dateTo])
                 ->get();
         }
         $result['b_unit'] = $getBU;

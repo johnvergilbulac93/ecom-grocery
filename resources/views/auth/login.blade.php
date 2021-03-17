@@ -50,7 +50,7 @@
            		   </div>
            		   <div class="div">
            		   		<h5>Username</h5>
-                        <input  type="text" class="input" name="username" value="{{ old('username') }}" >
+                        <input  type="text" class="input" name="username" value="{{ old('username') }}" tabindex="1">
                     </div>                
                 </div>
                 
@@ -67,7 +67,7 @@
                       
            		   <div class="div">
            		    	<h5>Password</h5>
-                        <input  id="password" type="password" class="input" name="password" >
+                        <input  id="password" type="password" class="input" name="password" tabindex="2">
                    </div>
                 </div>
 
@@ -86,7 +86,7 @@
 
                 {{-- <input type="submit" class="btn-login" value="Login"> --}}
 
-                <button type="submit" class="btn-login">
+                <button type="submit" class="btn-login" tabindex="3">
                     {{ __('Login') }}
                 </button>
 
