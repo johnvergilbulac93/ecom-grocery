@@ -19,9 +19,9 @@
     {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
 
     <!-- Custom styles for this template -->
-    <link href="{{ asset('css/loading.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/loading.css') }}" rel="stylesheet"> --}}
     <link href="{{ asset('css/shop-homepage.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/datatables/datatables.min.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/datatables/datatables.min.css') }}" rel="stylesheet"> --}}
 
 
     {{-- <link href="{{ asset('css/ionicons.min.css')}}" rel="stylesheet"> --}}
@@ -60,9 +60,10 @@
                         <!-- User Dropdown Menu -->
                         <li class="nav-item dropdown">
                             <a class="nav-link" data-toggle="dropdown" href="#">
+                                <span class="user text-uppercase">{{ Auth::user()->name }}</span>
                                 <img src="{{ URL::asset('/img/user1.png') }}" class="img-circle elevation-1"
                                     alt="User Image" style="height: 2rem;">
-                                <span class="user text-uppercase">{{ Auth::user()->name }}</span>
+                               
                             </a>
                             <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" style="font-size: 15px;">
                                 <a href="#" class="dropdown-item px-3 py-1" data-toggle="modal"
@@ -164,7 +165,7 @@
     <!-- Main core JavaScript -->
     <script src="{{ asset('js/app.js') }}"></script>
     <!-- DataTables core JavaScript -->
-    <script src="{{ asset('js/datatables/datatables.min.js') }}"></script>
+    {{-- <script src="{{ asset('js/datatables/datatables.min.js') }}"></script> --}}
     {{-- <script src="{{ asset('js/datatables/pdfmake.min.js') }}"></script>
   <script src="{{ asset('js/datatables/vfs_fonts.js') }}"></script> --}}
 

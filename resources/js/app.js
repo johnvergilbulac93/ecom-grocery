@@ -5,12 +5,15 @@
  */
 
 require('./bootstrap');
-require( 'datatables.net-bs4/css/dataTables.bootstrap4.min.css' );
-require( 'datatables.net-bs4/js/dataTables.bootstrap4.min.js' );
+require('datatables.net-bs4/css/dataTables.bootstrap4.min.css');
+require('datatables.net-bs4/js/dataTables.bootstrap4.min.js');
 
 window.Vue = require('vue');
 import router from './routers'
-import {HasError, AlertError } from 'vform';
+import {
+    HasError,
+    AlertError
+} from 'vform';
 import ViewUI from 'view-design';
 import 'view-design/dist/styles/iview.css';
 import swal from 'sweetalert2';
@@ -44,29 +47,29 @@ Vue.component(AlertError.name, AlertError)
 Vue.prototype.$gate = new gate(window.user);
 
 //filters
-Vue.filter('textformat', function(data){
+Vue.filter('textformat', function (data) {
     return data.charAt(0).toUpperCase() + data.slice(1)
 });
 
-Vue.filter('dateformat', function(created){
-    return moment(created).startOf().fromNow(); 
+Vue.filter('dateformat', function (created) {
+    return moment(created).startOf().fromNow();
 });
 
 Vue.filter('formatDate', date => moment(date).format('MMMM Do YYYY, h:mm:ss a'))
 Vue.filter('formatDateNoTime', date => moment(date).format('MMM DD, YYYY'))
 Vue.filter('formatTime', date => moment(date).format('h:mm A'))
 
-Vue.filter('toCurrency', function(value) {
+Vue.filter('toCurrency', function (value) {
     if (typeof value !== 'number') {
-      return value
+        return value
     }
     var formatter = new Intl.NumberFormat('en-PH', {
-      style: 'currency',
-      currency: 'PHP',
-      minimumFractionDigits: 2
+        style: 'currency',
+        currency: 'PHP',
+        minimumFractionDigits: 2
     })
     return formatter.format(value)
-  })
+})
 
 let serverDateTime = document.head.querySelector('meta[name="server-datetime"]').content
 let userType = document.head.querySelector('meta[name="user-type"]').content
@@ -76,6 +79,13 @@ window.serverDateTime = serverDateTime
 window.userType = userType
 
 
+
+// if (process.env.APP_ENV === 'local' ) {
+//     
+//     Vue.config.devtools = false;
+//     Vue.config.debug = false;
+//     Vue.config.silent = true;
+// }
 
 
 /**
@@ -98,42 +108,42 @@ Vue.component('Top', require('./components/admin/pages/Top.vue').default);
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
- */
+*/
 
- 
+
 const app = new Vue({
     el: '#app',
     router,
-    data(){
+    data() {
         return {
-       
-        // url: "https://admin.alturush.com/ITEM-IMAGES/",
-        // path: "https://admin.alturush.com/img/",
-        url: "/ITEM-IMAGES/",
-        path: "/img/",
-        serverDateTime,
-        userType,
-        logo_path: 'https://apanel.alturush.com/',
-        form: new Form({
-            username: '',
-            password: ''
-        })
+
+            // url: "https://admin.alturush.com/ITEM-IMAGES/",
+            // path: "https://admin.alturush.com/img/",
+            url: "/ITEM-IMAGES/",
+            path: "/img/",
+            serverDateTime,
+            userType,
+            logo_path: 'https://apanel.alturush.com/',
+            form: new Form({
+                username: '',
+                password: ''
+            })
 
         }
     },
     methods: {
-        updateProfile(){
+        updateProfile() {
             this.form.post('api/updateprofile/')
-            .then(() => {
-                this.form.clear();
-                this.form.reset();
-                $("#useraccount").modal("hide");
-                swal.fire("Your profile successfully", "Updated", "success");
-                window.location.reload()
-            })
-            .catch(() => {
+                .then(() => {
+                    this.form.clear();
+                    this.form.reset();
+                    $("#useraccount").modal("hide");
+                    swal.fire("Your profile successfully", "Updated", "success");
+                    window.location.reload()
+                })
+                .catch(() => {
 
-            })
+                })
         },
 
     },

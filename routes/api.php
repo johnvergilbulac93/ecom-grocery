@@ -63,11 +63,13 @@ Route::middleware('auth:api')->group(function () {
 });
 
 Route::middleware('auth:api')->group(function () {
+
     Route::put('min_order_amount/{id}', 'API\SetUpController@min_order_amount');
     Route::put('pickup_charge/{id}', 'API\SetUpController@pickup_charge');
     Route::put('order_time_cutoff/{id}', 'API\SetUpController@order_time_cutoff');
     Route::put('max_order/{id}', 'API\SetUpController@max_order');
     Route::put('serving_time/{id}', 'API\SetUpController@serving_time');
+    
     Route::get('setup_rules', 'API\SetUpController@setup_rules');
     Route::get('pickers', 'API\SetUpController@pickers');
     Route::post('pickercreate', 'API\SetUpController@pickercreate');
@@ -115,7 +117,6 @@ Route::middleware('auth:api')->group(function () {
     Route::post('add_super_user', 'API\UserController@add_super_user');
     Route::get('stores', 'API\UserController@getStores');
     Route::get('employee', 'API\UserController@employees');
-
     Route::post('updateprofile', 'API\UserController@updateprofile');
 });
 

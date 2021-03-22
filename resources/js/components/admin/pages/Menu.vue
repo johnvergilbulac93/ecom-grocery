@@ -168,7 +168,7 @@
               <router-link
                 :to="{ name: 'transaction', params: { id: $root.userType } }"
               >
-                <span>Total Order Report</span>
+                <span>Total Order Report - REMITTED </span>
               </router-link>
             </li>
           </ul>
