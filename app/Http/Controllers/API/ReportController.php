@@ -334,7 +334,9 @@ class ReportController extends Controller
                 ->where('gc_order_statuses.paid_status', true)
                 ->whereDate('gc_order_statuses.order_pickup', '>=', $dateFrom)
                 ->whereDate('gc_order_statuses.order_pickup', '<=', $dateTo)
-                ->get();
+                ->get()
+                ->groupBy('acroname');
+
             $result['b_unit'] = 'all';
             $result['data'] = $data;
             return $result;
