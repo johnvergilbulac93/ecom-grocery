@@ -227,7 +227,8 @@ class ItemController extends Controller
 
         $imageName = $id . '.' . explode('/', explode(':', substr($request->image, 0, strpos($request->image, ';')))[1])[1];
 
-        $path = public_path() . '/ITEM-IMAGES/' . $imageName;
+        // $path = public_path() . '/ITEM-IMAGES/' . $imageName;
+        $path = '../admins.alturush.com/ITEM-IMAGES/' . $imageName;
 
 
         if (file_exists($path)) {

@@ -86,6 +86,8 @@ class UploadingController extends Controller
         $this->validate($request, ['file' => 'image|mimes:jpeg,png,jpg,gif,svg',]);
         $imageName = $request->file->getClientOriginalName();
         $path = public_path() . '/ITEM-IMAGES/';
+        // $path = '../admins.alturush.com/ITEM-IMAGES/';
+        // $path2 = 'https://admins.alturush.com/ITEM-IMAGES/'; 
         if (file_exists($path . $imageName)) {
             @unlink($path . $imageName);
         }

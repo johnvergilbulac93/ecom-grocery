@@ -38,11 +38,13 @@
         font-family: 'Roboto', sans-serif;
     }
 
+    .bg-color-body {
+        background-color: #ecf0f5;
+    }
+
 </style>
 
-
-
-<body ">
+<body class="bg-color-body">
     <div id='app'>
         <!-- Navigation -->
         <div class="wrapper">
@@ -63,13 +65,13 @@
                                 <span class="user text-uppercase">{{ Auth::user()->name }}</span>
                                 <img src="{{ URL::asset('/img/user1.png') }}" class="img-circle elevation-1"
                                     alt="User Image" style="height: 2rem;">
-                               
+
                             </a>
                             <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right" style="font-size: 15px;">
                                 <a href="#" class="dropdown-item px-3 py-1" data-toggle="modal"
                                     data-target="#useraccount">
-                                    <i class="fas fa-user-alt text-gray mx-2"></i> 
-                                    <span class="text-gray">ACCOUNT</span> 
+                                    <i class="fas fa-user-alt text-gray mx-2"></i>
+                                    <span class="text-gray">ACCOUNT</span>
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item px-3 py-1" href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -89,13 +91,18 @@
             </nav>
             <!-- Page Content -->
             @yield('menu')
-{{-- 
-            <footer class="footer-main">
+
+
+            {{-- <footer class="footer-main">
                 <!-- To the right -->
                 <div class="float-right d-none d-sm-inline">
                     Version 3.2.1
                 </div>
                 <!-- Default to the left -->
+                <strong>Copyright © 2019-2020 <a href="https://admin.alturush.com"> ALTURUSH GROCERY |
+                        ADMIN</a>.</strong> All rights reserved.
+            </footer> --}}
+            {{-- <footer>
                 <strong>Copyright © 2019-2020 <a href="https://admin.alturush.com"> ALTURUSH GROCERY |
                         ADMIN</a>.</strong> All rights reserved.
             </footer> --}}

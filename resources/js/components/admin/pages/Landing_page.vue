@@ -1,5 +1,5 @@
 <template>
-  <div class="jumbotron text-orange text-center elevation-2">
+  <div class="jumbotron text-orange text-center elevation-2 mt-4">
     <div class="container text-muted ">
       <h1 class="display-4 text-orange">WELCOME BACK</h1>
       <h1 class="display-5 text-orange mt-4 mb-2">{{ name }}</h1>

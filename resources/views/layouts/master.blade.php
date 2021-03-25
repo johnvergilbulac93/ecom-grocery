@@ -198,7 +198,7 @@
         </header>
     @endcan
 
-    <div class="mt-2">
+    <div class="mt-2 mb-4">
         <router-view></router-view>
     </div>
 @endsection
