@@ -310,23 +310,23 @@ class ReportController extends Controller
     {
 
         $buId = $request->get('store');
+        // $reportType = $request->get('type');
         $dateFrom = Carbon::parse($request->get('dateFrom'))->toDateString();
         $dateTo = Carbon::parse($request->get('dateTo'))->toDateTimeString();
         $getBU = DB::table('locate_business_units')->where('bunit_code', $buId)->first();
 
         if ($buId === 'all') {
-
             $data = Ticket::with(['finalOrders', 'finalOrderStatusStore', 'discountAmount', 'customerBill', 'CashierMonitoring'])
                 ->selectRaw('CONCAT(customer_delivery_infos.firstname ," " ,customer_delivery_infos.lastname) AS customer,
-                    tickets.*,
-                    receipt,
-                    gc_transactions.status,
-                    gc_order_statuses.order_pickup,
-                    gc_order_statuses.bu_id,
-                    locate_business_units.acroname,
-                    locate_business_units.business_unit,
-                    locate_business_units.logo
-                ')
+            tickets.*,
+            receipt,
+            gc_transactions.status,
+            gc_order_statuses.order_pickup,
+            gc_order_statuses.bu_id,
+            locate_business_units.acroname,
+            locate_business_units.business_unit,
+            locate_business_units.logo
+        ')
                 ->join('customer_delivery_infos', 'customer_delivery_infos.ticket_id', '=', 'tickets.id')
                 ->JOIN('gc_transactions', 'gc_transactions.ticket_id', '=', 'ticket')
                 ->JOIN('gc_order_statuses', 'gc_order_statuses.ticket_id', '=', 'tickets.id')
@@ -335,24 +335,19 @@ class ReportController extends Controller
                 ->whereDate('gc_order_statuses.order_pickup', '>=', $dateFrom)
                 ->whereDate('gc_order_statuses.order_pickup', '<=', $dateTo)
                 ->get();
-                // ->groupBy('acroname');
-
-            $result['b_unit'] = 'all';
-            $result['data'] = $data;
-            return $result;
         } else {
 
             $data = Ticket::with(['finalOrders', 'finalOrderStatusStore', 'discountAmount', 'customerBill', 'CashierMonitoring'])
                 ->selectRaw('CONCAT(customer_delivery_infos.firstname ," " ,customer_delivery_infos.lastname) AS customer,
-                    tickets.*,
-                    receipt,
-                    gc_transactions.status,
-                    gc_order_statuses.order_pickup,
-                    gc_order_statuses.bu_id,
-                    locate_business_units.acroname,
-                    locate_business_units.business_unit,
-                    locate_business_units.logo
-                ')
+                tickets.*,
+                receipt,
+                gc_transactions.status,
+                gc_order_statuses.order_pickup,
+                gc_order_statuses.bu_id,
+                locate_business_units.acroname,
+                locate_business_units.business_unit,
+                locate_business_units.logo
+            ')
                 ->join('customer_delivery_infos', 'customer_delivery_infos.ticket_id', '=', 'tickets.id')
                 ->JOIN('gc_transactions', 'gc_transactions.ticket_id', '=', 'ticket')
                 ->JOIN('gc_order_statuses', 'gc_order_statuses.ticket_id', '=', 'tickets.id')
@@ -362,7 +357,16 @@ class ReportController extends Controller
                 ->whereDate('gc_order_statuses.order_pickup', '>=', $dateFrom)
                 ->whereDate('gc_order_statuses.order_pickup', '<=', $dateTo)
                 ->get();
-            // ->groupBy('acroname');
+        }
+
+
+        if ($buId === 'all') {
+
+            $result['b_unit'] = 'all';
+            $result['data'] = $data;
+            return $result;
+        } else {
+
             $result['b_unit'] = $getBU;
             $result['data'] = $data;
             return $result;
