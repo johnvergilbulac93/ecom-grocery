@@ -27,6 +27,4 @@ Route::get('{path}','HomeController@index')->where('path', '([A-z\d=\/_.]+)?');
 //      Route::get('main-menu', 'ShowMenuController@showMenu')->name('main-menu');
 // });
 
-Route::get('report-menu', 'ShowMenuController@index')->name('report-menu');
-Route::get('main-menu', 'ShowMenuController@showMenu')->name('main-menu');
 

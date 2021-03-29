@@ -112,7 +112,7 @@
 </template>
 
 <script>
-import InfoPrice from "./Info_Price_History.vue";
+import InfoPrice from "./Info-Price-History.vue";
 import Chart from "./Chart";
 
 export default {

@@ -3,39 +3,35 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-import landing_page from './components/admin/pages/Landing_page'
-import item from './components/admin/pages/Item_masterfile'
+import landing_page from './components/admin/pages/Landing-page'
+import item from './components/admin/pages/Item-masterfile'
 import picker_time from './components/admin/pages/Picker_time'
 import pickup from './components/admin/pages/Pickup_cutoff'
-import disabled_item_batch from './components/admin/pages/Item_disabled_batch'
+import disabled_item_batch from './components/admin/pages/Item-disabled-batch'
 import home from './components/admin/pages/Dashboard'
 import users from './components/admin/pages/Users'
-import central_item from './components/admin/pages/Central_item'
-import business_rule from './components/admin/pages/Business_rule'
+import central_item from './components/admin/pages/Central-item'
+import business_rule from './components/admin/pages/Business-rule'
 import uploading from './components/admin/pages/Uploading'
-import dashboard from './components/admin/pages/Dashboard_super'
+import dashboard from './components/admin/pages/Dashboard-super'
 import setting from './components/admin/pages/Setting'
-import reports_store from './components/admin/pages/Reports_store'
+import reports_store from './components/admin/pages/Reports-store'
 import reports from './components/admin/pages/Reports'
 import transaction from './components/admin/pages/Transactions'
-import accountability from './components/admin/pages/Accountability_Report'
+import accountability from './components/admin/pages/Accountability-Report'
 import exporting from './components/admin/pages/ExportFiles'
-import liquidition from './components/admin/pages/Liquidition_Report'
-import bu_time from './components/admin/pages/Business_time'
+import liquidition from './components/admin/pages/Liquidition-Report'
+import bu_time from './components/admin/pages/Business-time'
 import tenant from './components/admin/pages/Tenants'
-import count from './components/admin/pages/Available_item_store'
-import disable_uom from './components/admin/pages/Item_disable_per_uom'
-import enable_uom from './components/admin/pages/Item_enable_per_uom'
-import minimum_delivery from './components/admin/pages/Minimum_order_delivery'
-import delivery_charges from './components/admin/pages/Delivery_charges'
+import count from './components/admin/pages/Available-item-store'
+import disable_uom from './components/admin/pages/Item-disable-per-uom'
+import enable_uom from './components/admin/pages/Item-enable-per-uom'
+import minimum_delivery from './components/admin/pages/Minimum-order-delivery'
+import delivery_charges from './components/admin/pages/Delivery-charges'
 import multiple from './components/admin/pages/Multiple-images'
 import liquidition_store from './components/admin/pages/Liquidition-Report-Store'
 import accountability_store from './components/admin/pages/Accountability-Report-Store'
 import menu from './components/admin/pages/Menu'
-
-
-
-
 
 const routes = [
 
@@ -60,11 +56,11 @@ const routes = [
     {
         path: '/item',
         name: 'item',
-        component: item,
-        beforeEnter: (to, from, next) => {
+        component: item,       
+         beforeEnter: (to, from, next) => {
             if (to.params.id === 15 || to.params.id === 6) {
                 next();
-            } else {
+            }else{
                 next('/');
             }
         }

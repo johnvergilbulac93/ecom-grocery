@@ -21,7 +21,6 @@ class ItemController extends Controller
     public function edit_item(Request $request)
     {
 
-
         $this->validate($request, [
             'itemcode' => 'required|numeric',
             'product_name' => 'required',
@@ -197,17 +196,14 @@ class ItemController extends Controller
 
     public function item_Active($id)
     {
-
         $active_data = array(
             'status'       => 'inactive',
         );
-
         gc_product_item::where('itemcode', '=', $id)->update($active_data);
     }
 
     public function item_Inactive($id)
     {
-
         $inactive_data = array(
             'status'       => 'active',
         );
@@ -216,7 +212,6 @@ class ItemController extends Controller
 
     public function imageitem(Request $request, $id)
     {
-
         $this->validate($request, [
             'image'      => 'required',
         ]);
@@ -227,8 +222,8 @@ class ItemController extends Controller
 
         $imageName = $id . '.' . explode('/', explode(':', substr($request->image, 0, strpos($request->image, ';')))[1])[1];
 
-        // $path = public_path() . '/ITEM-IMAGES/' . $imageName;
-        $path = '../admins.alturush.com/ITEM-IMAGES/' . $imageName;
+        $path = public_path() . '/ITEM-IMAGES/' . $imageName;
+        // $path = '../admins.alturush.com/ITEM-IMAGES/' . $imageName;
 
 
         if (file_exists($path)) {
