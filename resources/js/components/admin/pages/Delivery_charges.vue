@@ -24,7 +24,7 @@
                     <th style="width: 30px"></th>
                     <th>Province</th>
                     <th>Town</th>
-                    <th>Barangay</th>
+                    <!-- <th>Barangay</th> -->
                     <th>Transportation Type</th>
                     <th>Charge Amount</th>
                     <th>Rider Share</th>
@@ -53,7 +53,7 @@
                     </td>
                     <td>{{ data.prov_name }}</td>
                     <td>{{ data.town_name }}</td>
-                    <td>{{ data.brgy_name }}</td>
+                    <!-- <td>{{ data.brgy_name }}</td> -->
                     <td>{{ data.transpo_name }}</td>
                     <td>{{ data.charge_amt }}</td>
                     <td>{{ data.rider_shared }}</td>
@@ -157,7 +157,7 @@
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="brgy">Select Barangay</label>
+                    <label for="brgy">Select Barangay</label><small class="text-primary"> (Optional)</small> 
                     <select
                       class="form-control form-control-sm"
                       v-model="form.barangay"

@@ -178,10 +178,7 @@ export default {
       const { data } = await axios.get("api/price_changed/count");
       this.priceCount = data;
     },
-    // async getPriceChanged() {
-    //   const { data } = await axios.get("api/price_changed/count");
-    //   this.priceCount = data;
-    // },
+
   },
 };
 </script>

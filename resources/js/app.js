@@ -57,6 +57,7 @@ Vue.filter('dateformat', function (created) {
 
 Vue.filter('formatDate', date => moment(date).format('MMMM Do YYYY, h:mm:ss a'))
 Vue.filter('formatDateNoTime', date => moment(date).format('MMM DD, YYYY'))
+Vue.filter('formatDateMonthOnly', date => moment(date).format('MMMM'))
 Vue.filter('formatTime', date => moment(date).format('h:mm A'))
 
 Vue.filter('toCurrency', function (value) {
@@ -117,10 +118,10 @@ const app = new Vue({
     data() {
         return {
 
-            url: "https://admins.alturush.com/ITEM-IMAGES/",
-            path: "https://admins.alturush.com/img/",
-            // url: "/ITEM-IMAGES/",
-            // path: "/img/",
+            // url: "https://admins.alturush.com/ITEM-IMAGES/",
+            // path: "https://admins.alturush.com/img/",
+            url: "/ITEM-IMAGES/",
+            path: "/img/",
             serverDateTime,
             userType,
             logo_path: 'https://apanel.alturush.com/',

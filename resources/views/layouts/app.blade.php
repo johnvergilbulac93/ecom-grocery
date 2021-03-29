@@ -57,8 +57,6 @@
                     </router-link>
                     <!-- Right navbar links -->
                     <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
-
-
                         <!-- User Dropdown Menu -->
                         <li class="nav-item dropdown">
                             <a class="nav-link" data-toggle="dropdown" href="#">
@@ -107,7 +105,7 @@
                         ADMIN</a>.</strong> All rights reserved.
             </footer> --}}
 
-            <div class="modal fade" id="useraccount" tabindex="-1" role="dialog" aria-labelledby="useraccount"
+            <div class="modal fade" id="useraccount" tabindex="-1" role="dialog" aria-labelledby="e"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">

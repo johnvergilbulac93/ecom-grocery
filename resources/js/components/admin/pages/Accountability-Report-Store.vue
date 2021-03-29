@@ -46,23 +46,24 @@
       </div>
     </div>
     <hr class="mt-1" />
-    <div id="section-to-print">
+    <div id="section-to-print" class="mt-2">
       <div class="container" v-if="transactions.b_unit != null">
         <div class="row">
           <div class="col-sm-12">
             <center>
-              <img
+              <!-- <img
                 alt="logo"
                 :src="$root.logo_path + '' + transactions.b_unit.logo"
                 style="width: 220px; height: 150px; object-fit: contain"
-              />
+              /> -->
               <h4>
                 {{
                   transactions.hasOwnProperty("b_unit") &&
                   transactions.b_unit.business_unit
                 }}
               </h4>
-              <h4 class="">ACCOUNTABILITY REPORT</h4>
+              <h6>ALTURUSH GOODS ORDERING</h6>
+              <h6 class="">ACCOUNTABILITY REPORT</h6>
               <span class="text-center font-semibold text-gray-500"
                 >{{ filter.dateFrom | formatDateNoTime }} To
                 {{ filter.dateTo | formatDateNoTime }}

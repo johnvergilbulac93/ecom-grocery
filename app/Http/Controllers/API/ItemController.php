@@ -327,8 +327,7 @@ class ItemController extends Controller
     }
     public function price_count_changed()
     {
-
-        $query =  DB::table('gc_product_items')
+        return   DB::table('gc_product_items')
             ->join('gc_product_price_histories', 'gc_product_items.itemcode', '=', 'gc_product_price_histories.itemcode')
             ->whereDate('gc_product_price_histories.update_at', Carbon::today()->toDateString())
             ->select('*')
@@ -336,12 +335,12 @@ class ItemController extends Controller
                 $query->select('gc_product_price_histories.itemcode')->from('gc_product_price_histories');
             })
             ->count();
-        return $query;
     }
 
     public function price_count_changed_info(Request $request)
     {
-
+    
+    
         $length = $request->input('length');
         $column = $request->input('column');
         $dir = $request->input('dir');

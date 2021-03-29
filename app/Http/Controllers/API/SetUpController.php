@@ -366,7 +366,7 @@ class SetUpController extends Controller
         $query = DB::table('gc_delivery_charges')
                 ->join('province','gc_delivery_charges.prov_id','=','province.prov_id')
                 ->join('towns','gc_delivery_charges.town_id','=','towns.town_id')
-                ->join('barangays','gc_delivery_charges.brgy_id','=','barangays.brgy_id')
+                // ->join('barangays','gc_delivery_charges.brgy_id','=','barangays.brgy_id')
                 ->join('gc_transportations','gc_delivery_charges.transpo_id','=','gc_transportations.id')
                 ->select('*')
                 ->orderBy('gc_delivery_charges.chrg_id',$dir);
@@ -389,13 +389,13 @@ class SetUpController extends Controller
         $this->validate($request, [
             'province'        => 'required',
             'town'    => 'required',
-            'barangay'      => 'required',
+            // 'barangay'      => 'required',create_charge
             'transportation'      => 'required',
             'charge'      => 'required',
             'share'      => 'required',
         ]);
        $checking_data =  gc_delivery_charge::where('town_id',$request->get('town'))
-                                            ->where('brgy_id',$request->get('barangay'))
+                                            // ->where('brgy_id',$request->get('barangay'))
                                             ->where('transpo_id',$request->get('transportation'))
                                             ->exists();
        if(!$checking_data)

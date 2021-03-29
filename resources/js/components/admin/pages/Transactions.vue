@@ -47,7 +47,7 @@
           />
         </div>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-2 ">
         <div class="form-group">
           <label for="from">Date To:</label>&nbsp;
           <input
@@ -227,9 +227,7 @@
               >
             </div>
           </div>
-        </div>
-        <div class="container" v-if="ArrDataStore.b_unit != null">
-          <div class="row" v-if="filter.store === 'all'">
+           <div class="row" v-else>
             <div class="col-sm-12">
               <center class="p-4">
                 <h4>ALL STORES</h4>
@@ -255,7 +253,7 @@
               >
                 <thead>
                   <tr>
-                    <td colspan="6" class="text-center">
+                    <td colspan="6">
                       <span class="font-weight-bold text-primary p-3">{{
                         store[0].business_unit
                       }}</span>
@@ -397,13 +395,83 @@
                   <tr v-for="(store, i) in get_results_by_store" :key="i">
                     <td>{{ store[0].business_unit }}</td>
                     <td class="text-center">{{ store.length }}</td>
-                    <td  class="text-right">
+                    <td class="text-right">
                       {{ totalOrderAmount(store).orderAmount | toCurrency }}
                     </td>
-                    <td  class="text-right">
+                    <td class="text-right">
                       {{ totalOrderAmount(store).pickupCharge | toCurrency }}
                     </td>
-                    <td  class="text-right">
+                    <td class="text-right">
+                      {{ totalOrderAmount(store).grandTotal | toCurrency }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th class="text-center font-weight-bold">GRAND TOTAL</th>
+                    <td class="text-center font-weight-bold">
+                      {{ orderSummary.gTotalTransaction }}
+                    </td>
+                    <td class="text-right font-weight-bold">
+                      {{ orderSummary.orderAmount | toCurrency }}
+                    </td>
+                    <td class="text-right font-weight-bold">
+                      {{ orderSummary.pickupCharge | toCurrency }}
+                    </td>
+                    <td class="text-right font-weight-bold">
+                      {{ orderSummary.grandTotal | toCurrency }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <span class="float-left" v-if="ArrDataStore.data.length"
+                >Run Time: {{ dateNow }}</span
+              >
+            </div>
+          </div>
+          <div class="row" v-else>
+            <div class="col-sm-12">
+              <center class="p-4">
+                <h4>
+                  {{
+                    ArrDataStore.hasOwnProperty("b_unit") &&
+                    ArrDataStore.b_unit.business_unit
+                  }}
+                </h4>
+                <h6>ALTURUSH GOODS ORDERING</h6>
+                <h6>
+                  TOTAL ORDERS REPORT(<span class="text-danger">{{
+                    filter.type
+                  }}</span
+                  >)
+                </h6>
+
+                <span class="text-center font-semibold text-gray-500"
+                  >{{ filter.dateFrom | formatDateNoTime }} To
+                  {{ filter.dateTo | formatDateNoTime }}
+                </span>
+              </center>
+            </div>
+            <div class="container">
+              <table class="table table-bordered table-sm mt-1">
+                <thead>
+                  <tr>
+                    <th>DATE</th>
+                    <th class="text-center">TOTAL ORDERS</th>
+                    <th class="text-right">GROSS AMOUNT</th>
+                    <th class="text-right">PICKING CHARGE</th>
+                    <th class="text-right">TOTAL</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(store, i) in get_results_by_month" :key="i">
+                    <td>{{ store[0].order_pickup | formatDateMonthOnly}}</td>
+                    <td class="text-center">{{ store.length }}</td>
+                    <td class="text-right">
+                      {{ totalOrderAmount(store).orderAmount | toCurrency }}
+                    </td>
+                    <td class="text-right">
+                      {{ totalOrderAmount(store).pickupCharge | toCurrency }}
+                    </td>
+                    <td class="text-right">
                       {{ totalOrderAmount(store).grandTotal | toCurrency }}
                     </td>
                   </tr>
