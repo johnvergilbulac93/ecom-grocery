@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row justify-content-center mt-2">
-      <div class="col-sm-4  ">
+      <div class="col-sm-4">
         <!-- small box -->
         <div class="small-box bg-orange text-white">
           <div class="inner text-white">
@@ -19,7 +19,7 @@
         </div>
       </div>
       <!-- ./col -->
-      <div class="col-sm-4 ">
+      <div class="col-sm-4">
         <!-- small box -->
         <div class="small-box bg-orange text-white">
           <div class="inner text-white">
@@ -27,10 +27,13 @@
 
             <p>Uploaded Price</p>
           </div>
-          <div class="icon ">
-             <i class="fas fa-tag"></i>
+          <div class="icon">
+            <i class="fas fa-tag"></i>
           </div>
-          <a href="#" class="small-box-footer text-white" @click="uploadpricemodal"
+          <a
+            href="#"
+            class="small-box-footer text-white"
+            @click="uploadpricemodal"
             ><span class="text-white">Click here to update price</span>
             <i class="fas fa-arrow-circle-right text-white"></i
           ></a>
@@ -54,7 +57,13 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="uploaditem">Upload New Item</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+              :disabled="loading"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -72,15 +81,30 @@
               :before-upload="handleBeforeUpload"
             >
               <div style="padding: 20px 0">
-                <Icon type="ios-cloud-upload" size="52" style="color: orange"></Icon>
+                <Icon
+                  type="ios-cloud-upload"
+                  size="52"
+                  style="color: orange"
+                ></Icon>
                 <p>Click or drag files here</p>
               </div>
             </Upload>
           </div>
 
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">
-              Close
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+              :disabled="loading"
+            >
+              <span
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+                v-if="loading"
+              ></span>
+              {{ loading ? "Loading..." : "Close" }}
             </button>
           </div>
         </div>
@@ -102,7 +126,13 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="uploaditem">Update Price</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+              :disabled="loading"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -120,14 +150,29 @@
               :before-upload="handleBeforeUpload"
             >
               <div style="padding: 20px 0">
-                <Icon type="ios-cloud-upload" size="52" style="color: orange"></Icon>
+                <Icon
+                  type="ios-cloud-upload"
+                  size="52"
+                  style="color: orange"
+                ></Icon>
                 <p>Click or drag files here</p>
               </div>
             </Upload>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">
-              Close
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+              :disabled="loading"
+            >
+              <span
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+                v-if="loading"
+              ></span>
+              {{ loading ? "Loading..." : "Close" }}
             </button>
           </div>
         </div>
@@ -149,7 +194,12 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="uploaditem">Upload New UOM</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -167,14 +217,29 @@
               :before-upload="handleBeforeUpload"
             >
               <div style="padding: 20px 0">
-                <Icon type="ios-cloud-upload" size="52" style="color: orange"></Icon>
+                <Icon
+                  type="ios-cloud-upload"
+                  size="52"
+                  style="color: orange"
+                ></Icon>
                 <p>Click or drag files here</p>
               </div>
             </Upload>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">
-              Close
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+              :disabled="loading"
+            >
+              <span
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+                v-if="loading"
+              ></span>
+              {{ loading ? "Loading..." : "Close" }}
             </button>
           </div>
         </div>
@@ -193,7 +258,12 @@
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -201,7 +271,11 @@
             <img src="" alt="newitemformat" />
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
               Close
             </button>
           </div>
@@ -215,10 +289,11 @@
 export default {
   data() {
     return {
+      loading: false,
       token: null,
       itemcount: null,
       pricecount: null,
-      uomcount: null,
+      uomcount: null
     };
   },
   methods: {
@@ -244,6 +319,7 @@ export default {
       $("#uploadPrice").modal("show");
     },
     handleSuccess() {
+      this.loading = false;
       swal.fire("Success", "Upload Complete.", "success");
       $("#uploadItem").modal("hide");
       $("#uploadUom").modal("hide");
@@ -251,23 +327,30 @@ export default {
       $("#uploadCategory").modal("hide");
     },
     handleError(res, file) {
+      this.loading = false;
       swal.fire(
         "Warning",
-        `${file.errors.file.length ? file.errors.file[0] : "Something went wrong!"}`,
+        `${
+          file.errors.file.length
+            ? file.errors.file[0]
+            : "Something went wrong!"
+        }`,
         "warning"
       );
     },
-    handleBeforeUpload(e) {},
+    handleBeforeUpload(e) {
+      this.loading = true;
+    }
   },
   created() {
     this.token = $("meta[name=csrf-token]").attr("content");
     this.countItems();
     this.countPrice();
     // this.countUOM();
-  },
+  }
 };
-</script>
-<style>
+</script >
+<style scoped>
 .demo-spin-icon-load {
   animation: ani-demo-spin 1s linear infinite;
 }
