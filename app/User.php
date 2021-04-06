@@ -41,10 +41,4 @@ class User extends Authenticatable
 
     protected $table = 'gc_users';
 
-
-
-
-
-
-
 }
