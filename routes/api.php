@@ -99,6 +99,8 @@ Route::middleware('auth:api')->group(function () {
     Route::get('barangay', 'API\SetUpController@barangay')->name('barangay');
     Route::get('transportations', 'API\SetUpController@transportation')->name('transportation');
     Route::get('filter/towns', 'API\SetUpController@filter_town')->name('filter.towns');
+    Route::get('view/towns', 'API\SetUpController@show_town')->name('view.towns');
+    Route::get('view/brgy', 'API\SetUpController@show_brgy')->name('view.brgy');
 
     Route::get('show/charges', 'API\SetUpController@show_charge')->name('show-charge');
     Route::post('create/charge', 'API\SetUpController@create_charge')->name('create-charge');

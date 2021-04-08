@@ -364,6 +364,14 @@ class SetUpController extends Controller
     {
         return  DB::table('towns')->where('prov_id', 1)->get();
     }
+    public function show_town()
+    {
+        return  DB::table('towns')->get();
+    }
+    public function show_brgy()
+    {
+        return  DB::table('barangays')->get();
+    }
     public function view_by_id_charges($id){
         return gc_delivery_charge::where('chrg_id', $id)->first();
     }
