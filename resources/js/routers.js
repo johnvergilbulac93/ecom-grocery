@@ -32,6 +32,8 @@ import multiple from './components/admin/pages/Multiple-images'
 import liquidition_store from './components/admin/pages/Liquidition-Report-Store'
 import accountability_store from './components/admin/pages/Accountability-Report-Store'
 import menu from './components/admin/pages/Menu'
+import viewcharge from './components/admin/pages/View-Charge'
+
 
 const routes = [
 
@@ -323,13 +325,13 @@ const routes = [
         path: '/delivery_charges',
         name: 'delivery_charges',
         component: delivery_charges,
-        beforeEnter: (to, from, next) => {
-            if (from.params.id === 12) {
-                next();
-            } else {
-                next('/');
-            }
-        }
+        // beforeEnter: (to, from, next) => {
+        //     if (from.params.id === 12) {
+        //         next();
+        //     } else {
+        //         next('/');
+        //     }
+        // }
     },
     {
         path: '/multiple',
@@ -379,6 +381,14 @@ const routes = [
             }
         }
     },
+    {
+        path: '/charge/:chrg_id',
+        name: 'viewcharge',
+        component: viewcharge,
+        props: true
+
+    },
+
 
 
 ]

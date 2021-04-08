@@ -98,10 +98,14 @@ Route::middleware('auth:api')->group(function () {
     Route::get('town', 'API\SetUpController@town')->name('town');
     Route::get('barangay', 'API\SetUpController@barangay')->name('barangay');
     Route::get('transportations', 'API\SetUpController@transportation')->name('transportation');
+    Route::get('filter/towns', 'API\SetUpController@filter_town')->name('filter.towns');
 
     Route::get('show/charges', 'API\SetUpController@show_charge')->name('show-charge');
     Route::post('create/charge', 'API\SetUpController@create_charge')->name('create-charge');
     Route::delete('charges/remove/{id}', 'API\SetUpController@delete_charges')->name('delete-charges');
+    Route::get('charges/view/{id}', 'API\SetUpController@view_by_id_charges')->name('view-by-id-charges');
+
+
 });
 
 Route::middleware('auth:api')->group(function () {

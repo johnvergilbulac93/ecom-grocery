@@ -116,7 +116,7 @@ export default {
   data() {
     let sortOrders = {};
     let columns = [
-      { width: "10%", label: "Itemcode", name: "itemcode" },
+      { width: "10%", label: "Itemcode", name: "id" },
       { width: "70%", label: "Description", name: "description" },
       { width: "20%", label: "Category", name: "category" },
       { width: "10%", label: "UOM", name: "uom" },

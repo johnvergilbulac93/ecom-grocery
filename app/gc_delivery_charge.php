@@ -17,7 +17,7 @@ class gc_delivery_charge extends Model
     {
            return $this->belongsTo('App\Town', 'town_id', 'town_id');
     }
-    public function barangays()
+    public function brgy()
     {
            return $this->belongsTo('App\Barangay', 'brgy_id', 'brgy_id');
     }

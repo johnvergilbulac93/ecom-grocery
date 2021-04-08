@@ -19,7 +19,8 @@ use App\gc_tenant;
 class SetUpController extends Controller
 {
 
-    public function min_order_amount(Request $request){
+    public function min_order_amount(Request $request)
+    {
 
         $this->validate($request, [
             'min_amount'            => 'required|numeric'
@@ -28,12 +29,12 @@ class SetUpController extends Controller
         $min_amount_data = array(
             'minimum_order_amount' => $request->get('min_amount')
         );
-        
+
         gc_setup_business_rule::whereId($request->id)->update($min_amount_data);
-        
     }
 
-    public function pickup_charge(Request $request){
+    public function pickup_charge(Request $request)
+    {
 
         $this->validate($request, [
             'pickup_charge'      => 'required|numeric'
@@ -42,12 +43,12 @@ class SetUpController extends Controller
         $pickup_charge_data = array(
             'pickup_charge'         => $request->get('pickup_charge')
         );
-        
+
         gc_setup_business_rule::whereId($request->id)->update($pickup_charge_data);
-        
     }
 
-    public function order_time_cutoff(Request $request){
+    public function order_time_cutoff(Request $request)
+    {
 
         $this->validate($request, [
             'order_time_cutoff_start'     => 'required',
@@ -59,10 +60,11 @@ class SetUpController extends Controller
             'ordering_cutoff_time_end'  => $request->get('order_time_cutoff_end')
 
         );
-          
+
         gc_setup_business_rule::whereId($request->id)->update($ordering_cutoff_time_data);
     }
-    public function max_order(Request $request){
+    public function max_order(Request $request)
+    {
         $this->validate($request, [
             'max_no_order' => 'required',
         ]);
@@ -71,19 +73,19 @@ class SetUpController extends Controller
             'maximum_no_of_orders'    => $request->get('max_no_order'),
 
         );
-        
-        gc_setup_business_rule::whereId($request->id)->update($max_order_data);
 
+        gc_setup_business_rule::whereId($request->id)->update($max_order_data);
     }
 
-    public function serving_time(Request $request){
+    public function serving_time(Request $request)
+    {
 
-       $this->validate($request, [
+        $this->validate($request, [
             'time_start_cutoff' => 'required|date_format:h:i:s',
             'time_end_cutoff' => 'required|after:time_start_cutoff',
 
         ]);
-        
+
         $serving_time_data = array(
 
             'serving_time_start'    => $request->get('time_start_cutoff'),
@@ -92,28 +94,31 @@ class SetUpController extends Controller
         );
         gc_setup_business_rule::whereId($request->id)->update($serving_time_data);
     }
-    public function customer_pickup_time(Request $request){
-        
+    public function customer_pickup_time(Request $request)
+    {
+
         $customer_pickup_time_data = array(
-            
+
             'cutoff_pickup_time_customer' => $request->get('customer_pickup_time'),
 
         );
-        
+
         gc_setup_business_rule::whereId($request->id)->update($customer_pickup_time_data);
     }
 
-    public function setup_rules(){
+    public function setup_rules()
+    {
 
         return gc_setup_business_rule::all();
-
     }
 
-    public function pickers(){
+    public function pickers()
+    {
 
         return gc_picker::all();
     }
-    public function pickercreate(Request $request){
+    public function pickercreate(Request $request)
+    {
 
         $this->validate($request, [
             'picker'        => 'required|unique:gc_allowed_maximum_time_pickers,picker',
@@ -132,24 +137,25 @@ class SetUpController extends Controller
         );
 
         gc_allowed_maximum_time_picker::create($picker_time_data);
-    
     }
 
-    public function getpicker(){
+    public function getpicker()
+    {
 
         return gc_allowed_maximum_time_picker::paginate(1);
     }
 
-    public function pickeredit(Request $request, $id){
+    public function pickeredit(Request $request, $id)
+    {
 
         $picker = gc_allowed_maximum_time_picker::findOrFail($id);
 
         $this->validate($request, [
-            'picker'        => 'required|unique:gc_allowed_maximum_time_pickers,picker,' .$picker->id,
+            'picker'        => 'required|unique:gc_allowed_maximum_time_pickers,picker,' . $picker->id,
             'time_start'    => 'required',
             'time_end'      => 'required|after:time_start',
         ]);
-        
+
         $picker_time_data = array(
             'picker'        => $request->get('picker'),
             'time_start'    => $request->get('time_start'),
@@ -158,16 +164,19 @@ class SetUpController extends Controller
         $picker->update($picker_time_data);
     }
 
-    public function deletepicker($id){
+    public function deletepicker($id)
+    {
         $picker = gc_allowed_maximum_time_picker::findOrFail($id);
         $picker->delete();
     }
 
-    public function gettimepickup(){
+    public function gettimepickup()
+    {
 
-        return gc_customer_pickup_cuttoff::where('bunit_code','=', Auth::user()->bunit_code)->get();
+        return gc_customer_pickup_cuttoff::where('bunit_code', '=', Auth::user()->bunit_code)->get();
     }
-    public function pickuptime_edit(Request $request, $id){
+    public function pickuptime_edit(Request $request, $id)
+    {
 
         $pickuptimeid = gc_customer_pickup_cuttoff::findOrFail($id);
 
@@ -175,21 +184,20 @@ class SetUpController extends Controller
             'customer_pickup_time_start'    => 'required',
             'customer_pickup_time_end'      => 'required|after:customer_pickup_time_start',
         ]);
-        
+
         $pickup_time_data = array(
             'start'    => $request->get('customer_pickup_time_start'),
             'end'      => $request->get('customer_pickup_time_end'),
         );
 
-        $pickuptimeid->update($pickup_time_data); 
-
+        $pickuptimeid->update($pickup_time_data);
     }
     public function business_time()
     {
         $query =  DB::table('bu_time_setups')
-                ->join('locate_business_units','bu_time_setups.bunit_code','=','locate_business_units.bunit_code')
-                ->select('*')
-                ->get();
+            ->join('locate_business_units', 'bu_time_setups.bunit_code', '=', 'locate_business_units.bunit_code')
+            ->select('*')
+            ->get();
 
         return $query;
     }
@@ -215,7 +223,7 @@ class SetUpController extends Controller
             'opening_time'    => 'required',
             'closing_time'      => 'required|after:opening_time',
         ]);
-        
+
         $data = array(
             'bunit_code'    => $request->get('store'),
             'time_in'    => $request->get('opening_time'),
@@ -231,39 +239,36 @@ class SetUpController extends Controller
             'department'    => 'required',
             'status'      => 'required',
         ]);
-        $checking_data =  gc_tenant::where('bunit_code',$request->get('store'))
-                                    ->where('dept_id',$request->get('department'))
-                                    ->exists();
-        if(!$checking_data)
-        {
+        $checking_data =  gc_tenant::where('bunit_code', $request->get('store'))
+            ->where('dept_id', $request->get('department'))
+            ->exists();
+        if (!$checking_data) {
             $data = array(
                 'bunit_code'    => $request->get('store'),
                 'dept_id'    => $request->get('department'),
                 'status'    => $request->get('status'),
             );
-            
+
             gc_tenant::create($data);
- 
-             return response()->json([
-                 'error'=> false,
-             ], 200);
-        }
-        else
-        {
-         return response()->json([
-             'error'=> true,
-         ], 200);
+
+            return response()->json([
+                'error' => false,
+            ], 200);
+        } else {
+            return response()->json([
+                'error' => true,
+            ], 200);
         }
     }
 
     public function tenants()
     {
-            $query =  DB::table('gc_tenants')
-                        ->join('locate_business_units','gc_tenants.bunit_code','=','locate_business_units.bunit_code')
-                        ->join('gc_departments','gc_tenants.dept_id','=','gc_departments.dept_id')
-                        ->select('locate_business_units.business_unit','gc_departments.name','gc_tenants.tenant_id','gc_tenants.status','gc_tenants.bunit_code','gc_tenants.dept_id')
-                        ->paginate();
-            return $query;
+        $query =  DB::table('gc_tenants')
+            ->join('locate_business_units', 'gc_tenants.bunit_code', '=', 'locate_business_units.bunit_code')
+            ->join('gc_departments', 'gc_tenants.dept_id', '=', 'gc_departments.dept_id')
+            ->select('locate_business_units.business_unit', 'gc_departments.name', 'gc_tenants.tenant_id', 'gc_tenants.status', 'gc_tenants.bunit_code', 'gc_tenants.dept_id')
+            ->paginate();
+        return $query;
     }
 
     public function edit_tenant(Request $request, $id)
@@ -279,11 +284,11 @@ class SetUpController extends Controller
             'dept_id'    => $request->get('department'),
             'status'    => $request->get('status'),
         );
-        gc_tenant::where('tenant_id','=',$id)->update($data);
+        gc_tenant::where('tenant_id', '=', $id)->update($data);
     }
     public function delete_tenant($id)
     {
-        $tenant = gc_tenant::where('tenant_id','=',$id);
+        $tenant = gc_tenant::where('tenant_id', '=', $id);
         $tenant->delete();
     }
 
@@ -304,16 +309,16 @@ class SetUpController extends Controller
             'department_id' => $request->get('department'),
             'amount'        => floatval($request->get('amount'))
         );
-    
+
         gc_minimum_order_delivery::create($data);
     }
     public function amounts()
     {
         $query =  DB::table('gc_minimum_order_deliveries')
-                        ->join('locate_business_units','gc_minimum_order_deliveries.bunit_code','=','locate_business_units.bunit_code')
-                        ->join('gc_departments','gc_minimum_order_deliveries.department_id','=','gc_departments.dept_id')
-                        ->select('*')
-                        ->paginate();
+            ->join('locate_business_units', 'gc_minimum_order_deliveries.bunit_code', '=', 'locate_business_units.bunit_code')
+            ->join('gc_departments', 'gc_minimum_order_deliveries.department_id', '=', 'gc_departments.dept_id')
+            ->select('*')
+            ->paginate();
 
         return $query;
     }
@@ -334,7 +339,7 @@ class SetUpController extends Controller
     }
     public function delete_minimum($id)
     {
-        $data = gc_minimum_order_delivery::where('min_id','=',$id);
+        $data = gc_minimum_order_delivery::where('min_id', '=', $id);
         $data->delete();
     }
     public function province()
@@ -343,41 +348,66 @@ class SetUpController extends Controller
     }
     public function town(Request $request)
     {
-      $province =   $request->get('province');
-      return  DB::table('towns')->where('prov_id',$province)->get();
+        $province =   $request->get('province');
+        return  DB::table('towns')->where('prov_id', $province)->get();
     }
     public function barangay(Request $request)
     {
         $town =   $request->get('town');
-        return  DB::table('barangays')->where('town_id',$town)->get();
+        return  DB::table('barangays')->where('town_id', $town)->get();
     }
     public function transportation()
     {
         return  DB::table('gc_transportations')->get();
     }
+    public function filter_town()
+    {
+        return  DB::table('towns')->where('prov_id', 1)->get();
+    }
+    public function view_by_id_charges($id){
+        return gc_delivery_charge::where('chrg_id', $id)->first();
+    }
     public function show_charge(Request $request)
     {
+        $columns = ['chrg_id', 'prov_id', 'town_id','brgy_id', 'transpo_id', 'chrg_id', 'chrg_id'];
 
         $length = $request->input('length');
-        $column = $request->input('column'); 
+        $column = $request->input('column');
         $dir = $request->input('dir');
         $searchValue = $request->input('search');
+        $town = $request->input('town');
+        $province = $request->input('province');
+        $transpo = $request->input('transpo');
 
-        $query = DB::table('gc_delivery_charges')
-                ->join('province','gc_delivery_charges.prov_id','=','province.prov_id')
-                ->join('towns','gc_delivery_charges.town_id','=','towns.town_id')
-                // ->join('barangays','gc_delivery_charges.brgy_id','=','barangays.brgy_id')
-                ->join('gc_transportations','gc_delivery_charges.transpo_id','=','gc_transportations.id')
-                ->select('*')
-                ->orderBy('gc_delivery_charges.chrg_id',$dir);
+        $query = gc_delivery_charge::with(['brgy'])
+            ->join('province', 'gc_delivery_charges.prov_id', '=', 'province.prov_id')
+            ->join('towns', 'gc_delivery_charges.town_id', '=', 'towns.town_id')
+            // ->join('barangays','gc_delivery_charges.brgy_id','=','barangays.brgy_id')
+            ->join('gc_transportations', 'gc_delivery_charges.transpo_id', '=', 'gc_transportations.id')
+            ->select('*')
+            ->orderBy('gc_delivery_charges.chrg_id', $dir);
 
 
         if ($searchValue) {
-            $query->where(function($query) use ($searchValue) {
+            $query->where(function ($query) use ($searchValue) {
                 $query->where('town_name', 'like', '%' . $searchValue . '%')
-                ->orWhere('brgy_name', 'like', '%' . $searchValue . '%');
+                    ->orWhere('brgy_name', 'like', '%' . $searchValue . '%');
             });
-
+        }
+        if ($town) {
+            $query->where(function ($query) use ($town) {
+                $query->where('towns.town_id', $town);
+            });
+        }
+        if ($province) {
+            $query->where(function ($query) use ($province) {
+                $query->where('province.prov_id', $province);
+            });
+        }
+        if ($transpo) {
+            $query->where(function ($query) use ($transpo) {
+                $query->where('transpo_id', $transpo);
+            });
         }
 
         $projects = $query->paginate($length);
@@ -394,12 +424,20 @@ class SetUpController extends Controller
             'charge'      => 'required',
             'share'      => 'required',
         ]);
-       $checking_data =  gc_delivery_charge::where('town_id',$request->get('town'))
-                                            // ->where('brgy_id',$request->get('barangay'))
-                                            ->where('transpo_id',$request->get('transportation'))
-                                            ->exists();
-       if(!$checking_data)
-       {
+
+        if ($request->get('barangay')) {
+
+            $checking_data =  gc_delivery_charge::where('town_id', $request->get('town'))
+                ->where('brgy_id', $request->get('barangay'))
+                ->where('transpo_id', $request->get('transportation'))
+                ->exists();
+        } else {
+            $checking_data =  gc_delivery_charge::where('town_id', $request->get('town'))
+                ->where('transpo_id', $request->get('transportation'))
+                ->exists();
+        }
+
+        if (!$checking_data) {
             $data_charge = array(
                 'prov_id'       => $request->get('province'),
                 'town_id'       => $request->get('town'),
@@ -411,23 +449,17 @@ class SetUpController extends Controller
             gc_delivery_charge::create($data_charge);
 
             return response()->json([
-                'error'=> false,
+                'error' => false,
             ], 200);
-       }
-       else
-       {
-        return response()->json([
-            'error'=> true,
-        ], 200);
-       }
-
+        } else {
+            return response()->json([
+                'error' => true,
+            ], 200);
+        }
     }
     public function delete_charges($id)
     {
         $charge = gc_delivery_charge::where('chrg_id', '=', $id);
         $charge->delete();
-
     }
-
-
 }

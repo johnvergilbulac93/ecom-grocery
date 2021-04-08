@@ -1,6 +1,6 @@
 <template>
   <div class="table-responsive">
-    <table class="table custom-table table-sm">
+    <table class="table table-sm">
       <thead id="header-table">
         <tr>
           <th
