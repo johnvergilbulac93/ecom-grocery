@@ -23,22 +23,22 @@
         class="btn btn-primary btn-sm text-white"
         @click="$emit('prev')"
       >
-        Prev
+         <i class="fas fa-chevron-left"></i>
       </a>
-      <a class="btn btn-primary btn-sm text-white" v-else :disabled="true"> Prev </a>
+      <a class="btn btn-primary btn-sm text-white" v-else :disabled="true"> <i class="fas fa-chevron-left"></i> </a>
 
       <a
         v-if="pagination.nextPageUrl"
         class="btn btn-primary btn-sm text-white"
         @click="$emit('next')"
       >
-        Next
+       <i class="fas fa-chevron-right"></i>
       </a>
-      <a class="btn btn-primary btn-sm text-white" v-else :disabled="true"> Next </a>
+      <a class="btn btn-primary btn-sm text-white" v-else :disabled="true"> <i class="fas fa-chevron-right"></i> </a>
     </div>
   </nav>
 
-  <nav class="pagination" v-else>
+  <!-- <nav class="pagination" v-else>
     <span class="page-stats">
       {{ pagination.from }} - {{ pagination.to }} of {{ filtered.length }}
       <span v-if="filtered.length < pagination.total"
@@ -51,20 +51,20 @@
         class="btn btn-primary btn-sm text-white"
         @click="$emit('prev')"
       >
-        Prev
+        <i class="fas fa-chevron-left"></i>
       </a>
-      <a class="btn btn-primary btn-sm text-white" v-else :disabled="true"> Prev </a>
+      <a class="btn btn-primary btn-sm text-white" v-else :disabled="true"> <i class="fas fa-chevron-left"></i> </a>
 
       <a
         v-if="pagination.nextPage"
         class="btn btn-primary btn-sm text-white"
         @click="$emit('next')"
       >
-        Next
+        <i class="fas fa-chevron-right"></i>
       </a>
-      <a class="btn btn-primary btn-sm text-white" v-else :disabled="true"> Next </a>
+      <a class="btn btn-primary btn-sm text-white" v-else :disabled="true"> <i class="fas fa-chevron-right"></i> </a>
     </div>
-  </nav>
+  </nav> -->
 </template>
 
 <script>

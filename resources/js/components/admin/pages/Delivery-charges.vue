@@ -129,6 +129,11 @@
                             @sort="sortBy"
                         >
                             <tbody>
+                                <tr class="tr-hover" v-if="!charges.length">
+                                    <td colspan="8" class="text-center">
+                                        NO DATA AVAILABLE
+                                    </td>
+                                </tr>
                                 <tr
                                     v-for="(data, i) in charges"
                                     :key="i"
@@ -165,7 +170,12 @@
                                             data-toggle="tooltip"
                                             data-placement="bottom"
                                             title="Update data"
-                                            :to="{name: 'viewcharge', params:{chrg_id: data.chrg_id}}"
+                                            :to="{
+                                                name: 'viewcharge',
+                                                params: {
+                                                    chrg_id: data.chrg_id
+                                                }
+                                            }"
                                         >
                                             <i class="fas fa-eye"></i>
                                         </router-link>

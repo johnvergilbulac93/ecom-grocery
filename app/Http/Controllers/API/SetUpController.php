@@ -372,12 +372,35 @@ class SetUpController extends Controller
     {
         return  DB::table('barangays')->get();
     }
-    public function view_by_id_charges($id){
+    public function view_by_id_charges($id)
+    {
         return gc_delivery_charge::where('chrg_id', $id)->first();
+    }
+    public function update_charge(Request $request)
+    {
+
+        $chrg_id = $request->get('id');
+        $this->validate($request, [
+            'province'        => 'required',
+            'town'    => 'required',
+            // 'barangay'      => 'required',create_charge
+            'transportation'      => 'required',
+            'charge_amount'      => 'required',
+            'rider_shared'      => 'required',
+        ]);
+        $data_charge = array(
+            'prov_id'       => $request->get('province'),
+            'town_id'       => $request->get('town'),
+            'brgy_id'       => $request->get('barangay'),
+            'transpo_id'    => $request->get('transportation'),
+            'charge_amt'    => floatval($request->get('charge_amount')),
+            'rider_shared'    => floatval($request->get('rider_shared'))
+        );
+        gc_delivery_charge::where('chrg_id', $chrg_id)->update($data_charge);
     }
     public function show_charge(Request $request)
     {
-        $columns = ['chrg_id', 'prov_id', 'town_id','brgy_id', 'transpo_id', 'chrg_id', 'chrg_id'];
+        $columns = ['chrg_id', 'prov_id', 'town_id', 'brgy_id', 'transpo_id', 'chrg_id', 'chrg_id'];
 
         $length = $request->input('length');
         $column = $request->input('column');
@@ -390,34 +413,17 @@ class SetUpController extends Controller
         $query = gc_delivery_charge::with(['brgy'])
             ->join('province', 'gc_delivery_charges.prov_id', '=', 'province.prov_id')
             ->join('towns', 'gc_delivery_charges.town_id', '=', 'towns.town_id')
-            // ->join('barangays','gc_delivery_charges.brgy_id','=','barangays.brgy_id')
             ->join('gc_transportations', 'gc_delivery_charges.transpo_id', '=', 'gc_transportations.id')
             ->select('*')
             ->orderBy('gc_delivery_charges.chrg_id', $dir);
-
-
-        if ($searchValue) {
-            $query->where(function ($query) use ($searchValue) {
-                $query->where('town_name', 'like', '%' . $searchValue . '%')
-                    ->orWhere('brgy_name', 'like', '%' . $searchValue . '%');
+            
+        if ($town || $province || $transpo) {
+            $query->where(function ($query) use ($town, $transpo, $province) {
+                $query->where('towns.town_id', $town)
+                    ->orWhere('transpo_id', $transpo)
+                    ->orWhere('province.prov_id', $province);
             });
         }
-        if ($town) {
-            $query->where(function ($query) use ($town) {
-                $query->where('towns.town_id', $town);
-            });
-        }
-        if ($province) {
-            $query->where(function ($query) use ($province) {
-                $query->where('province.prov_id', $province);
-            });
-        }
-        if ($transpo) {
-            $query->where(function ($query) use ($transpo) {
-                $query->where('transpo_id', $transpo);
-            });
-        }
-
         $projects = $query->paginate($length);
 
         return ['data' => $projects, 'draw' => $request->input('draw')];

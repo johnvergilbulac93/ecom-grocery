@@ -8,6 +8,9 @@
                         class="form-control form-control-sm"
                         tabindex="1"
                         v-model="form.province"
+                        :class="{
+                            'is-invalid': errors.province
+                        }"
                     >
                         <option value="">Select Province</option>
                         <option
@@ -29,8 +32,17 @@
                         class="form-control form-control-sm"
                         tabindex="2"
                         v-model="form.town"
+                        :class="{
+                            'is-invalid': errors.town
+                        }"
                     >
                         <option value="">Select Town</option>
+                        <option
+                            :value="town.town_id"
+                            v-for="(town, i) in towns"
+                            :key="i"
+                            >{{ town.town_name }}</option
+                        >
                     </select>
                 </div>
             </div>
@@ -41,9 +53,18 @@
                     <select
                         class="form-control form-control-sm"
                         tabindex="3"
-                        v-model="form.brgy"
+                        v-model="form.barangay"
+                        :class="{
+                            'is-invalid': errors.barangay
+                        }"
                     >
                         <option value="">Select Barangay</option>
+                        <option
+                            :value="brgy.brgy_id"
+                            v-for="(brgy, i) in barangays"
+                            :key="i"
+                            >{{ brgy.brgy_name }}</option
+                        >
                     </select>
                 </div>
             </div>
@@ -55,9 +76,18 @@
                     <select
                         class="form-control form-control-sm"
                         tabindex="4"
-                        v-model="form.transpo"
+                        v-model="form.transportation"
+                        :class="{
+                            'is-invalid': errors.transportation
+                        }"
                     >
                         <option value="">Transportation</option>
+                        <option
+                            :value="transpo.id"
+                            v-for="(transpo, i) in transportations"
+                            :key="i"
+                            >{{ transpo.transpo_name }}</option
+                        >
                     </select>
                 </div>
             </div>
@@ -72,6 +102,9 @@
                         placeholder="Enter amount"
                         tabindex="5"
                         v-model="form.charge_amount"
+                        :class="{
+                            'is-invalid': errors.charge_amount
+                        }"
                     />
                 </div>
             </div>
@@ -84,13 +117,21 @@
                         placeholder="Enter amount"
                         tabindex="6"
                         v-model="form.rider_shared"
+                        :class="{
+                            'is-invalid': errors.rider_shared
+                        }"
                     />
                 </div>
             </div>
         </div>
         <div class="row">
-            <button class="btn btn-danger btn-sm">Cancel</button> &nbsp;
-            <button class="btn btn-primary btn-sm">Update</button>
+            <router-link to="/delivery_charges" class="btn btn-secondary btn-sm"
+                >Cancel</router-link
+            >
+            &nbsp;
+            <button class="btn btn-success btn-sm" @click="updateCharge">
+                Update
+            </button>
         </div>
     </div>
 </template>
@@ -104,11 +145,12 @@ export default {
             towns: [],
             transportations: [],
             provinces: [],
+            errors: {},
             form: {
                 province: null,
                 town: null,
-                brgy: null,
-                transpo: null,
+                barangay: null,
+                transportation: null,
                 charge_amount: null,
                 rider_shared: null
             }
@@ -130,21 +172,42 @@ export default {
         async getBarangay() {
             const { data } = await axios.get("/api/view/brgy");
             this.barangays = data;
+        },
+        updateCharge() {
+            if (confirm("Do you want to save the changes?")) {
+                axios
+                    .post("/api/charges/update", {
+                        id: this.chrg_id,
+                        transportation: this.form.transportation,
+                        province: this.form.province,
+                        barangay: this.form.barangay,
+                        town: this.form.town,
+                        charge_amount: this.form.charge_amount,
+                        rider_shared: this.form.rider_shared
+                    })
+                    .then(() => {
+                        this.$router.push("/delivery_charges");
+                    })
+                    .catch(error => {
+                        if (error.response.status === 422) {
+                            this.errors = error.response.data.errors || {};
+                        }
+                    });
+            }
         }
-        //    getTown(url = "api/town") {
-        //        axios.get(url, { params: this.form }).then(response => {
-        //            this.towns = response.data;
-        //        });
-        //    },
-        //    getBarangay(url = "api/barangay") {
-        //        axios.get(url, { params: this.form }).then(response => {
-        //            this.barangays = response.data;
-        //        });
-        //    }
     },
-    created() {
+    async mounted() {
         this.getTranspo(), this.getProvinces();
-        //    axios.get(`charges/view/${this.chrg_id}`)
+        this.getTown();
+        this.getBarangay();
+
+        const { data } = await axios.get(`/api/charges/view/${this.chrg_id}`);
+        this.form.province = data.prov_id;
+        this.form.town = data.town_id;
+        this.form.barangay = data.brgy_id;
+        this.form.transportation = data.transpo_id;
+        this.form.charge_amount = parseFloat(data.charge_amt);
+        this.form.rider_shared = parseFloat(data.rider_shared);
     }
 };
 </script>

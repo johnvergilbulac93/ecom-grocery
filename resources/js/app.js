@@ -117,11 +117,10 @@ const app = new Vue({
     router,
     data() {
         return {
-
-            // url: "https://admins.alturush.com/ITEM-IMAGES/",
-            // path: "https://admins.alturush.com/img/",
-            url: "/ITEM-IMAGES/",
-            path: "/img/",
+            url: "https://admins.alturush.com/ITEM-IMAGES/",
+            path: "https://admins.alturush.com/img/",
+            // url: "/ITEM-IMAGES/",
+            // path: "/img/",
             serverDateTime,
             userType,
             logo_path: 'https://apanel.alturush.com/',
