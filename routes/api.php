@@ -61,6 +61,8 @@ Route::middleware('auth:api')->group(function () {
     Route::get('count/category', 'API\ItemController@count_per_category')->name('count-per-category');
     Route::post('selected/disable/item', 'API\ItemController@disabled_selected_item')->name('disabled-selected-item');
     Route::post('selected/enable/item', 'API\ItemController@enabled_selected_item')->name('enabled-selected-item');
+
+    Route::get('count/price_changes','API\ItemController@count_price_changes')->name('count_price_changes');
 });
 
 Route::middleware('auth:api')->group(function () {
@@ -107,7 +109,6 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('charges/remove/{id}', 'API\SetUpController@delete_charges')->name('delete-charges');
     Route::get('charges/view/{id}', 'API\SetUpController@view_by_id_charges')->name('view-by-id-charges');
     Route::post('charges/update', 'API\SetUpController@update_charge')->name('update-charges');
-
 
 
 });

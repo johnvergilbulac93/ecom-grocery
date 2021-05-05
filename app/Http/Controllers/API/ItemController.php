@@ -414,4 +414,12 @@ class ItemController extends Controller
             gc_item_log_available::where('itemcode', $code)->where('store', Auth::user()->bunit_code)->delete();
         }
     }
+    public function count_price_changes()
+    {
+           return DB::table('gc_item_price_changes')
+                ->select('*')
+                ->join('gc_users','gc_item_price_changes.user_id','gc_users.id')
+                ->where('gc_users.bunit_code', Auth::user()->bunit_code)
+                ->count();
+    }
 }

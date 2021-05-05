@@ -242,6 +242,7 @@ class SetUpController extends Controller
         $checking_data =  gc_tenant::where('bunit_code', $request->get('store'))
             ->where('dept_id', $request->get('department'))
             ->exists();
+        
         if (!$checking_data) {
             $data = array(
                 'bunit_code'    => $request->get('store'),

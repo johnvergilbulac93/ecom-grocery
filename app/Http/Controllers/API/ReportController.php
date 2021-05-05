@@ -214,30 +214,52 @@ class ReportController extends Controller
         $getBU = DB::table('locate_business_units')->where('bunit_code', $buId)->first();
 
         $data = Ticket::with(['finalOrders', 'finalOrderStatus', 'discountAmount', 'customerBill', 'CashierMonitoring'])
-            ->selectRaw('CONCAT(customer_delivery_infos.firstname ," " ,customer_delivery_infos.lastname) AS customer,
-            emp_no,
-            name as picker_name,
+        ->selectRaw('CONCAT(customer_delivery_infos.firstname ," " ,customer_delivery_infos.lastname) AS customer,
             tickets.*,
             receipt,
-            gc_transactions.status
-            ')
-            ->join('customer_delivery_infos', 'customer_delivery_infos.ticket_id', '=', 'tickets.id')
-            ->JOIN('barangays', 'barangays.brgy_id', '=', 'customer_delivery_infos.barangay_id')
-            ->JOIN('towns', 'towns.town_id', '=', 'barangays.town_id')
-            ->JOIN('province', 'province.prov_id', '=', 'towns.prov_id')
-            ->JOIN('gc_picker_taggings', 'gc_picker_taggings.ticket_id', '=', 'tickets.id')
-            ->JOIN('gc_pickers', 'gc_pickers.id', '=', 'gc_picker_taggings.picker_id')
-            ->JOIN('gc_order_statuses', 'gc_order_statuses.ticket_id', '=', 'tickets.id')
-            ->JOIN('gc_transactions', 'gc_transactions.ticket_id', '=', 'ticket')
-            ->where('gc_order_statuses.paid_status', true)
-            ->where('gc_order_statuses.bu_id', '=', $buId)
-            // ->whereDate('gc_order_statuses.order_pickup', $date)
-            // ->whereBetween('gc_order_statuses.order_pickup', [$dateFrom, $dateTo])
-            ->whereDate('gc_order_statuses.order_pickup', '>=', $dateFrom)
-            ->whereDate('gc_order_statuses.order_pickup', '<=', $dateTo)
-            ->orderBy('gc_order_statuses.order_pickup')
-            ->get();
+            gc_transactions.status,
+            gc_order_statuses.order_pickup,
+            gc_order_statuses.bu_id,
+            locate_business_units.acroname,
+            locate_business_units.business_unit,
+            locate_business_units.logo
+        ')
+        ->join('customer_delivery_infos', 'customer_delivery_infos.ticket_id', '=', 'tickets.id')
+        ->JOIN('gc_transactions', 'gc_transactions.ticket_id', '=', 'ticket')
+        ->JOIN('gc_order_statuses', 'gc_order_statuses.ticket_id', '=', 'tickets.id')
+        ->JOIN('locate_business_units', 'locate_business_units.bunit_code', '=', 'gc_order_statuses.bu_id')
+        ->where('gc_order_statuses.paid_status', true)
+        ->where('gc_order_statuses.bu_id', '=', $buId)
+        ->whereDate('gc_order_statuses.order_pickup', '>=', $dateFrom)
+        ->whereDate('gc_order_statuses.order_pickup', '<=', $dateTo)
+        ->get();
 
+        // $data = Ticket::with(['finalOrders', 'finalOrderStatus', 'discountAmount', 'customerBill', 'CashierMonitoring'])
+        //     ->selectRaw('CONCAT(customer_delivery_infos.firstname ," " ,customer_delivery_infos.lastname) AS customer,
+        //     emp_no,
+        //     name as picker_name,
+        //     tickets.*,
+        //     receipt,
+        //     gc_transactions.status
+        //     ')
+        //     ->join('customer_delivery_infos', 'customer_delivery_infos.ticket_id', '=', 'tickets.id')
+        //     ->JOIN('barangays', 'barangays.brgy_id', '=', 'customer_delivery_infos.barangay_id')
+        //     ->JOIN('towns', 'towns.town_id', '=', 'barangays.town_id')
+        //     ->JOIN('province', 'province.prov_id', '=', 'towns.prov_id')
+        //     ->JOIN('gc_picker_taggings', 'gc_picker_taggings.ticket_id', '=', 'tickets.id')
+        //     ->JOIN('gc_pickers', 'gc_pickers.id', '=', 'gc_picker_taggings.picker_id')
+        //     ->JOIN('gc_order_statuses', 'gc_order_statuses.ticket_id', '=', 'tickets.id')
+        //     ->JOIN('gc_transactions', 'gc_transactions.ticket_id', '=', 'ticket')
+        //     ->where('gc_order_statuses.paid_status', true)
+        //     ->where('gc_order_statuses.bu_id', '=', $buId)
+        //     // ->whereDate('gc_order_statuses.order_pickup', $date)
+        //     // ->whereBetween('gc_order_statuses.order_pickup', [$dateFrom, $dateTo])
+        //     ->whereDate('gc_order_statuses.order_pickup', '>=', $dateFrom)
+        //     ->whereDate('gc_order_statuses.order_pickup', '<=', $dateTo)
+        //     // ->orderBy('gc_order_statuses.order_pickup')
+        //     ->get();
+
+        // dd('ok');
         // $result['cashier_details'] = auth()->user();
         $result['b_unit'] = $getBU;
         $result['data'] = $data;

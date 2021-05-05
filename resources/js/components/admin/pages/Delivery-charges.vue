@@ -158,10 +158,7 @@
                                     </td>
                                     <td>{{ data.prov_name }}</td>
                                     <td>{{ data.town_name }}</td>
-                                    <td v-if="data.brgy != null">
-                                        {{ data.brgy.brgy_name }}
-                                    </td>
-                                    <td v-else>{{ " " }}</td>
+                                    <td>{{ !data.brgy ? '' : data.brgy.brgy_name }}</td>
                                     <td>{{ data.transpo_name }}</td>
                                     <td>{{ data.charge_amt }}</td>
                                     <td>{{ data.rider_shared }}</td>

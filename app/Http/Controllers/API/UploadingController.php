@@ -18,7 +18,7 @@ class UploadingController extends Controller
 
     public function uploaditem(Request $request)
     {
-
+        // dd($request->file);
         $this->validate($request, [
             'file' => 'required|mimes:csv,txt,'
         ]);

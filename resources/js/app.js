@@ -74,21 +74,19 @@ Vue.filter('toCurrency', function (value) {
 
 let serverDateTime = document.head.querySelector('meta[name="server-datetime"]').content
 let userType = document.head.querySelector('meta[name="user-type"]').content
+let id = document.head.querySelector('meta[name="id"]').content
 
 
 window.serverDateTime = serverDateTime
 window.userType = userType
+window.id = id
 
 
-
-// if (process.env.APP_ENV === 'local' ) {
-//     
-//     Vue.config.devtools = false;
-//     Vue.config.debug = false;
-//     Vue.config.silent = true;
-// }
-
-
+if (process.env.MIX_APP_ENV === 'production' ) {
+    Vue.config.devtools = false;
+    Vue.config.debug = false;
+    Vue.config.silent = true;
+}
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -123,6 +121,7 @@ const app = new Vue({
             // path: "/img/",
             serverDateTime,
             userType,
+            id,
             logo_path: 'https://apanel.alturush.com/',
             form: new Form({
                 username: '',

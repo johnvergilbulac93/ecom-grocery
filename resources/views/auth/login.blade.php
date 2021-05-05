@@ -6,6 +6,7 @@
     <meta name="server-datetime" content="{{ now() }}" >
     <meta name="name" content="">
     <meta name="user-type" content="">
+    <meta name="id" content="">
     <title>Alturush | Grocery-Admin</title>
     <link rel="icon" type="image/x-icon" href="https://www.alturush.com/alturush_logo/AlturushDeliveryLogoGradient.png">
 

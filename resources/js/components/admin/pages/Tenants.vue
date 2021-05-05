@@ -261,6 +261,7 @@ export default {
         if (response.data.error === true) {
           $("#tenant").modal("hide");
           swal.fire("Double Entry", "Please check your data.", "warning");
+          
         }
         if (response.data.error === false) {
           $("#tenant").modal("hide");
