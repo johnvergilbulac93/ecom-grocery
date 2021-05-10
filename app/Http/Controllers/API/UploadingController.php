@@ -11,7 +11,9 @@ use App\Imports\ItemCategoryImport;
 use App\Imports\PriceChangedImport;
 use App\Imports\PriceHistoryImport;
 use App\Http\Controllers\Controller;
+use App\Imports\UpdateItemDesc;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UploadingController extends Controller
 {
@@ -91,8 +93,15 @@ class UploadingController extends Controller
         if (file_exists($path . $imageName)) {
             @unlink($path . $imageName);
         }
-            $request->file->move($path, $imageName);
-        $url = "/ITEM-IMAGES/".$imageName;
+        $request->file->move($path, $imageName);
+        $url = "/ITEM-IMAGES/" . $imageName;
         return $url;
+    }
+    public function update_item_description(Request $request)
+    {
+        $this->validate($request, [
+            'file' => 'required|mimes:csv,txt,xlsx'
+        ]);
+        (new UpdateItemDesc)->import($request->file);
     }
 }

@@ -33,7 +33,7 @@ import liquidition_store from './components/admin/pages/Liquidition-Report-Store
 import accountability_store from './components/admin/pages/Accountability-Report-Store'
 import menu from './components/admin/pages/Menu'
 import viewcharge from './components/admin/pages/View-Charge'
-
+import description from './components/admin/pages/Upload-Item-Description.vue'
 
 const routes = [
 
@@ -375,6 +375,18 @@ const routes = [
         component: menu,
         beforeEnter: (to, from, next) => {
             if (to.params.id === 12) {
+                next();
+            } else {
+                next('/');
+            }
+        }
+    },
+    {
+        path: '/description',
+        name: 'description',
+        component: description,
+        beforeEnter: (to, from, next) => {
+            if (from.params.id === 12) {
                 next();
             } else {
                 next('/');

@@ -28,6 +28,8 @@ Route::middleware('auth:api')->group(function () {
     Route::post('uploadcategory', 'API\UploadingController@uploadcategory')->name('upload-category');
     Route::post('uploaditemfilename', 'API\UploadingController@uploaditemfilename')->name('upload-item-filename');
     Route::post('uploadmultiple', 'API\UploadingController@multipleImage')->name('multiple-image');
+    Route::post('upload/item_description', 'API\UploadingController@update_item_description')->name('update-item-description');
+
 });
 
 Route::middleware('auth:api')->group(function () {

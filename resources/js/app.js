@@ -81,12 +81,6 @@ window.serverDateTime = serverDateTime
 window.userType = userType
 window.id = id
 
-
-if (process.env.MIX_APP_ENV === 'production' ) {
-    Vue.config.devtools = false;
-    Vue.config.debug = false;
-    Vue.config.silent = true;
-}
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
