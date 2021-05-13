@@ -210,32 +210,28 @@ class ItemController extends Controller
         gc_product_item::where('itemcode', '=', $id)->update($inactive_data);
     }
 
-    public function imageitem(Request $request, $id)
+    public function imageitem(Request $request)
     {
         $this->validate($request, [
-            'image'      => 'required',
+            'item_image'      => 'required|image',
         ]);
-
-        $exploded = explode(',', $request->image);
-
-        $decoded = base64_decode($exploded[1]);
-
-        $imageName = $id . '.' . explode('/', explode(':', substr($request->image, 0, strpos($request->image, ';')))[1])[1];
-
+        $itemImage = $request->file('item_image');
+        $itemCode = $request->itemcode;
+        $imageName = $itemCode.'.'.$itemImage->getClientOriginalExtension();
+        
         $path = public_path() . '/ITEM-IMAGES/' . $imageName;
         // $path = '../admins.alturush.com/ITEM-IMAGES/' . $imageName;
-
-
+        
         if (file_exists($path)) {
             @unlink($path);
         }
 
-        file_put_contents($path, $decoded);
+        $itemImage->move(public_path('ITEM-IMAGES'), $imageName);
+        // $itemImage->move('../admins.alturush.com/ITEM-IMAGES/' , $imageName);
 
-        $item_images  = array(
+        gc_product_item::where('itemcode', '=', $itemCode)->update([
             'image' => $imageName
-        );
-        gc_product_item::where('itemcode', '=', $id)->update($item_images);
+        ]);
     }
 
     public function disable_tagging_uom(Request $request)

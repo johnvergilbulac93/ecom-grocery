@@ -49,7 +49,7 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('tag_item_enable/{itemcode}', 'API\ItemController@tag_item_enable')->name('tag-item-enable');
     Route::put('item_Inactive/{itemcode}', 'API\ItemController@item_Inactive')->name('item-inactive');
     Route::put('item_Active/{itemcode}', 'API\ItemController@item_Active')->name('item-active');
-    Route::put('imageitem/{itemcode}', 'API\ItemController@imageitem')->name('image-item');
+    Route::post('/imageitem', 'API\ItemController@imageitem')->name('image-item');
 
     Route::get('tagging_uom/disable', 'API\ItemController@disable_tagging_uom')->name('disable-tagging-uom');
     Route::post('tagging/per_uom/disable', 'API\ItemController@disable_per_uom')->name('disable-per-uom');
