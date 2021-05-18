@@ -121,22 +121,6 @@
                                         }"
                                     ></i>
                                 </a>
-                                <!-- <a @click="preview(item.image, item.product_name)">
-                  <center>
-                    <img
-                      :src="$root.url + item.image"
-                      alt="item-image"
-                      class="item-image"
-                      v-if="item.image"
-                    />
-                    <img
-                      :src="$root.url + 'noimage.png'"
-                      alt="item-image"
-                      class="item-image"
-                      v-else
-                    />
-                  </center>
-                </a> -->
                             </td>
                             <td>{{ item.itemcode }}</td>
                             <td>{{ item.product_name }}</td>
@@ -372,14 +356,14 @@ export default {
     data() {
         let sortOrders = {};
         let columns = [
-            { width: "10%", label: "", name: "image" },
+            { width: "5%", label: "", name: "image" },
             { width: "10%", label: "CODE", name: "itemcode" },
             { width: "20%", label: "DESCRIPTION", name: "description" },
-            { width: "15%", label: "CATEGORY", name: "category" },
-            { width: "8%", label: "UOM", name: "uom" },
+            { width: "20%", label: "CATEGORY", name: "category" },
+            { width: "20%", label: "UOM", name: "uom" },
             { width: "10%", label: "PRICE", name: "price" },
-            { width: "12%", label: "STATUS", name: "status" },
-            { width: "12%", label: "", name: "" }
+            { width: "10%", label: "STATUS", name: "status" },
+            { width: "5%", label: "", name: "" }
         ];
         columns.forEach(column => {
             sortOrders[column.name] = -1;
@@ -647,26 +631,5 @@ export default {
 };
 </script>
 <style scoped>
-.table {
-    width: 100%;
-}
-.table .sorting_both {
-    background-image: url("/images/sort_both.png");
-    background-repeat: no-repeat;
-    background-position: 100%;
-}
-.table .sorting_up {
-    background-image: url("/images/sort_asc.png");
-    background-repeat: no-repeat;
-    background-position: 100%;
-}
-.table .sorting_down {
-    background-image: url("/images/sort_desc.png");
-    background-repeat: no-repeat;
-    background-position: 100%;
-}
-h1 {
-    text-align: center;
-    font-size: 30px;
-}
+
 </style>

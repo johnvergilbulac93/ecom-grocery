@@ -192,12 +192,12 @@ export default {
       swal
         .fire({
           title: "Confirmation",
-          text: "Do you want to enabled this item/uom?",
+          text: "Do you want to enable this item uom?",
           icon: "question",
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
           cancelButtonColor: "#d33",
-          confirmButtonText: "Yes, enabled it.",
+          confirmButtonText: "Yes, enable it.",
         })
         .then((result) => {
           if (result.isConfirmed) {
@@ -208,7 +208,7 @@ export default {
               this.allSelected = false;
               swal.fire(
                 "Success!",
-                "Selected item/uom successfully enabled.",
+                "Selected item/uom successfully enable.",
                 "success"
               );
             });

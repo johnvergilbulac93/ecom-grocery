@@ -37411,3 +37411,25 @@ readers do not read off random characters that represent icons */
   width: auto;
 }
 
+.table {
+  width: 100%;
+}
+
+.table .sorting_both {
+  background-image: url("/images/sort_both.png");
+  background-repeat: no-repeat;
+  background-position: 100%;
+}
+
+.table .sorting_up {
+  background-image: url("/images/sort_asc.png");
+  background-repeat: no-repeat;
+  background-position: 100%;
+}
+
+.table .sorting_down {
+  background-image: url("/images/sort_desc.png");
+  background-repeat: no-repeat;
+  background-position: 100%;
+}
+

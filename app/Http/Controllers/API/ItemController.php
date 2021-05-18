@@ -36,33 +36,78 @@ class ItemController extends Controller
 
     public function getItem(Request $request)
     {
-        $columns = ['product_id', 'itemcode', 'product_name', 'category_name', 'product_id'];
+
+        $columns = ['product_id', 'itemcode', 'product_name', 'category_name', 'product_id', 'product_id', 'product_id'];
 
         $length = $request->input('length');
         $column = $request->input('column');
         $dir = $request->input('dir');
         $searchValue = $request->input('search');
         $categoryValue = $request->input('category');
-
-        // dd($categoryValue);
+        $type = $request->input('type');
 
         $query = gc_product_item::with(['items'])->where('status', 'active')->orderBy($columns[$column], $dir);
 
-        if ($searchValue) {
+        $query2 =  gc_product_item::with(['items'])->where('status', 'active')
+            ->whereNotIn('itemcode', function ($query) {
+                $query->select('gc_item_log_availables.itemcode')->from('gc_item_log_availables')->where('gc_item_log_availables.store', '=', Auth::user()->bunit_code);
+            })->orderBy($columns[$column], $dir);
+        $query3 =  gc_product_item::with(['items'])->where('status', 'active')
+            ->whereIn('itemcode', function ($query) {
+                $query->select('gc_item_log_availables.itemcode')->from('gc_item_log_availables')->where('gc_item_log_availables.store', '=', Auth::user()->bunit_code);
+            })->orderBy($columns[$column], $dir);
 
-            $query->where(function ($query) use ($searchValue) {
-                $query->where('itemcode', 'like', '%' . $searchValue . '%')
+        if ($type) {
+            if ($type == 1 || $categoryValue ) {
+                $query2->where(function ($query) use ($categoryValue) {
+                    $query->where('category_name', 'like', '%' . $categoryValue . '%');
+                });
+            }
+            if ($type == 2 || $categoryValue) {
+                $query3->where(function ($query) use ($categoryValue) {
+                    $query->where('category_name', 'like', '%' . $categoryValue . '%');
+                });
+            }
+
+            if ($type == 1 || $searchValue ) {
+                $query2->where(function ($query) use ($searchValue) {
+                    $query->where('itemcode', 'like', '%' . $searchValue . '%')
                     ->orWhere('product_name', 'like', '%' . $searchValue . '%');
-            });
+                });
+            }
+            if ($type == 2 || $searchValue) {
+                $query3->where(function ($query) use ($searchValue) {
+                    $query->where('itemcode', 'like', '%' . $searchValue . '%')
+                    ->orWhere('product_name', 'like', '%' . $searchValue . '%');
+                });
+            }
+        } else {
+
+            if ($searchValue) {
+                $query->where(function ($query) use ($searchValue) {
+                    $query->where('itemcode', 'like', '%' . $searchValue . '%')
+                        ->orWhere('product_name', 'like', '%' . $searchValue . '%');
+                });
+            }
+    
+            if ($categoryValue) {
+                $query->where(function ($query) use ($categoryValue) {
+                    $query->where('category_name', 'like', '%' . $categoryValue . '%');
+                });
+            }
+
+        }
+        if ($type) {
+            if ($type == 1) {
+                $projects = $query2->paginate($length);
+            }
+            if ($type == 2) {
+                $projects = $query3->paginate($length);
+            }
+        } else {
+            $projects = $query->paginate($length);
         }
 
-        if ($categoryValue) {
-            $query->where(function ($query) use ($categoryValue) {
-                $query->where('category_name', 'like', '%' . $categoryValue . '%');
-            });
-        }
-
-        $projects = $query->paginate($length);
         return ['data' => $projects, 'draw' => $request->input('draw')];
     }
     public function getCentralItem(Request $request)
@@ -217,11 +262,11 @@ class ItemController extends Controller
         ]);
         $itemImage = $request->file('item_image');
         $itemCode = $request->itemcode;
-        $imageName = $itemCode.'.'.$itemImage->getClientOriginalExtension();
-        
+        $imageName = $itemCode . '.' . $itemImage->getClientOriginalExtension();
+
         $path = public_path() . '/ITEM-IMAGES/' . $imageName;
         // $path = '../admins.alturush.com/ITEM-IMAGES/' . $imageName;
-        
+
         if (file_exists($path)) {
             @unlink($path);
         }
@@ -330,8 +375,8 @@ class ItemController extends Controller
 
     public function price_count_changed_info(Request $request)
     {
-    
-    
+
+
         $length = $request->input('length');
         $column = $request->input('column');
         $dir = $request->input('dir');
@@ -412,10 +457,10 @@ class ItemController extends Controller
     }
     public function count_price_changes()
     {
-           return DB::table('gc_item_price_changes')
-                ->select('*')
-                ->join('gc_users','gc_item_price_changes.user_id','gc_users.id')
-                ->where('gc_users.bunit_code', Auth::user()->bunit_code)
-                ->count();
+        return DB::table('gc_item_price_changes')
+            ->select('*')
+            ->join('gc_users', 'gc_item_price_changes.user_id', 'gc_users.id')
+            ->where('gc_users.bunit_code', Auth::user()->bunit_code)
+            ->count();
     }
 }

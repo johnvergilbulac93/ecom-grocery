@@ -100,7 +100,7 @@
                                     params: { id: $root.userType }
                                 }"
                             >
-                                <span>Disabled Item Unit of Measure(UOM)</span>
+                                <span>Disable Item Unit of Measure(UOM)</span>
                             </router-link>
                         </li>
                         <li class="custom-item">
@@ -110,7 +110,7 @@
                                     params: { id: $root.userType }
                                 }"
                             >
-                                <span>Enabled Item Unit of Measure(UOM)</span>
+                                <span>Enable Item Unit of Measure(UOM)</span>
                             </router-link>
                         </li>
                         <li class="custom-item">

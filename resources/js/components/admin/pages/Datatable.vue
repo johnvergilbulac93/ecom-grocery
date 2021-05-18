@@ -14,7 +14,7 @@
                   : 'sorting_down'
                 : 'sorting_both'
             "
-            style="cursor:pointer;"
+            :style="'width:'+column.width+';'+'cursor:pointer;'"
           >
             {{ column.label }}
           </th>
